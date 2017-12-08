@@ -1,7 +1,20 @@
 # react-native-media
 A react-native library to play and record audio on both iOS and android.
 
-# Player
+## Specifications
+
+### iOS
+
+Built with AVAudioPlayer and AvAudioRecorder.
+
+### android
+
+Built with MediaPlayer and MediaRecorder.
+
+## Installation
+Contribute :)
+
+## Player
 
 Description ✓ | iOS | Android
 ---|---|---
@@ -18,14 +31,14 @@ Mute
 Turn speakers on/off (android only)
 Set audio routes (iOS only)
 
-# Recorder
+## Recorder
 Description ✓ | iOS | Android
 ---|---|---
 Start
 Stop
 
 
-# Events
+## Events
 Description ✓ | iOS | Android
 ---|---|---
 Volume changed
