@@ -31,4 +31,4 @@ Description ✓ | iOS | Android
 Volume changed
 Wired headset
 Audio focus changed
-Get if user is on silent mode
+Silent mode changed (iOS only)
