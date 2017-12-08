@@ -12,7 +12,30 @@ Built with AVAudioPlayer and AvAudioRecorder.
 Built with MediaPlayer and MediaRecorder.
 
 ## Installation
-Contribute :)
+
+Install the package:
+
+```javascript
+npm install react-native-media --save
+```
+
+or
+
+```javascript
+yarn add react-native-media
+```
+
+### Automatic
+
+Link the native code with your RN application:
+
+```javascript
+react-native link react-native-media
+```
+
+### Manual
+
+[TODO]
 
 ## Player
 
