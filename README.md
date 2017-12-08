@@ -27,7 +27,6 @@ Seek Time
 Track current time
 Set Volume
 Set Loops (-1 for infinite)
-Mute
 Turn speakers on/off (android only)
 Set audio routes (iOS only)
 
