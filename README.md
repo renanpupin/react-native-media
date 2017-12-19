@@ -1,5 +1,8 @@
 # react-native-media
-A react-native library to play and record audio on both iOS and android.
+
+![Logo](logo.png)
+
+A react-native library to play and record audio on iOS and android.
 
 ## Specifications
 
