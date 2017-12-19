@@ -2,7 +2,7 @@
 
 ![Logo](logo.png)
 
-A react-native library to play and record audio on iOS and android.
+A react-native library to play and record audio on both iOS and android.
 
 ## Specifications
 
