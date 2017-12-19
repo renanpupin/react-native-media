@@ -2,7 +2,7 @@
 
 ![Logo](logo.png)
 
-A react-native library to play and record audio on both iOS and android.
+A react-native library to play and record audio on both iOS and android with no callbacks.
 
 ## Specifications
 
@@ -52,6 +52,7 @@ Stop
 Seek Time
 Track current time
 Set Volume
+Set System Volume
 Set Loops (-1 for infinite)
 Turn speakers on/off (android only)
 Set audio routes (iOS only)
@@ -59,6 +60,7 @@ Set audio routes (iOS only)
 ## Recorder
 Description ✓ | iOS | Android
 ---|---|---
+Prepare (Bitrate, SampleRate, Channels, AudioQuality, AudioEncoding, Encoder)
 Start
 Stop
 
@@ -66,7 +68,9 @@ Stop
 ## Events
 Description ✓ | iOS | Android
 ---|---|---
+Audio finished play
 Volume changed
+System volume changed
 Wired headset
 Audio focus changed
 Silent mode changed (iOS only)
