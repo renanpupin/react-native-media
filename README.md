@@ -1,3 +1,4 @@
+
 # react-native-media
 
 ![Logo](logo.png)
@@ -42,20 +43,24 @@ react-native link react-native-media
 
 ## Player
 
-Description ✓ | iOS | Android
+|Description|Android|iOS
 ---|---|---
-Load
-Play
-Pause
-Resume
-Stop
-Seek Time
-Track current time
-Set Volume
-Set System Volume
-Set Loops (-1 for infinite)
-Turn speakers on/off (android only)
-Set audio routes (iOS only)
+|Load|✓|✓
+|Play|✓|✓
+|Load and Play|✓|✓
+|Pause|✓|✓
+|Resume|✓|✓
+|Stop|✓|✓
+|Seek Time|✓|✓
+|Track current time|✓|✓
+|Get Volume|✓|✓
+|Set System Volume|
+|Set Loops (-1 for infinite)|✓|✓
+|Turn speakers on/off|✓|✓
+|Set audio routes|✓|✓
+|Mute|✓|
+|Dim screen by proximity on/off|✓|✓
+|Sleep mode on/off|✓|✓
 
 ## Recorder
 Description ✓ | iOS | Android
@@ -68,9 +73,9 @@ Stop
 ## Events
 Description ✓ | iOS | Android
 ---|---|---
-Audio finished play
-Volume changed
-System volume changed
-Wired headset
-Audio focus changed
-Silent mode changed (iOS only)
+|Audio finished play
+|Volume changed
+|System volume changed
+|Wired headset
+|Audio focus changed
+|Silent mode changed (iOS only)
