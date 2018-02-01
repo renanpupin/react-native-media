@@ -62,22 +62,6 @@ class AudioManager extends BaseAudioManager {
     }
 
     /**
-     * Play the audio only if the audio is loadded with sucess.
-     *
-     * @async
-     * @param {boolean} loop - true or false. true to play in loop, else play only once.
-     * @returns {boolean} true or false. true if was a sucess to play the file, else return false.
-     */
-    async play(loop : boolean) : boolean {
-
-        var isToLoop = 0;
-        if ( loop ) {
-            isToLoop = -1;
-        }
-        return super.play(isToLoop);
-    }
-
-    /**
      * Moves the audio to specific position time in mili-seconds.
      *
      * @async

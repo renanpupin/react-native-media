@@ -25,6 +25,30 @@ import { DeviceEventEmitter, NativeModules } from 'react-native';
 class DeviceManager extends BaseDeviceManager {
 
     //==========================================================================
+    // GLOBAL VARIABLES
+
+    /**
+     * Send event switch on / off.
+     * @callback
+     * @param {string} status ON/OFF - ON = silent switch is on (sound enable). OFF = silent switch is off (sound enable).
+     */
+    _silentSwitchStateCallback = null;
+
+    //==========================================================================
+    // CONSTRUCTOR
+
+    /**
+     * Creates a instance of DeviceManager.
+     */
+    constructor() {
+        super();
+        
+        DeviceEventEmitter.addListener('silentSwitchStateChange', function(status : Event) {
+            _silentSwitchStateCallback(status.status);
+        });
+    }
+
+    //==========================================================================
     // METHODS
 
     /**
@@ -37,6 +61,16 @@ class DeviceManager extends BaseDeviceManager {
      */
     mute(enable : boolean) : boolean {
         return false;
+    }
+
+    /**
+     * Send event switch on / off.
+     * @callback
+     * @param {string} status ON/OFF - ON = silent switch is on (sound enable). OFF = silent switch is off (sound enable).
+     */
+    setOnSilentSwitchStateChanged(silentSwitchStateCallback : Callback) : void {
+        NativeModules.SilentSwitch.subscribe();
+        _silentSwitchStateCallback = silentSwitchStateCallback;
     }
 }
 

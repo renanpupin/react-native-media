@@ -71,11 +71,11 @@ Stop
 
 
 ## Events
-Description ✓ | iOS | Android
+Description|Android|IOS
 ---|---|---
-|Audio finished play
+|Audio finished play|✓|✓
 |Volume changed
 |System volume changed
 |Wired headset
 |Audio focus changed
-|Silent mode changed (iOS only)
+|Silent mode changed (iOS only)| |✓

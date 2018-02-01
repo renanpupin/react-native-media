@@ -25,8 +25,27 @@ class BaseDeviceManager {
     //==========================================================================
     // GLOBAL VARIABLES
 
+    /**
+     * Send true/false when a wired headset is plugged/unplugged.
+     * @callback
+     * @param {boolean} true/false - true for plugged. false to unplugged
+     */
+    _wiredHeadsetPluggedCallback = null;
+
     //==========================================================================
     // CONSTRUCTOR
+
+    /**
+     * Creates a instance of BaseDeviceManager.
+     *
+     * - Add listener for event plugged/unplugged wired headset.
+     */
+    constructor() {
+
+        DeviceEventEmitter.addListener('onWiredHeadsetPlugged', function(plugged: Event) {
+            _wiredHeadsetPluggedCallback(plugged);
+        });
+    }
 
     //==========================================================================
     // METHODS
@@ -55,6 +74,16 @@ class BaseDeviceManager {
 
     //==========================================================================
     // SETTERS & GETTERS
+
+    /**
+     * Set for callback.
+     * The callback receive true/false when a wired headset is plugged/unplugged.
+     * @callback
+     * @param {Callback} wiredHeadsetPluggedCallback - true for plugged. false to unplugged
+     */
+    setWiredHeadsetPluggedCallback(wiredHeadsetPluggedCallback : Callback) : void {
+        _wiredHeadsetPluggedCallback = wiredHeadsetPluggedCallback;
+    }
 }
 
 /**

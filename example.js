@@ -14,16 +14,33 @@ import DirectoryManager from './module/directory/';
 
 export default class App extends Component<{}> {
 
-    constructor(props) {
-      super(props);
-
-      this.timeChange = this.timeChange.bind(this);
-    }
-
     componentDidMount() {
 
+        // currentTime in mili-seconds
+        // current time is int
         AudioManager.setTimeTrackerCallback((currentTime) => {
-            console.log(currentTime);
+            console.log("Current time position of the audio: " + currentTime);
+        });
+
+        // When playback is finished
+        AudioManager.setAudioFinishedCallback(() => {
+            alert("Audio finished!");
+        });
+
+        // Only in IOS, when silent switch changed.
+        // status is a string
+        // ON = silent switch is on (sound enable).
+        // OFF = silent switch is off (sound disable).
+        DeviceManager.setOnSilentSwitchStateChanged((status) => {
+            alert("status: " + status);
+        });
+
+        // When wired head set in plugged/unplugged
+        // plugged is a boolean
+        // true: plugged
+        // false: unplugged
+        DeviceManager.setWiredHeadsetPluggedCallback((plugged) => {
+            alert("WiredhaedSet is: " + plugged);
         });
     }
 
@@ -92,7 +109,7 @@ export default class App extends Component<{}> {
     }
 
     async mute() {
-        console.log("Muted: " + await DeviceManager.mute(true));
+        console.log("MUTED: " + await DeviceManager.mute(true));
     }
 
     async toEarSpeaker() {
@@ -127,24 +144,5 @@ export default class App extends Component<{}> {
         var sucess = await DeviceManager.setProximityEnable(false);
         console.log(false + " proximity enable: " + sucess);
         alert(sucess);
-    }
-
-    async loadTest() {
-
-        if ( Platform.OS === 'ios' ) {
-            await this.load("file:///" + await DirectoryManager.getMainBundleDirectoryPath() + "/name of the audio.mp3");
-        } else {
-            await this.load("/storage/emulated/0/Download/name of the audio.mp3");
-        }
-    }
-
-    async loadPlayTest() {
-
-        if ( Platform.OS === 'ios' ) {
-            await this.loadPlay("file:///" + await DirectoryManager.getMainBundleDirectoryPath() + "/name of the audio.mp3");
-        } else {
-            await this.loadPlay("/storage/emulated/0/Download/name of the audio.mp3");
-        }
-        alert("Duration: " + AudioManager.getDuration());
     }
 }

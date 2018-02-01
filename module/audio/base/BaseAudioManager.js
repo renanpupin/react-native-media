@@ -44,6 +44,12 @@ class BaseAudioManager {
      */
     _timeTrackerCallback = null;
 
+    /**
+     * Send signal that the audio finished.
+     * @callback
+     */
+    _audioFinishedCallback = null;
+
     /** @constant {int} */
     _duration = 0;
 
@@ -52,6 +58,9 @@ class BaseAudioManager {
 
     /**
      * Creates a instance of BaseAudioManager.
+     *
+     * - Add listener for event time position of an audio when playing.
+     * - Add listener for event when a audio playback is finished.
      */
     constructor() {
 
@@ -62,6 +71,10 @@ class BaseAudioManager {
         DeviceEventEmitter.addListener('onTimeChanged', function(time: Event) {
             _timeTrackerCallback(time);
         });
+
+        DeviceEventEmitter.addListener('onAudioFinished', function() {
+            _audioFinishedCallback();
+        });
     }
 
     //==========================================================================
@@ -70,6 +83,7 @@ class BaseAudioManager {
     /**
      * Play the audio only if the audio is loadded with sucess.
      * @async
+     *
      * @param {boolean} loop - true or false. true to play in loop, else play only once.
      * @returns {boolean} true or false. true if was a sucess to play the file, else return false.
      */
@@ -218,11 +232,19 @@ class BaseAudioManager {
     /**
      * Set the callback to send the current time position when an audio is playing.
      *
-     * @async
-     * @param {callback} timeTrackerCallback - this is a function with on parameter of the type int. 
+     * @param {callback} timeTrackerCallback - this is a function with on parameter of the type int.
      */
     setTimeTrackerCallback(timeTrackerCallback : Callback) : void {
         _timeTrackerCallback = timeTrackerCallback;
+    }
+
+    /**
+     * Set the callback to send when the audio finished playing.
+     *
+     * @param {callback} audioFinishedCallback - this is a function with on parameter of the type int.
+     */
+    setAudioFinishedCallback(audioFinishedCallback : Callback) : void {
+        _audioFinishedCallback = audioFinishedCallback;
     }
 }
 
