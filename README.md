@@ -1,5 +1,6 @@
-
 # react-native-media
+
+[![React Native Version](https://img.shields.io/badge/react--native-latest-blue.svg?style=flat-square)](http://facebook.github.io/react-native/releases)
 
 ![Logo](logo.png)
 
@@ -57,14 +58,12 @@ react-native link react-native-media
 |Resume|✓|✓
 |Stop|✓|✓
 |Seek Time|✓|✓
-|Track current time|✓|✓
 |Get Volume|✓|✓
 |Set System Volume|
 |Set Loops (-1 for infinite)|✓|✓
 |Turn speakers on/off|✓|✓
 |Set audio routes|✓|✓
 |Mute|✓|
-|Dim screen by proximity on/off|✓|✓
 |Sleep mode on/off|✓|✓
 
 ## Recorder
@@ -79,8 +78,10 @@ Stop
 Description|Android|IOS
 ---|---|---
 |Audio finished play|✓|✓
+|Track current time|✓|✓
 |Volume changed
 |System volume changed
-|Wired headset
+|Wired headset plugged/unplugged|✓|✓
 |Audio focus changed
 |Silent mode changed (iOS only)| |✓
+|Dim screen by proximity on/off|✓|✓
