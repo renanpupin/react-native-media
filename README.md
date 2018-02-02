@@ -9,11 +9,16 @@ A react-native library to play and record audio on both iOS and android with no 
 
 ### iOS
 
-Built with AVAudioPlayer and AvAudioRecorder.
+* Built with AVAudioPlayer and AVAudioRecorder.
+* Add `mute.caf` from the library to your project bundle
+    * Project Navigator > [YOUR PROJECT NAME] > Build Phases > Copy Bundle Resources
 
 ### android
 
-Built with MediaPlayer and MediaRecorder.
+* Built with MediaPlayer and MediaRecorder.
+* Add in the manifest.xml the permission:
+    * <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    * <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
 
 ## Installation
 
