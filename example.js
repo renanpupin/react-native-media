@@ -134,13 +134,13 @@ export default class App extends Component<{}> {
         alert(sucess);
     }
 
-    async turnOnAproximity() {
+    async turnOnProximity() {
         var sucess = await DeviceManager.setProximityEnable(true)
         console.log(true + " proximity enable: " + sucess);
         alert(sucess);
     }
 
-    async turnOffAproximity() {
+    async turnOffProximity() {
         var sucess = await DeviceManager.setProximityEnable(false);
         console.log(false + " proximity enable: " + sucess);
         alert(sucess);
