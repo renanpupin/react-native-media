@@ -17,8 +17,8 @@ A react-native library to play and record audio on both iOS and android with no 
 
 * Built with MediaPlayer and MediaRecorder.
 * Add in the manifest.xml the permission:
-    * '<uses-permission android:name="android.permission.WAKE_LOCK"/>'
-    * '<uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>'
+    * 'android.permission.WAKE_LOCK'
+    * 'android.permission.MODIFY_AUDIO_SETTINGS'
 
 ## Installation
 
