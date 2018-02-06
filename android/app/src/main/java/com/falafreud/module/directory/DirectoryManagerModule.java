@@ -15,15 +15,6 @@ import java.util.Map;
 /**
  * Created by Teruya on 09/01/2018.
  *
- * This class is responsible to handle a single audio file with basic functions:
- *
- * 1. Load by path.
- * 2. Play if loaded, passing if to loop or not.
- * 3. Resume if the audio is playing.
- * 4. Pause the audio if is playing.
- * 5. Stop if is playing or is paused the audio.
- * 6. Seek audio by time in mili-seconds.
- * 7. Time tracker, this class dispatch a event emitter passing the current time in mili-seconds of the audio that is playing.
  */
 
 public class DirectoryManagerModule extends ReactContextBaseJavaModule

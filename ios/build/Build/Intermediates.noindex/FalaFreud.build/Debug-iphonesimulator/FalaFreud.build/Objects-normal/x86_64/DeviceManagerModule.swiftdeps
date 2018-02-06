@@ -1,0 +1,498 @@
+### Swift dependencies file v0 ###
+provides-top-level:
+- "DeviceManagerModule"
+provides-nominal:
+- "9FalaFreud19DeviceManagerModuleC"
+provides-member:
+- ["9FalaFreud19DeviceManagerModuleC", ""]
+provides-dynamic-lookup:
+- "audioRouteChangeListener"
+- "bridge"
+- "setIdleTimerEnable"
+- "setProximityEnable"
+depends-top-level:
+- !private "!"
+- !private "AVAudioSession"
+- !private "AVAudioSessionRouteChangeReason"
+- !private "AVAudioSessionRouteChangeReasonKey"
+- "AssignmentPrecedence"
+- "Bool"
+- "BooleanLiteralType"
+- !private "CastingPrecedence"
+- "DeviceManagerModule"
+- !private "DispatchQueue"
+- !private "NSNotification"
+- "NSObject"
+- !private "NotificationCenter"
+- "RCTBridge"
+- "RCTPromiseRejectBlock"
+- "RCTPromiseResolveBlock"
+- !private "StringLiteralType"
+- !private "UIApplication"
+- !private "UIDevice"
+- !private "UInt"
+- "Void"
+- !private "~="
+depends-member:
+- !private ["So14AVAudioSessionC", "currentRoute"]
+- !private ["So14AVAudioSessionC", "sharedInstance"]
+- !private ["SC31AVAudioSessionRouteChangeReasonO", "newDeviceAvailable"]
+- !private ["SC31AVAudioSessionRouteChangeReasonO", "oldDeviceUnavailable"]
+- !private ["SC31AVAudioSessionRouteChangeReasonO", "rawValue"]
+- !private ["s23BidirectionalCollectionP", "init"]
+- !private ["Sb", "_getBuiltinLogicValue"]
+- !private ["s7CVarArgP", "AVAudioSession"]
+- !private ["s7CVarArgP", "AVAudioSessionRouteChangeReason"]
+- !private ["s7CVarArgP", "AVAudioSessionRouteChangeReasonKey"]
+- !private ["s7CVarArgP", "DispatchQueue"]
+- !private ["s7CVarArgP", "NSNotification"]
+- !private ["s7CVarArgP", "Name"]
+- !private ["s7CVarArgP", "NotificationCenter"]
+- !private ["s7CVarArgP", "UIApplication"]
+- !private ["s7CVarArgP", "UIDevice"]
+- !private ["s7CVarArgP", "addObserver"]
+- !private ["s7CVarArgP", "async"]
+- !private ["s7CVarArgP", "audioRouteChangeListener"]
+- !private ["s7CVarArgP", "bridge"]
+- !private ["s7CVarArgP", "current"]
+- !private ["s7CVarArgP", "currentRoute"]
+- !private ["s7CVarArgP", "default"]
+- !private ["s7CVarArgP", "eventDispatcher"]
+- !private ["s7CVarArgP", "init"]
+- !private ["s7CVarArgP", "isIdleTimerDisabled"]
+- !private ["s7CVarArgP", "isProximityMonitoringEnabled"]
+- !private ["s7CVarArgP", "main"]
+- !private ["s7CVarArgP", "sendAppEvent"]
+- !private ["s7CVarArgP", "shared"]
+- !private ["s7CVarArgP", "sharedInstance"]
+- !private ["s7CVarArgP", "subscript"]
+- !private ["s7CVarArgP", "userInfo"]
+- ["s7CVarArgP", ""]
+- !private ["s10CollectionP", "init"]
+- !private ["s10CollectionP", "subscript"]
+- !private ["s10ComparableP", "init"]
+- !private ["s28CustomDebugStringConvertibleP", "AVAudioSession"]
+- !private ["s28CustomDebugStringConvertibleP", "AVAudioSessionRouteChangeReason"]
+- !private ["s28CustomDebugStringConvertibleP", "AVAudioSessionRouteChangeReasonKey"]
+- !private ["s28CustomDebugStringConvertibleP", "DispatchQueue"]
+- !private ["s28CustomDebugStringConvertibleP", "NSNotification"]
+- !private ["s28CustomDebugStringConvertibleP", "Name"]
+- !private ["s28CustomDebugStringConvertibleP", "NotificationCenter"]
+- !private ["s28CustomDebugStringConvertibleP", "UIApplication"]
+- !private ["s28CustomDebugStringConvertibleP", "UIDevice"]
+- !private ["s28CustomDebugStringConvertibleP", "addObserver"]
+- !private ["s28CustomDebugStringConvertibleP", "async"]
+- !private ["s28CustomDebugStringConvertibleP", "audioRouteChangeListener"]
+- !private ["s28CustomDebugStringConvertibleP", "bridge"]
+- !private ["s28CustomDebugStringConvertibleP", "current"]
+- !private ["s28CustomDebugStringConvertibleP", "currentRoute"]
+- !private ["s28CustomDebugStringConvertibleP", "default"]
+- !private ["s28CustomDebugStringConvertibleP", "eventDispatcher"]
+- !private ["s28CustomDebugStringConvertibleP", "init"]
+- !private ["s28CustomDebugStringConvertibleP", "isIdleTimerDisabled"]
+- !private ["s28CustomDebugStringConvertibleP", "isProximityMonitoringEnabled"]
+- !private ["s28CustomDebugStringConvertibleP", "main"]
+- !private ["s28CustomDebugStringConvertibleP", "sendAppEvent"]
+- !private ["s28CustomDebugStringConvertibleP", "shared"]
+- !private ["s28CustomDebugStringConvertibleP", "sharedInstance"]
+- !private ["s28CustomDebugStringConvertibleP", "subscript"]
+- !private ["s28CustomDebugStringConvertibleP", "userInfo"]
+- ["s28CustomDebugStringConvertibleP", ""]
+- !private ["s29CustomPlaygroundQuickLookableP", "_getBuiltinLogicValue"]
+- !private ["s29CustomPlaygroundQuickLookableP", "init"]
+- !private ["s17CustomReflectableP", "_getBuiltinLogicValue"]
+- !private ["s17CustomReflectableP", "init"]
+- !private ["s17CustomReflectableP", "subscript"]
+- !private ["s23CustomStringConvertibleP", "AVAudioSession"]
+- !private ["s23CustomStringConvertibleP", "AVAudioSessionRouteChangeReason"]
+- !private ["s23CustomStringConvertibleP", "AVAudioSessionRouteChangeReasonKey"]
+- !private ["s23CustomStringConvertibleP", "DispatchQueue"]
+- !private ["s23CustomStringConvertibleP", "NSNotification"]
+- !private ["s23CustomStringConvertibleP", "Name"]
+- !private ["s23CustomStringConvertibleP", "NotificationCenter"]
+- !private ["s23CustomStringConvertibleP", "UIApplication"]
+- !private ["s23CustomStringConvertibleP", "UIDevice"]
+- !private ["s23CustomStringConvertibleP", "_getBuiltinLogicValue"]
+- !private ["s23CustomStringConvertibleP", "addObserver"]
+- !private ["s23CustomStringConvertibleP", "async"]
+- !private ["s23CustomStringConvertibleP", "audioRouteChangeListener"]
+- !private ["s23CustomStringConvertibleP", "bridge"]
+- !private ["s23CustomStringConvertibleP", "current"]
+- !private ["s23CustomStringConvertibleP", "currentRoute"]
+- !private ["s23CustomStringConvertibleP", "default"]
+- !private ["s23CustomStringConvertibleP", "eventDispatcher"]
+- !private ["s23CustomStringConvertibleP", "init"]
+- !private ["s23CustomStringConvertibleP", "isIdleTimerDisabled"]
+- !private ["s23CustomStringConvertibleP", "isProximityMonitoringEnabled"]
+- !private ["s23CustomStringConvertibleP", "main"]
+- !private ["s23CustomStringConvertibleP", "sendAppEvent"]
+- !private ["s23CustomStringConvertibleP", "shared"]
+- !private ["s23CustomStringConvertibleP", "sharedInstance"]
+- !private ["s23CustomStringConvertibleP", "subscript"]
+- !private ["s23CustomStringConvertibleP", "userInfo"]
+- ["s23CustomStringConvertibleP", ""]
+- !private ["s9DecodableP", "_getBuiltinLogicValue"]
+- !private ["s9DecodableP", "init"]
+- !private ["s9DecodableP", "subscript"]
+- !private ["9FalaFreud19DeviceManagerModuleC", "AVAudioSession"]
+- !private ["9FalaFreud19DeviceManagerModuleC", "AVAudioSessionRouteChangeReason"]
+- !private ["9FalaFreud19DeviceManagerModuleC", "AVAudioSessionRouteChangeReasonKey"]
+- ["9FalaFreud19DeviceManagerModuleC", "Bool"]
+- !private ["9FalaFreud19DeviceManagerModuleC", "DispatchQueue"]
+- !private ["9FalaFreud19DeviceManagerModuleC", "NSNotification"]
+- !private ["9FalaFreud19DeviceManagerModuleC", "NotificationCenter"]
+- ["9FalaFreud19DeviceManagerModuleC", "RCTBridge"]
+- ["9FalaFreud19DeviceManagerModuleC", "RCTPromiseRejectBlock"]
+- ["9FalaFreud19DeviceManagerModuleC", "RCTPromiseResolveBlock"]
+- !private ["9FalaFreud19DeviceManagerModuleC", "UIApplication"]
+- !private ["9FalaFreud19DeviceManagerModuleC", "UIDevice"]
+- !private ["9FalaFreud19DeviceManagerModuleC", "UInt"]
+- ["9FalaFreud19DeviceManagerModuleC", "Void"]
+- !private ["9FalaFreud19DeviceManagerModuleC", "audioRouteChangeListener"]
+- ["9FalaFreud19DeviceManagerModuleC", "bridge"]
+- ["9FalaFreud19DeviceManagerModuleC", "deinit"]
+- ["9FalaFreud19DeviceManagerModuleC", "init"]
+- ["9FalaFreud19DeviceManagerModuleC", "setIdleTimerEnable"]
+- ["9FalaFreud19DeviceManagerModuleC", "setProximityEnable"]
+- !private ["s10DictionaryV", "subscript"]
+- !private ["So14DispatchObjectC", "async"]
+- !private ["So14DispatchObjectC", "main"]
+- !private ["So13DispatchQueueC", "async"]
+- !private ["So13DispatchQueueC", "main"]
+- !private ["s9EncodableP", "_getBuiltinLogicValue"]
+- !private ["s9EncodableP", "init"]
+- !private ["s9EncodableP", "subscript"]
+- !private ["s9EquatableP", "AVAudioSession"]
+- !private ["s9EquatableP", "AVAudioSessionRouteChange"]
+- !private ["s9EquatableP", "AVAudioSessionRouteChangeReason"]
+- !private ["s9EquatableP", "AVAudioSessionRouteChangeReasonKey"]
+- !private ["s9EquatableP", "DispatchQueue"]
+- !private ["s9EquatableP", "NSNotification"]
+- !private ["s9EquatableP", "Name"]
+- !private ["s9EquatableP", "NotificationCenter"]
+- !private ["s9EquatableP", "UIApplication"]
+- !private ["s9EquatableP", "UIDevice"]
+- !private ["s9EquatableP", "_getBuiltinLogicValue"]
+- !private ["s9EquatableP", "addObserver"]
+- !private ["s9EquatableP", "async"]
+- !private ["s9EquatableP", "audioRouteChangeListener"]
+- !private ["s9EquatableP", "bridge"]
+- !private ["s9EquatableP", "current"]
+- !private ["s9EquatableP", "currentRoute"]
+- !private ["s9EquatableP", "default"]
+- !private ["s9EquatableP", "eventDispatcher"]
+- !private ["s9EquatableP", "init"]
+- !private ["s9EquatableP", "isIdleTimerDisabled"]
+- !private ["s9EquatableP", "isProximityMonitoringEnabled"]
+- !private ["s9EquatableP", "main"]
+- !private ["s9EquatableP", "newDeviceAvailable"]
+- !private ["s9EquatableP", "oldDeviceUnavailable"]
+- !private ["s9EquatableP", "rawValue"]
+- !private ["s9EquatableP", "sendAppEvent"]
+- !private ["s9EquatableP", "shared"]
+- !private ["s9EquatableP", "sharedInstance"]
+- !private ["s9EquatableP", "userInfo"]
+- ["s9EquatableP", ""]
+- !private ["s27ExpressibleByBooleanLiteralP", "_getBuiltinLogicValue"]
+- !private ["s30ExpressibleByDictionaryLiteralP", "subscript"]
+- !private ["s43ExpressibleByExtendedGraphemeClusterLiteralP", "init"]
+- !private ["s26ExpressibleByStringLiteralP", "init"]
+- !private ["s33ExpressibleByUnicodeScalarLiteralP", "init"]
+- !private ["s8HashableP", "AVAudioSession"]
+- !private ["s8HashableP", "AVAudioSessionRouteChange"]
+- !private ["s8HashableP", "AVAudioSessionRouteChangeReason"]
+- !private ["s8HashableP", "AVAudioSessionRouteChangeReasonKey"]
+- !private ["s8HashableP", "DispatchQueue"]
+- !private ["s8HashableP", "NSNotification"]
+- !private ["s8HashableP", "Name"]
+- !private ["s8HashableP", "NotificationCenter"]
+- !private ["s8HashableP", "UIApplication"]
+- !private ["s8HashableP", "UIDevice"]
+- !private ["s8HashableP", "_getBuiltinLogicValue"]
+- !private ["s8HashableP", "addObserver"]
+- !private ["s8HashableP", "async"]
+- !private ["s8HashableP", "audioRouteChangeListener"]
+- !private ["s8HashableP", "bridge"]
+- !private ["s8HashableP", "current"]
+- !private ["s8HashableP", "currentRoute"]
+- !private ["s8HashableP", "default"]
+- !private ["s8HashableP", "eventDispatcher"]
+- !private ["s8HashableP", "init"]
+- !private ["s8HashableP", "isIdleTimerDisabled"]
+- !private ["s8HashableP", "isProximityMonitoringEnabled"]
+- !private ["s8HashableP", "main"]
+- !private ["s8HashableP", "newDeviceAvailable"]
+- !private ["s8HashableP", "oldDeviceUnavailable"]
+- !private ["s8HashableP", "rawValue"]
+- !private ["s8HashableP", "sendAppEvent"]
+- !private ["s8HashableP", "shared"]
+- !private ["s8HashableP", "sharedInstance"]
+- !private ["s8HashableP", "userInfo"]
+- ["s8HashableP", ""]
+- !private ["s25LosslessStringConvertibleP", "_getBuiltinLogicValue"]
+- !private ["s25LosslessStringConvertibleP", "init"]
+- !private ["s10MirrorPathP", "init"]
+- !private ["So8NSCodingP", "Name"]
+- !private ["So8NSCodingP", "init"]
+- !private ["So8NSCodingP", "userInfo"]
+- !private ["So9NSCopyingP", "Name"]
+- !private ["So9NSCopyingP", "init"]
+- !private ["So9NSCopyingP", "userInfo"]
+- !private ["So21NSItemProviderReadingP", "init"]
+- !private ["So21NSItemProviderWritingP", "init"]
+- !private ["So16NSMutableCopyingP", "init"]
+- !private ["So14NSNotificationC", "Name"]
+- !private ["So14NSNotificationC", "userInfo"]
+- !private ["So8NSObjectC", "AVAudioSession"]
+- !private ["So8NSObjectC", "AVAudioSessionRouteChangeReason"]
+- !private ["So8NSObjectC", "AVAudioSessionRouteChangeReasonKey"]
+- ["So8NSObjectC", "Bool"]
+- !private ["So8NSObjectC", "DispatchQueue"]
+- !private ["So8NSObjectC", "NSNotification"]
+- !private ["So8NSObjectC", "Name"]
+- !private ["So8NSObjectC", "NotificationCenter"]
+- ["So8NSObjectC", "RCTBridge"]
+- ["So8NSObjectC", "RCTPromiseRejectBlock"]
+- ["So8NSObjectC", "RCTPromiseResolveBlock"]
+- !private ["So8NSObjectC", "UIApplication"]
+- !private ["So8NSObjectC", "UIDevice"]
+- !private ["So8NSObjectC", "UInt"]
+- ["So8NSObjectC", "Void"]
+- !private ["So8NSObjectC", "addObserver"]
+- !private ["So8NSObjectC", "async"]
+- ["So8NSObjectC", "audioRouteChangeListener"]
+- ["So8NSObjectC", "bridge"]
+- !private ["So8NSObjectC", "current"]
+- !private ["So8NSObjectC", "currentRoute"]
+- !private ["So8NSObjectC", "default"]
+- !private ["So8NSObjectC", "eventDispatcher"]
+- ["So8NSObjectC", "init"]
+- !private ["So8NSObjectC", "isIdleTimerDisabled"]
+- !private ["So8NSObjectC", "isProximityMonitoringEnabled"]
+- !private ["So8NSObjectC", "main"]
+- !private ["So8NSObjectC", "sendAppEvent"]
+- ["So8NSObjectC", "setIdleTimerEnable"]
+- ["So8NSObjectC", "setProximityEnable"]
+- !private ["So8NSObjectC", "shared"]
+- !private ["So8NSObjectC", "sharedInstance"]
+- !private ["So8NSObjectC", "userInfo"]
+- ["So8NSObjectC", ""]
+- !private ["So16NSObjectProtocolP", "AVAudioSession"]
+- !private ["So16NSObjectProtocolP", "AVAudioSessionRouteChangeReason"]
+- !private ["So16NSObjectProtocolP", "AVAudioSessionRouteChangeReasonKey"]
+- !private ["So16NSObjectProtocolP", "DispatchQueue"]
+- !private ["So16NSObjectProtocolP", "NSNotification"]
+- !private ["So16NSObjectProtocolP", "Name"]
+- !private ["So16NSObjectProtocolP", "NotificationCenter"]
+- !private ["So16NSObjectProtocolP", "UIApplication"]
+- !private ["So16NSObjectProtocolP", "UIDevice"]
+- !private ["So16NSObjectProtocolP", "addObserver"]
+- !private ["So16NSObjectProtocolP", "async"]
+- !private ["So16NSObjectProtocolP", "audioRouteChangeListener"]
+- !private ["So16NSObjectProtocolP", "bridge"]
+- !private ["So16NSObjectProtocolP", "current"]
+- !private ["So16NSObjectProtocolP", "currentRoute"]
+- !private ["So16NSObjectProtocolP", "default"]
+- !private ["So16NSObjectProtocolP", "eventDispatcher"]
+- !private ["So16NSObjectProtocolP", "init"]
+- !private ["So16NSObjectProtocolP", "isIdleTimerDisabled"]
+- !private ["So16NSObjectProtocolP", "isProximityMonitoringEnabled"]
+- !private ["So16NSObjectProtocolP", "main"]
+- !private ["So16NSObjectProtocolP", "sendAppEvent"]
+- !private ["So16NSObjectProtocolP", "shared"]
+- !private ["So16NSObjectProtocolP", "sharedInstance"]
+- !private ["So16NSObjectProtocolP", "userInfo"]
+- ["So16NSObjectProtocolP", ""]
+- !private ["So14NSSecureCodingP", "init"]
+- !private ["So8NSStringC", "init"]
+- !private ["So14NSNotificationC4NameV", "AVAudioSessionRouteChange"]
+- !private ["So18NotificationCenterC", "addObserver"]
+- !private ["So18NotificationCenterC", "default"]
+- !private ["So9OS_objectC", "async"]
+- !private ["So9OS_objectC", "main"]
+- !private ["So9RCTBridgeC", "eventDispatcher"]
+- !private ["So15RCTBridgeModuleP", "sendAppEvent"]
+- !private ["So18RCTEventDispatcherC", "sendAppEvent"]
+- !private ["So15RCTInvalidatingP", "eventDispatcher"]
+- !private ["s26RangeReplaceableCollectionP", "init"]
+- !private ["s16RawRepresentableP", "AVAudioSessionRouteChange"]
+- !private ["s16RawRepresentableP", "newDeviceAvailable"]
+- !private ["s16RawRepresentableP", "oldDeviceUnavailable"]
+- !private ["s16RawRepresentableP", "rawValue"]
+- !private ["s8SequenceP", "init"]
+- !private ["s8SequenceP", "subscript"]
+- !private ["SS", "init"]
+- !private ["s14StringProtocolP", "init"]
+- !private ["s16TextOutputStreamP", "init"]
+- !private ["s20TextOutputStreamableP", "init"]
+- !private ["So13UIApplicationC", "isIdleTimerDisabled"]
+- !private ["So13UIApplicationC", "shared"]
+- !private ["So8UIDeviceC", "current"]
+- !private ["So8UIDeviceC", "isProximityMonitoringEnabled"]
+- !private ["So30UIPasteConfigurationSupportingP", "isIdleTimerDisabled"]
+- !private ["So30UIPasteConfigurationSupportingP", "shared"]
+- !private ["So11UIResponderC", "isIdleTimerDisabled"]
+- !private ["So11UIResponderC", "shared"]
+- !private ["So30UIResponderStandardEditActionsP", "isIdleTimerDisabled"]
+- !private ["So30UIResponderStandardEditActionsP", "shared"]
+- !private ["s23_BidirectionalIndexableP", "init"]
+- !private ["s35_ExpressibleByBuiltinBooleanLiteralP", "_getBuiltinLogicValue"]
+- !private ["s51_ExpressibleByBuiltinExtendedGraphemeClusterLiteralP", "init"]
+- !private ["s34_ExpressibleByBuiltinStringLiteralP", "init"]
+- !private ["s39_ExpressibleByBuiltinUTF16StringLiteralP", "init"]
+- !private ["s41_ExpressibleByBuiltinUnicodeScalarLiteralP", "init"]
+- !private ["s33_ExpressibleByStringInterpolationP", "init"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "Name"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "init"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "userInfo"]
+- !private ["s10_IndexableP", "init"]
+- !private ["s10_IndexableP", "subscript"]
+- !private ["s14_IndexableBaseP", "init"]
+- !private ["s14_IndexableBaseP", "subscript"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "AVAudioSession"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "AVAudioSessionRouteChangeReason"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "AVAudioSessionRouteChangeReasonKey"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "DispatchQueue"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "NSNotification"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "Name"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "NotificationCenter"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "UIApplication"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "UIDevice"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "addObserver"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "async"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "audioRouteChangeListener"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "bridge"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "current"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "currentRoute"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "default"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "eventDispatcher"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "init"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "isIdleTimerDisabled"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "isProximityMonitoringEnabled"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "main"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "sendAppEvent"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "shared"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "sharedInstance"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "userInfo"]
+- ["10Foundation27_KeyValueCodingAndObservingP", ""]
+- !private ["s21_ObjectiveCBridgeableP", "AVAudioSessionRouteChange"]
+- !private ["s21_ObjectiveCBridgeableP", "_getBuiltinLogicValue"]
+- !private ["s21_ObjectiveCBridgeableP", "init"]
+- !private ["s21_ObjectiveCBridgeableP", "subscript"]
+- !private ["s26_RangeReplaceableIndexableP", "init"]
+- !private ["s20_SwiftNewtypeWrapperP", "AVAudioSessionRouteChange"]
+- !private ["s16_SwiftStringViewP", "init"]
+depends-nominal:
+- !private "So14AVAudioSessionC"
+- !private "SC31AVAudioSessionRouteChangeReasonO"
+- !private "s23BidirectionalCollectionP"
+- !private "Sb"
+- "s7CVarArgP"
+- !private "s10CollectionP"
+- !private "s10ComparableP"
+- "s28CustomDebugStringConvertibleP"
+- !private "s29CustomPlaygroundQuickLookableP"
+- !private "s17CustomReflectableP"
+- "s23CustomStringConvertibleP"
+- !private "s9DecodableP"
+- "9FalaFreud19DeviceManagerModuleC"
+- !private "s10DictionaryV"
+- !private "So14DispatchObjectC"
+- !private "So13DispatchQueueC"
+- !private "s9EncodableP"
+- "s9EquatableP"
+- !private "s27ExpressibleByBooleanLiteralP"
+- !private "s30ExpressibleByDictionaryLiteralP"
+- !private "s43ExpressibleByExtendedGraphemeClusterLiteralP"
+- !private "s26ExpressibleByStringLiteralP"
+- !private "s33ExpressibleByUnicodeScalarLiteralP"
+- "s8HashableP"
+- !private "s25LosslessStringConvertibleP"
+- !private "s10MirrorPathP"
+- !private "So8NSCodingP"
+- !private "So9NSCopyingP"
+- !private "So21NSItemProviderReadingP"
+- !private "So21NSItemProviderWritingP"
+- !private "So16NSMutableCopyingP"
+- !private "So14NSNotificationC"
+- "So8NSObjectC"
+- "So16NSObjectProtocolP"
+- !private "So14NSSecureCodingP"
+- !private "So8NSStringC"
+- !private "So14NSNotificationC4NameV"
+- !private "So18NotificationCenterC"
+- !private "So9OS_objectC"
+- !private "So9RCTBridgeC"
+- !private "So15RCTBridgeModuleP"
+- !private "So18RCTEventDispatcherC"
+- !private "So15RCTInvalidatingP"
+- !private "s26RangeReplaceableCollectionP"
+- !private "s16RawRepresentableP"
+- !private "s8SequenceP"
+- !private "SS"
+- !private "s14StringProtocolP"
+- !private "s16TextOutputStreamP"
+- !private "s20TextOutputStreamableP"
+- !private "So13UIApplicationC"
+- !private "So8UIDeviceC"
+- !private "So30UIPasteConfigurationSupportingP"
+- !private "So11UIResponderC"
+- !private "So30UIResponderStandardEditActionsP"
+- !private "s23_BidirectionalIndexableP"
+- !private "s35_ExpressibleByBuiltinBooleanLiteralP"
+- !private "s51_ExpressibleByBuiltinExtendedGraphemeClusterLiteralP"
+- !private "s34_ExpressibleByBuiltinStringLiteralP"
+- !private "s39_ExpressibleByBuiltinUTF16StringLiteralP"
+- !private "s41_ExpressibleByBuiltinUnicodeScalarLiteralP"
+- !private "s33_ExpressibleByStringInterpolationP"
+- !private "s35_HasCustomAnyHashableRepresentationP"
+- !private "s10_IndexableP"
+- !private "s14_IndexableBaseP"
+- "10Foundation27_KeyValueCodingAndObservingP"
+- !private "s21_ObjectiveCBridgeableP"
+- !private "s26_RangeReplaceableIndexableP"
+- !private "s20_SwiftNewtypeWrapperP"
+- !private "s16_SwiftStringViewP"
+depends-dynamic-lookup:
+depends-external:
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Dispatch.apinotesc"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/ObjectiveC.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreMedia.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/simd.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreImage.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/QuartzCore.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Dispatch.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Metal.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Darwin.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Foundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/AVFoundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreFoundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreAudio.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/MediaPlayer.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreGraphics.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Swift.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/UIKit.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/SwiftOnoneSupport.swiftmodule"
+- "/Users/Teruya/Documents/react-native-development/workspace/FalaFreud/ios/build/Build/Products/Debug-iphonesimulator/include/yoga/Yoga.h"
+- "/Users/Teruya/Documents/react-native-development/workspace/FalaFreud/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTBridge.h"
+- "/Users/Teruya/Documents/react-native-development/workspace/FalaFreud/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTBridgeModule.h"
+- "/Users/Teruya/Documents/react-native-development/workspace/FalaFreud/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTBorderStyle.h"
+- "/Users/Teruya/Documents/react-native-development/workspace/FalaFreud/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTTextDecorationLineType.h"
+- "/Users/Teruya/Documents/react-native-development/workspace/FalaFreud/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTAnimationType.h"
+- "/Users/Teruya/Documents/react-native-development/workspace/FalaFreud/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTFrameUpdate.h"
+- "/Users/Teruya/Documents/react-native-development/workspace/FalaFreud/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTBridgeDelegate.h"
+- "/Users/Teruya/Documents/react-native-development/workspace/FalaFreud/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTInvalidating.h"
+- "/Users/Teruya/Documents/react-native-development/workspace/FalaFreud/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTLog.h"
+- "/Users/Teruya/Documents/react-native-development/workspace/FalaFreud/ios/FalaFreud-Bridging-Header.h"
+- "/Users/Teruya/Documents/react-native-development/workspace/FalaFreud/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTJavaScriptLoader.h"
+- "/Users/Teruya/Documents/react-native-development/workspace/FalaFreud/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTEventDispatcher.h"
+- "/Users/Teruya/Documents/react-native-development/workspace/FalaFreud/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTEventEmitter.h"
+- "/Users/Teruya/Documents/react-native-development/workspace/FalaFreud/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTDefines.h"
+- "/Users/Teruya/Documents/react-native-development/workspace/FalaFreud/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTUtils.h"
+- "/Users/Teruya/Documents/react-native-development/workspace/FalaFreud/ios/build/Build/Products/Debug-iphonesimulator/include/yoga/YGEnums.h"
+- "/Users/Teruya/Documents/react-native-development/workspace/FalaFreud/ios/build/Build/Products/Debug-iphonesimulator/include/yoga/YGMacros.h"
+- "/Users/Teruya/Documents/react-native-development/workspace/FalaFreud/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTPointerEvents.h"
+- "/Users/Teruya/Documents/react-native-development/workspace/FalaFreud/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTAssert.h"
+- "/Users/Teruya/Documents/react-native-development/workspace/FalaFreud/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTConvert.h"
+- "/Users/Teruya/Documents/react-native-development/workspace/FalaFreud/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTRootView.h"
+interface-hash: "3bc8f82f9c050105508b460d2b6f7d4d"

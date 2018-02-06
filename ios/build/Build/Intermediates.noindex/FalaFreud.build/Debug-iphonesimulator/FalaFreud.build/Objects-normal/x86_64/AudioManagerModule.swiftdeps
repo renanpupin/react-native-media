@@ -1,0 +1,738 @@
+### Swift dependencies file v0 ###
+provides-top-level:
+- "AudioManagerModule"
+provides-nominal:
+- "9FalaFreud18AudioManagerModuleC"
+provides-member:
+- ["9FalaFreud18AudioManagerModuleC", ""]
+provides-dynamic-lookup:
+- "DEFAULTSPEAKER"
+- "EARSPEAKER"
+- "audioPlayer"
+- "audioPlayerDidFinishPlaying"
+- "audioTimer"
+- "bridge"
+- "getVolume"
+- "load"
+- "pause"
+- "paused"
+- "play"
+- "resume"
+- "seekTime"
+- "setAudioOutputRoute"
+- "setTimeInterval"
+- "stop"
+- "timeChanged"
+- "timeInterval"
+depends-top-level:
+- !private "!"
+- !private "!="
+- !private "&&"
+- !private "<"
+- !private "=="
+- "AVAudioPlayer"
+- "AVAudioPlayerDelegate"
+- !private "AVAudioSession"
+- !private "AVAudioSessionCategoryOptions"
+- !private "AVAudioSessionCategoryPlayAndRecord"
+- !private "AVAudioSessionCategoryPlayback"
+- !private "AVAudioSessionPortOverride"
+- "AssignmentPrecedence"
+- "AudioManagerModule"
+- "Bool"
+- "BooleanLiteralType"
+- !private "DispatchQueue"
+- "Double"
+- "Int"
+- "NSObject"
+- "RCTBridge"
+- "RCTPromiseRejectBlock"
+- "RCTPromiseResolveBlock"
+- "String"
+- !private "StringLiteralType"
+- !private "TimeInterval"
+- "Timer"
+- !private "URL"
+- "Void"
+- !private "print"
+depends-member:
+- !private ["So13AVAudioPlayerC", "currentTime"]
+- !private ["So13AVAudioPlayerC", "delegate"]
+- !private ["So13AVAudioPlayerC", "duration"]
+- !private ["So13AVAudioPlayerC", "init"]
+- !private ["So13AVAudioPlayerC", "isPlaying"]
+- !private ["So13AVAudioPlayerC", "numberOfLoops"]
+- !private ["So13AVAudioPlayerC", "pause"]
+- !private ["So13AVAudioPlayerC", "play"]
+- !private ["So13AVAudioPlayerC", "prepareToPlay"]
+- !private ["So13AVAudioPlayerC", "stop"]
+- !private ["So21AVAudioPlayerDelegateP", "AVAudioPlayer"]
+- !private ["So21AVAudioPlayerDelegateP", "AVAudioSession"]
+- !private ["So21AVAudioPlayerDelegateP", "AVAudioSessionCategoryOptions"]
+- !private ["So21AVAudioPlayerDelegateP", "AVAudioSessionCategoryPlayAndRecord"]
+- !private ["So21AVAudioPlayerDelegateP", "AVAudioSessionCategoryPlayback"]
+- !private ["So21AVAudioPlayerDelegateP", "AVAudioSessionPortOverride"]
+- !private ["So21AVAudioPlayerDelegateP", "DEFAULTSPEAKER"]
+- !private ["So21AVAudioPlayerDelegateP", "DispatchQueue"]
+- !private ["So21AVAudioPlayerDelegateP", "Double"]
+- !private ["So21AVAudioPlayerDelegateP", "EARSPEAKER"]
+- !private ["So21AVAudioPlayerDelegateP", "TimeInterval"]
+- !private ["So21AVAudioPlayerDelegateP", "Timer"]
+- !private ["So21AVAudioPlayerDelegateP", "URL"]
+- !private ["So21AVAudioPlayerDelegateP", "audioPlayer"]
+- ["So21AVAudioPlayerDelegateP", "audioPlayerBeginInterruption"]
+- ["So21AVAudioPlayerDelegateP", "audioPlayerDecodeErrorDidOccur"]
+- ["So21AVAudioPlayerDelegateP", "audioPlayerDidFinishPlaying"]
+- ["So21AVAudioPlayerDelegateP", "audioPlayerEndInterruption"]
+- !private ["So21AVAudioPlayerDelegateP", "audioTimer"]
+- !private ["So21AVAudioPlayerDelegateP", "bridge"]
+- !private ["So21AVAudioPlayerDelegateP", "paused"]
+- !private ["So21AVAudioPlayerDelegateP", "print"]
+- !private ["So21AVAudioPlayerDelegateP", "timeChanged"]
+- !private ["So21AVAudioPlayerDelegateP", "timeInterval"]
+- ["So21AVAudioPlayerDelegateP", ""]
+- !private ["So14AVAudioSessionC", "outputVolume"]
+- !private ["So14AVAudioSessionC", "overrideOutputAudioPort"]
+- !private ["So14AVAudioSessionC", "setActive"]
+- !private ["So14AVAudioSessionC", "setCategory"]
+- !private ["So14AVAudioSessionC", "sharedInstance"]
+- !private ["SC29AVAudioSessionCategoryOptionsV", "defaultToSpeaker"]
+- !private ["SC26AVAudioSessionPortOverrideO", "none"]
+- !private ["SC26AVAudioSessionPortOverrideO", "speaker"]
+- ["9FalaFreud18AudioManagerModuleC", "AVAudioPlayer"]
+- !private ["9FalaFreud18AudioManagerModuleC", "AVAudioSession"]
+- !private ["9FalaFreud18AudioManagerModuleC", "AVAudioSessionCategoryOptions"]
+- !private ["9FalaFreud18AudioManagerModuleC", "AVAudioSessionCategoryPlayAndRecord"]
+- !private ["9FalaFreud18AudioManagerModuleC", "AVAudioSessionCategoryPlayback"]
+- !private ["9FalaFreud18AudioManagerModuleC", "AVAudioSessionPortOverride"]
+- ["9FalaFreud18AudioManagerModuleC", "Bool"]
+- ["9FalaFreud18AudioManagerModuleC", "DEFAULTSPEAKER"]
+- !private ["9FalaFreud18AudioManagerModuleC", "DispatchQueue"]
+- ["9FalaFreud18AudioManagerModuleC", "Double"]
+- ["9FalaFreud18AudioManagerModuleC", "EARSPEAKER"]
+- ["9FalaFreud18AudioManagerModuleC", "Int"]
+- ["9FalaFreud18AudioManagerModuleC", "RCTBridge"]
+- ["9FalaFreud18AudioManagerModuleC", "RCTPromiseRejectBlock"]
+- ["9FalaFreud18AudioManagerModuleC", "RCTPromiseResolveBlock"]
+- ["9FalaFreud18AudioManagerModuleC", "String"]
+- !private ["9FalaFreud18AudioManagerModuleC", "TimeInterval"]
+- ["9FalaFreud18AudioManagerModuleC", "Timer"]
+- !private ["9FalaFreud18AudioManagerModuleC", "URL"]
+- ["9FalaFreud18AudioManagerModuleC", "Void"]
+- ["9FalaFreud18AudioManagerModuleC", "audioPlayer"]
+- ["9FalaFreud18AudioManagerModuleC", "audioPlayerBeginInterruption"]
+- ["9FalaFreud18AudioManagerModuleC", "audioPlayerDecodeErrorDidOccur"]
+- ["9FalaFreud18AudioManagerModuleC", "audioPlayerDidFinishPlaying"]
+- ["9FalaFreud18AudioManagerModuleC", "audioPlayerEndInterruption"]
+- ["9FalaFreud18AudioManagerModuleC", "audioTimer"]
+- ["9FalaFreud18AudioManagerModuleC", "bridge"]
+- ["9FalaFreud18AudioManagerModuleC", "deinit"]
+- ["9FalaFreud18AudioManagerModuleC", "getVolume"]
+- ["9FalaFreud18AudioManagerModuleC", "init"]
+- ["9FalaFreud18AudioManagerModuleC", "load"]
+- ["9FalaFreud18AudioManagerModuleC", "pause"]
+- ["9FalaFreud18AudioManagerModuleC", "paused"]
+- ["9FalaFreud18AudioManagerModuleC", "play"]
+- !private ["9FalaFreud18AudioManagerModuleC", "print"]
+- ["9FalaFreud18AudioManagerModuleC", "resume"]
+- ["9FalaFreud18AudioManagerModuleC", "seekTime"]
+- ["9FalaFreud18AudioManagerModuleC", "setAudioOutputRoute"]
+- ["9FalaFreud18AudioManagerModuleC", "setTimeInterval"]
+- ["9FalaFreud18AudioManagerModuleC", "stop"]
+- ["9FalaFreud18AudioManagerModuleC", "timeChanged"]
+- ["9FalaFreud18AudioManagerModuleC", "timeInterval"]
+- !private ["s23BidirectionalCollectionP", "init"]
+- !private ["s19BinaryFloatingPointP", "init"]
+- !private ["Sb", "_getBuiltinLogicValue"]
+- !private ["s7CVarArgP", "AVAudioPlayer"]
+- !private ["s7CVarArgP", "AVAudioSession"]
+- !private ["s7CVarArgP", "AVAudioSessionCategoryOptions"]
+- !private ["s7CVarArgP", "AVAudioSessionCategoryPlayAndRecord"]
+- !private ["s7CVarArgP", "AVAudioSessionCategoryPlayback"]
+- !private ["s7CVarArgP", "AVAudioSessionPortOverride"]
+- !private ["s7CVarArgP", "DEFAULTSPEAKER"]
+- !private ["s7CVarArgP", "DispatchQueue"]
+- !private ["s7CVarArgP", "Double"]
+- !private ["s7CVarArgP", "EARSPEAKER"]
+- !private ["s7CVarArgP", "TimeInterval"]
+- !private ["s7CVarArgP", "Timer"]
+- !private ["s7CVarArgP", "URL"]
+- !private ["s7CVarArgP", "async"]
+- !private ["s7CVarArgP", "audioPlayer"]
+- ["s7CVarArgP", "audioPlayerBeginInterruption"]
+- ["s7CVarArgP", "audioPlayerDecodeErrorDidOccur"]
+- ["s7CVarArgP", "audioPlayerDidFinishPlaying"]
+- ["s7CVarArgP", "audioPlayerEndInterruption"]
+- !private ["s7CVarArgP", "audioTimer"]
+- !private ["s7CVarArgP", "bridge"]
+- !private ["s7CVarArgP", "currentTime"]
+- !private ["s7CVarArgP", "delegate"]
+- !private ["s7CVarArgP", "duration"]
+- !private ["s7CVarArgP", "eventDispatcher"]
+- !private ["s7CVarArgP", "init"]
+- !private ["s7CVarArgP", "invalidate"]
+- !private ["s7CVarArgP", "isPlaying"]
+- !private ["s7CVarArgP", "main"]
+- !private ["s7CVarArgP", "numberOfLoops"]
+- !private ["s7CVarArgP", "outputVolume"]
+- !private ["s7CVarArgP", "overrideOutputAudioPort"]
+- !private ["s7CVarArgP", "pause"]
+- !private ["s7CVarArgP", "paused"]
+- !private ["s7CVarArgP", "play"]
+- !private ["s7CVarArgP", "prepareToPlay"]
+- !private ["s7CVarArgP", "print"]
+- !private ["s7CVarArgP", "scheduledTimer"]
+- !private ["s7CVarArgP", "sendAppEvent"]
+- !private ["s7CVarArgP", "setActive"]
+- !private ["s7CVarArgP", "setCategory"]
+- !private ["s7CVarArgP", "sharedInstance"]
+- !private ["s7CVarArgP", "stop"]
+- !private ["s7CVarArgP", "timeChanged"]
+- !private ["s7CVarArgP", "timeInterval"]
+- ["s7CVarArgP", ""]
+- !private ["s10CollectionP", "init"]
+- !private ["s10ComparableP", "init"]
+- !private ["s28CustomDebugStringConvertibleP", "AVAudioPlayer"]
+- !private ["s28CustomDebugStringConvertibleP", "AVAudioSession"]
+- !private ["s28CustomDebugStringConvertibleP", "AVAudioSessionCategoryOptions"]
+- !private ["s28CustomDebugStringConvertibleP", "AVAudioSessionCategoryPlayAndRecord"]
+- !private ["s28CustomDebugStringConvertibleP", "AVAudioSessionCategoryPlayback"]
+- !private ["s28CustomDebugStringConvertibleP", "AVAudioSessionPortOverride"]
+- !private ["s28CustomDebugStringConvertibleP", "DEFAULTSPEAKER"]
+- !private ["s28CustomDebugStringConvertibleP", "DispatchQueue"]
+- !private ["s28CustomDebugStringConvertibleP", "Double"]
+- !private ["s28CustomDebugStringConvertibleP", "EARSPEAKER"]
+- !private ["s28CustomDebugStringConvertibleP", "TimeInterval"]
+- !private ["s28CustomDebugStringConvertibleP", "Timer"]
+- !private ["s28CustomDebugStringConvertibleP", "URL"]
+- !private ["s28CustomDebugStringConvertibleP", "async"]
+- !private ["s28CustomDebugStringConvertibleP", "audioPlayer"]
+- ["s28CustomDebugStringConvertibleP", "audioPlayerBeginInterruption"]
+- ["s28CustomDebugStringConvertibleP", "audioPlayerDecodeErrorDidOccur"]
+- ["s28CustomDebugStringConvertibleP", "audioPlayerDidFinishPlaying"]
+- ["s28CustomDebugStringConvertibleP", "audioPlayerEndInterruption"]
+- !private ["s28CustomDebugStringConvertibleP", "audioTimer"]
+- !private ["s28CustomDebugStringConvertibleP", "bridge"]
+- !private ["s28CustomDebugStringConvertibleP", "currentTime"]
+- !private ["s28CustomDebugStringConvertibleP", "delegate"]
+- !private ["s28CustomDebugStringConvertibleP", "duration"]
+- !private ["s28CustomDebugStringConvertibleP", "eventDispatcher"]
+- !private ["s28CustomDebugStringConvertibleP", "init"]
+- !private ["s28CustomDebugStringConvertibleP", "invalidate"]
+- !private ["s28CustomDebugStringConvertibleP", "isPlaying"]
+- !private ["s28CustomDebugStringConvertibleP", "main"]
+- !private ["s28CustomDebugStringConvertibleP", "numberOfLoops"]
+- !private ["s28CustomDebugStringConvertibleP", "outputVolume"]
+- !private ["s28CustomDebugStringConvertibleP", "overrideOutputAudioPort"]
+- !private ["s28CustomDebugStringConvertibleP", "pause"]
+- !private ["s28CustomDebugStringConvertibleP", "paused"]
+- !private ["s28CustomDebugStringConvertibleP", "play"]
+- !private ["s28CustomDebugStringConvertibleP", "prepareToPlay"]
+- !private ["s28CustomDebugStringConvertibleP", "print"]
+- !private ["s28CustomDebugStringConvertibleP", "scheduledTimer"]
+- !private ["s28CustomDebugStringConvertibleP", "sendAppEvent"]
+- !private ["s28CustomDebugStringConvertibleP", "setActive"]
+- !private ["s28CustomDebugStringConvertibleP", "setCategory"]
+- !private ["s28CustomDebugStringConvertibleP", "sharedInstance"]
+- !private ["s28CustomDebugStringConvertibleP", "stop"]
+- !private ["s28CustomDebugStringConvertibleP", "timeChanged"]
+- !private ["s28CustomDebugStringConvertibleP", "timeInterval"]
+- ["s28CustomDebugStringConvertibleP", ""]
+- !private ["s29CustomPlaygroundQuickLookableP", "_getBuiltinLogicValue"]
+- !private ["s29CustomPlaygroundQuickLookableP", "init"]
+- !private ["s17CustomReflectableP", "_getBuiltinLogicValue"]
+- !private ["s17CustomReflectableP", "init"]
+- !private ["s23CustomStringConvertibleP", "AVAudioPlayer"]
+- !private ["s23CustomStringConvertibleP", "AVAudioSession"]
+- !private ["s23CustomStringConvertibleP", "AVAudioSessionCategoryOptions"]
+- !private ["s23CustomStringConvertibleP", "AVAudioSessionCategoryPlayAndRecord"]
+- !private ["s23CustomStringConvertibleP", "AVAudioSessionCategoryPlayback"]
+- !private ["s23CustomStringConvertibleP", "AVAudioSessionPortOverride"]
+- !private ["s23CustomStringConvertibleP", "DEFAULTSPEAKER"]
+- !private ["s23CustomStringConvertibleP", "DispatchQueue"]
+- !private ["s23CustomStringConvertibleP", "Double"]
+- !private ["s23CustomStringConvertibleP", "EARSPEAKER"]
+- !private ["s23CustomStringConvertibleP", "TimeInterval"]
+- !private ["s23CustomStringConvertibleP", "Timer"]
+- !private ["s23CustomStringConvertibleP", "URL"]
+- !private ["s23CustomStringConvertibleP", "_getBuiltinLogicValue"]
+- !private ["s23CustomStringConvertibleP", "async"]
+- !private ["s23CustomStringConvertibleP", "audioPlayer"]
+- ["s23CustomStringConvertibleP", "audioPlayerBeginInterruption"]
+- ["s23CustomStringConvertibleP", "audioPlayerDecodeErrorDidOccur"]
+- ["s23CustomStringConvertibleP", "audioPlayerDidFinishPlaying"]
+- ["s23CustomStringConvertibleP", "audioPlayerEndInterruption"]
+- !private ["s23CustomStringConvertibleP", "audioTimer"]
+- !private ["s23CustomStringConvertibleP", "bridge"]
+- !private ["s23CustomStringConvertibleP", "currentTime"]
+- !private ["s23CustomStringConvertibleP", "delegate"]
+- !private ["s23CustomStringConvertibleP", "duration"]
+- !private ["s23CustomStringConvertibleP", "eventDispatcher"]
+- !private ["s23CustomStringConvertibleP", "init"]
+- !private ["s23CustomStringConvertibleP", "invalidate"]
+- !private ["s23CustomStringConvertibleP", "isPlaying"]
+- !private ["s23CustomStringConvertibleP", "main"]
+- !private ["s23CustomStringConvertibleP", "numberOfLoops"]
+- !private ["s23CustomStringConvertibleP", "outputVolume"]
+- !private ["s23CustomStringConvertibleP", "overrideOutputAudioPort"]
+- !private ["s23CustomStringConvertibleP", "pause"]
+- !private ["s23CustomStringConvertibleP", "paused"]
+- !private ["s23CustomStringConvertibleP", "play"]
+- !private ["s23CustomStringConvertibleP", "prepareToPlay"]
+- !private ["s23CustomStringConvertibleP", "print"]
+- !private ["s23CustomStringConvertibleP", "scheduledTimer"]
+- !private ["s23CustomStringConvertibleP", "sendAppEvent"]
+- !private ["s23CustomStringConvertibleP", "setActive"]
+- !private ["s23CustomStringConvertibleP", "setCategory"]
+- !private ["s23CustomStringConvertibleP", "sharedInstance"]
+- !private ["s23CustomStringConvertibleP", "stop"]
+- !private ["s23CustomStringConvertibleP", "timeChanged"]
+- !private ["s23CustomStringConvertibleP", "timeInterval"]
+- ["s23CustomStringConvertibleP", ""]
+- !private ["s9DecodableP", "_getBuiltinLogicValue"]
+- !private ["s9DecodableP", "init"]
+- !private ["So14DispatchObjectC", "async"]
+- !private ["So14DispatchObjectC", "main"]
+- !private ["So13DispatchQueueC", "async"]
+- !private ["So13DispatchQueueC", "main"]
+- !private ["Sd", "init"]
+- !private ["s9EncodableP", "_getBuiltinLogicValue"]
+- !private ["s9EncodableP", "init"]
+- !private ["s9EquatableP", "AVAudioPlayer"]
+- !private ["s9EquatableP", "AVAudioSession"]
+- !private ["s9EquatableP", "AVAudioSessionCategoryOptions"]
+- !private ["s9EquatableP", "AVAudioSessionCategoryPlayAndRecord"]
+- !private ["s9EquatableP", "AVAudioSessionCategoryPlayback"]
+- !private ["s9EquatableP", "AVAudioSessionPortOverride"]
+- !private ["s9EquatableP", "DEFAULTSPEAKER"]
+- !private ["s9EquatableP", "DispatchQueue"]
+- !private ["s9EquatableP", "Double"]
+- !private ["s9EquatableP", "EARSPEAKER"]
+- !private ["s9EquatableP", "TimeInterval"]
+- !private ["s9EquatableP", "Timer"]
+- !private ["s9EquatableP", "URL"]
+- !private ["s9EquatableP", "_getBuiltinLogicValue"]
+- !private ["s9EquatableP", "async"]
+- !private ["s9EquatableP", "audioPlayer"]
+- ["s9EquatableP", "audioPlayerBeginInterruption"]
+- ["s9EquatableP", "audioPlayerDecodeErrorDidOccur"]
+- ["s9EquatableP", "audioPlayerDidFinishPlaying"]
+- ["s9EquatableP", "audioPlayerEndInterruption"]
+- !private ["s9EquatableP", "audioTimer"]
+- !private ["s9EquatableP", "bridge"]
+- !private ["s9EquatableP", "currentTime"]
+- !private ["s9EquatableP", "defaultToSpeaker"]
+- !private ["s9EquatableP", "delegate"]
+- !private ["s9EquatableP", "duration"]
+- !private ["s9EquatableP", "eventDispatcher"]
+- !private ["s9EquatableP", "init"]
+- !private ["s9EquatableP", "invalidate"]
+- !private ["s9EquatableP", "isPlaying"]
+- !private ["s9EquatableP", "main"]
+- !private ["s9EquatableP", "none"]
+- !private ["s9EquatableP", "numberOfLoops"]
+- !private ["s9EquatableP", "outputVolume"]
+- !private ["s9EquatableP", "overrideOutputAudioPort"]
+- !private ["s9EquatableP", "pause"]
+- !private ["s9EquatableP", "paused"]
+- !private ["s9EquatableP", "play"]
+- !private ["s9EquatableP", "prepareToPlay"]
+- !private ["s9EquatableP", "print"]
+- !private ["s9EquatableP", "scheduledTimer"]
+- !private ["s9EquatableP", "sendAppEvent"]
+- !private ["s9EquatableP", "setActive"]
+- !private ["s9EquatableP", "setCategory"]
+- !private ["s9EquatableP", "sharedInstance"]
+- !private ["s9EquatableP", "speaker"]
+- !private ["s9EquatableP", "stop"]
+- !private ["s9EquatableP", "timeChanged"]
+- !private ["s9EquatableP", "timeInterval"]
+- ["s9EquatableP", ""]
+- !private ["s25ExpressibleByArrayLiteralP", "defaultToSpeaker"]
+- !private ["s27ExpressibleByBooleanLiteralP", "_getBuiltinLogicValue"]
+- !private ["s43ExpressibleByExtendedGraphemeClusterLiteralP", "init"]
+- !private ["s25ExpressibleByFloatLiteralP", "init"]
+- !private ["s27ExpressibleByIntegerLiteralP", "init"]
+- !private ["s26ExpressibleByStringLiteralP", "init"]
+- !private ["s33ExpressibleByUnicodeScalarLiteralP", "init"]
+- !private ["s13FloatingPointP", "init"]
+- !private ["s8HashableP", "AVAudioPlayer"]
+- !private ["s8HashableP", "AVAudioSession"]
+- !private ["s8HashableP", "AVAudioSessionCategoryOptions"]
+- !private ["s8HashableP", "AVAudioSessionCategoryPlayAndRecord"]
+- !private ["s8HashableP", "AVAudioSessionCategoryPlayback"]
+- !private ["s8HashableP", "AVAudioSessionPortOverride"]
+- !private ["s8HashableP", "DEFAULTSPEAKER"]
+- !private ["s8HashableP", "DispatchQueue"]
+- !private ["s8HashableP", "Double"]
+- !private ["s8HashableP", "EARSPEAKER"]
+- !private ["s8HashableP", "TimeInterval"]
+- !private ["s8HashableP", "Timer"]
+- !private ["s8HashableP", "URL"]
+- !private ["s8HashableP", "_getBuiltinLogicValue"]
+- !private ["s8HashableP", "async"]
+- !private ["s8HashableP", "audioPlayer"]
+- ["s8HashableP", "audioPlayerBeginInterruption"]
+- ["s8HashableP", "audioPlayerDecodeErrorDidOccur"]
+- ["s8HashableP", "audioPlayerDidFinishPlaying"]
+- ["s8HashableP", "audioPlayerEndInterruption"]
+- !private ["s8HashableP", "audioTimer"]
+- !private ["s8HashableP", "bridge"]
+- !private ["s8HashableP", "currentTime"]
+- !private ["s8HashableP", "delegate"]
+- !private ["s8HashableP", "duration"]
+- !private ["s8HashableP", "eventDispatcher"]
+- !private ["s8HashableP", "init"]
+- !private ["s8HashableP", "invalidate"]
+- !private ["s8HashableP", "isPlaying"]
+- !private ["s8HashableP", "main"]
+- !private ["s8HashableP", "none"]
+- !private ["s8HashableP", "numberOfLoops"]
+- !private ["s8HashableP", "outputVolume"]
+- !private ["s8HashableP", "overrideOutputAudioPort"]
+- !private ["s8HashableP", "pause"]
+- !private ["s8HashableP", "paused"]
+- !private ["s8HashableP", "play"]
+- !private ["s8HashableP", "prepareToPlay"]
+- !private ["s8HashableP", "print"]
+- !private ["s8HashableP", "scheduledTimer"]
+- !private ["s8HashableP", "sendAppEvent"]
+- !private ["s8HashableP", "setActive"]
+- !private ["s8HashableP", "setCategory"]
+- !private ["s8HashableP", "sharedInstance"]
+- !private ["s8HashableP", "speaker"]
+- !private ["s8HashableP", "stop"]
+- !private ["s8HashableP", "timeChanged"]
+- !private ["s8HashableP", "timeInterval"]
+- ["s8HashableP", ""]
+- !private ["s25LosslessStringConvertibleP", "_getBuiltinLogicValue"]
+- !private ["s25LosslessStringConvertibleP", "init"]
+- !private ["s10MirrorPathP", "init"]
+- !private ["So8NSCodingP", "init"]
+- !private ["So9NSCopyingP", "init"]
+- !private ["So21NSItemProviderReadingP", "init"]
+- !private ["So21NSItemProviderWritingP", "init"]
+- !private ["So16NSMutableCopyingP", "init"]
+- ["So8NSObjectC", "AVAudioPlayer"]
+- !private ["So8NSObjectC", "AVAudioSession"]
+- !private ["So8NSObjectC", "AVAudioSessionCategoryOptions"]
+- !private ["So8NSObjectC", "AVAudioSessionCategoryPlayAndRecord"]
+- !private ["So8NSObjectC", "AVAudioSessionCategoryPlayback"]
+- !private ["So8NSObjectC", "AVAudioSessionPortOverride"]
+- ["So8NSObjectC", "Bool"]
+- ["So8NSObjectC", "DEFAULTSPEAKER"]
+- !private ["So8NSObjectC", "DispatchQueue"]
+- ["So8NSObjectC", "Double"]
+- ["So8NSObjectC", "EARSPEAKER"]
+- ["So8NSObjectC", "Int"]
+- ["So8NSObjectC", "RCTBridge"]
+- ["So8NSObjectC", "RCTPromiseRejectBlock"]
+- ["So8NSObjectC", "RCTPromiseResolveBlock"]
+- ["So8NSObjectC", "String"]
+- !private ["So8NSObjectC", "TimeInterval"]
+- ["So8NSObjectC", "Timer"]
+- !private ["So8NSObjectC", "URL"]
+- ["So8NSObjectC", "Void"]
+- !private ["So8NSObjectC", "async"]
+- ["So8NSObjectC", "audioPlayer"]
+- ["So8NSObjectC", "audioPlayerBeginInterruption"]
+- ["So8NSObjectC", "audioPlayerDecodeErrorDidOccur"]
+- ["So8NSObjectC", "audioPlayerDidFinishPlaying"]
+- ["So8NSObjectC", "audioPlayerEndInterruption"]
+- ["So8NSObjectC", "audioTimer"]
+- ["So8NSObjectC", "bridge"]
+- !private ["So8NSObjectC", "currentTime"]
+- !private ["So8NSObjectC", "delegate"]
+- !private ["So8NSObjectC", "duration"]
+- !private ["So8NSObjectC", "eventDispatcher"]
+- ["So8NSObjectC", "getVolume"]
+- ["So8NSObjectC", "init"]
+- !private ["So8NSObjectC", "invalidate"]
+- !private ["So8NSObjectC", "isPlaying"]
+- ["So8NSObjectC", "load"]
+- !private ["So8NSObjectC", "main"]
+- !private ["So8NSObjectC", "numberOfLoops"]
+- !private ["So8NSObjectC", "outputVolume"]
+- !private ["So8NSObjectC", "overrideOutputAudioPort"]
+- ["So8NSObjectC", "pause"]
+- ["So8NSObjectC", "paused"]
+- ["So8NSObjectC", "play"]
+- !private ["So8NSObjectC", "prepareToPlay"]
+- !private ["So8NSObjectC", "print"]
+- ["So8NSObjectC", "resume"]
+- !private ["So8NSObjectC", "scheduledTimer"]
+- ["So8NSObjectC", "seekTime"]
+- !private ["So8NSObjectC", "sendAppEvent"]
+- !private ["So8NSObjectC", "setActive"]
+- ["So8NSObjectC", "setAudioOutputRoute"]
+- !private ["So8NSObjectC", "setCategory"]
+- ["So8NSObjectC", "setTimeInterval"]
+- !private ["So8NSObjectC", "sharedInstance"]
+- ["So8NSObjectC", "stop"]
+- ["So8NSObjectC", "timeChanged"]
+- ["So8NSObjectC", "timeInterval"]
+- ["So8NSObjectC", ""]
+- !private ["So16NSObjectProtocolP", "AVAudioPlayer"]
+- !private ["So16NSObjectProtocolP", "AVAudioSession"]
+- !private ["So16NSObjectProtocolP", "AVAudioSessionCategoryOptions"]
+- !private ["So16NSObjectProtocolP", "AVAudioSessionCategoryPlayAndRecord"]
+- !private ["So16NSObjectProtocolP", "AVAudioSessionCategoryPlayback"]
+- !private ["So16NSObjectProtocolP", "AVAudioSessionPortOverride"]
+- !private ["So16NSObjectProtocolP", "DEFAULTSPEAKER"]
+- !private ["So16NSObjectProtocolP", "DispatchQueue"]
+- !private ["So16NSObjectProtocolP", "Double"]
+- !private ["So16NSObjectProtocolP", "EARSPEAKER"]
+- !private ["So16NSObjectProtocolP", "TimeInterval"]
+- !private ["So16NSObjectProtocolP", "Timer"]
+- !private ["So16NSObjectProtocolP", "URL"]
+- !private ["So16NSObjectProtocolP", "async"]
+- !private ["So16NSObjectProtocolP", "audioPlayer"]
+- ["So16NSObjectProtocolP", "audioPlayerBeginInterruption"]
+- ["So16NSObjectProtocolP", "audioPlayerDecodeErrorDidOccur"]
+- ["So16NSObjectProtocolP", "audioPlayerDidFinishPlaying"]
+- ["So16NSObjectProtocolP", "audioPlayerEndInterruption"]
+- !private ["So16NSObjectProtocolP", "audioTimer"]
+- !private ["So16NSObjectProtocolP", "bridge"]
+- !private ["So16NSObjectProtocolP", "currentTime"]
+- !private ["So16NSObjectProtocolP", "delegate"]
+- !private ["So16NSObjectProtocolP", "duration"]
+- !private ["So16NSObjectProtocolP", "eventDispatcher"]
+- !private ["So16NSObjectProtocolP", "init"]
+- !private ["So16NSObjectProtocolP", "invalidate"]
+- !private ["So16NSObjectProtocolP", "isPlaying"]
+- !private ["So16NSObjectProtocolP", "main"]
+- !private ["So16NSObjectProtocolP", "numberOfLoops"]
+- !private ["So16NSObjectProtocolP", "outputVolume"]
+- !private ["So16NSObjectProtocolP", "overrideOutputAudioPort"]
+- !private ["So16NSObjectProtocolP", "pause"]
+- !private ["So16NSObjectProtocolP", "paused"]
+- !private ["So16NSObjectProtocolP", "play"]
+- !private ["So16NSObjectProtocolP", "prepareToPlay"]
+- !private ["So16NSObjectProtocolP", "print"]
+- !private ["So16NSObjectProtocolP", "scheduledTimer"]
+- !private ["So16NSObjectProtocolP", "sendAppEvent"]
+- !private ["So16NSObjectProtocolP", "setActive"]
+- !private ["So16NSObjectProtocolP", "setCategory"]
+- !private ["So16NSObjectProtocolP", "sharedInstance"]
+- !private ["So16NSObjectProtocolP", "stop"]
+- !private ["So16NSObjectProtocolP", "timeChanged"]
+- !private ["So16NSObjectProtocolP", "timeInterval"]
+- ["So16NSObjectProtocolP", ""]
+- !private ["So14NSSecureCodingP", "init"]
+- !private ["So8NSStringC", "init"]
+- !private ["s7NumericP", "init"]
+- !private ["So9OS_objectC", "async"]
+- !private ["So9OS_objectC", "main"]
+- !private ["s9OptionSetP", "defaultToSpeaker"]
+- !private ["So9RCTBridgeC", "eventDispatcher"]
+- !private ["So15RCTBridgeModuleP", "sendAppEvent"]
+- !private ["So18RCTEventDispatcherC", "sendAppEvent"]
+- !private ["So15RCTInvalidatingP", "eventDispatcher"]
+- !private ["s26RangeReplaceableCollectionP", "init"]
+- !private ["s16RawRepresentableP", "defaultToSpeaker"]
+- !private ["s16RawRepresentableP", "none"]
+- !private ["s16RawRepresentableP", "speaker"]
+- !private ["10Foundation20ReferenceConvertibleP", "init"]
+- !private ["s8SequenceP", "init"]
+- !private ["s10SetAlgebraP", "defaultToSpeaker"]
+- !private ["s13SignedNumericP", "init"]
+- !private ["s10StrideableP", "init"]
+- !private ["SS", "init"]
+- !private ["s14StringProtocolP", "init"]
+- !private ["s16TextOutputStreamP", "init"]
+- !private ["s20TextOutputStreamableP", "init"]
+- !private ["So5TimerC", "invalidate"]
+- !private ["So5TimerC", "scheduledTimer"]
+- !private ["10Foundation3URLV", "init"]
+- !private ["s23_BidirectionalIndexableP", "init"]
+- !private ["s15_CVarArgAlignedP", "init"]
+- !private ["s22_CVarArgPassedAsDoubleP", "init"]
+- !private ["s35_ExpressibleByBuiltinBooleanLiteralP", "_getBuiltinLogicValue"]
+- !private ["s51_ExpressibleByBuiltinExtendedGraphemeClusterLiteralP", "init"]
+- !private ["s33_ExpressibleByBuiltinFloatLiteralP", "init"]
+- !private ["s35_ExpressibleByBuiltinIntegerLiteralP", "init"]
+- !private ["s34_ExpressibleByBuiltinStringLiteralP", "init"]
+- !private ["s39_ExpressibleByBuiltinUTF16StringLiteralP", "init"]
+- !private ["s41_ExpressibleByBuiltinUnicodeScalarLiteralP", "init"]
+- !private ["s34_ExpressibleByFileReferenceLiteralP", "init"]
+- !private ["s33_ExpressibleByStringInterpolationP", "init"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "init"]
+- !private ["s10_IndexableP", "init"]
+- !private ["s14_IndexableBaseP", "init"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "AVAudioPlayer"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "AVAudioSession"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "AVAudioSessionCategoryOptions"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "AVAudioSessionCategoryPlayAndRecord"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "AVAudioSessionCategoryPlayback"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "AVAudioSessionPortOverride"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "DEFAULTSPEAKER"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "DispatchQueue"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "Double"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "EARSPEAKER"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "TimeInterval"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "Timer"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "URL"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "async"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "audioPlayer"]
+- ["10Foundation27_KeyValueCodingAndObservingP", "audioPlayerBeginInterruption"]
+- ["10Foundation27_KeyValueCodingAndObservingP", "audioPlayerDecodeErrorDidOccur"]
+- ["10Foundation27_KeyValueCodingAndObservingP", "audioPlayerDidFinishPlaying"]
+- ["10Foundation27_KeyValueCodingAndObservingP", "audioPlayerEndInterruption"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "audioTimer"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "bridge"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "currentTime"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "delegate"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "duration"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "eventDispatcher"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "init"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "invalidate"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "isPlaying"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "main"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "numberOfLoops"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "outputVolume"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "overrideOutputAudioPort"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "pause"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "paused"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "play"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "prepareToPlay"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "print"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "scheduledTimer"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "sendAppEvent"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "setActive"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "setCategory"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "sharedInstance"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "stop"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "timeChanged"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "timeInterval"]
+- ["10Foundation27_KeyValueCodingAndObservingP", ""]
+- !private ["s21_ObjectiveCBridgeableP", "_getBuiltinLogicValue"]
+- !private ["s21_ObjectiveCBridgeableP", "init"]
+- !private ["s26_RangeReplaceableIndexableP", "init"]
+- !private ["s11_StrideableP", "init"]
+- !private ["s16_SwiftStringViewP", "init"]
+depends-nominal:
+- !private "So13AVAudioPlayerC"
+- "So21AVAudioPlayerDelegateP"
+- !private "So14AVAudioSessionC"
+- !private "SC29AVAudioSessionCategoryOptionsV"
+- !private "SC26AVAudioSessionPortOverrideO"
+- "9FalaFreud18AudioManagerModuleC"
+- !private "s23BidirectionalCollectionP"
+- !private "s19BinaryFloatingPointP"
+- !private "Sb"
+- "s7CVarArgP"
+- !private "s10CollectionP"
+- !private "s10ComparableP"
+- "s28CustomDebugStringConvertibleP"
+- !private "s29CustomPlaygroundQuickLookableP"
+- !private "s17CustomReflectableP"
+- "s23CustomStringConvertibleP"
+- !private "s9DecodableP"
+- !private "So14DispatchObjectC"
+- !private "So13DispatchQueueC"
+- !private "Sd"
+- !private "s9EncodableP"
+- "s9EquatableP"
+- !private "s25ExpressibleByArrayLiteralP"
+- !private "s27ExpressibleByBooleanLiteralP"
+- !private "s43ExpressibleByExtendedGraphemeClusterLiteralP"
+- !private "s25ExpressibleByFloatLiteralP"
+- !private "s27ExpressibleByIntegerLiteralP"
+- !private "s26ExpressibleByStringLiteralP"
+- !private "s33ExpressibleByUnicodeScalarLiteralP"
+- !private "s13FloatingPointP"
+- "s8HashableP"
+- !private "s25LosslessStringConvertibleP"
+- !private "s10MirrorPathP"
+- !private "So8NSCodingP"
+- !private "So9NSCopyingP"
+- !private "So21NSItemProviderReadingP"
+- !private "So21NSItemProviderWritingP"
+- !private "So16NSMutableCopyingP"
+- "So8NSObjectC"
+- "So16NSObjectProtocolP"
+- !private "So14NSSecureCodingP"
+- !private "So8NSStringC"
+- !private "s7NumericP"
+- !private "So9OS_objectC"
+- !private "s9OptionSetP"
+- !private "So9RCTBridgeC"
+- !private "So15RCTBridgeModuleP"
+- !private "So18RCTEventDispatcherC"
+- !private "So15RCTInvalidatingP"
+- !private "s26RangeReplaceableCollectionP"
+- !private "s16RawRepresentableP"
+- !private "10Foundation20ReferenceConvertibleP"
+- !private "s8SequenceP"
+- !private "s10SetAlgebraP"
+- !private "s13SignedNumericP"
+- !private "s10StrideableP"
+- !private "SS"
+- !private "s14StringProtocolP"
+- !private "s16TextOutputStreamP"
+- !private "s20TextOutputStreamableP"
+- !private "So5TimerC"
+- !private "10Foundation3URLV"
+- !private "s23_BidirectionalIndexableP"
+- !private "s15_CVarArgAlignedP"
+- !private "s22_CVarArgPassedAsDoubleP"
+- !private "s35_ExpressibleByBuiltinBooleanLiteralP"
+- !private "s51_ExpressibleByBuiltinExtendedGraphemeClusterLiteralP"
+- !private "s33_ExpressibleByBuiltinFloatLiteralP"
+- !private "s35_ExpressibleByBuiltinIntegerLiteralP"
+- !private "s34_ExpressibleByBuiltinStringLiteralP"
+- !private "s39_ExpressibleByBuiltinUTF16StringLiteralP"
+- !private "s41_ExpressibleByBuiltinUnicodeScalarLiteralP"
+- !private "s34_ExpressibleByFileReferenceLiteralP"
+- !private "s33_ExpressibleByStringInterpolationP"
+- !private "s35_HasCustomAnyHashableRepresentationP"
+- !private "s10_IndexableP"
+- !private "s14_IndexableBaseP"
+- "10Foundation27_KeyValueCodingAndObservingP"
+- !private "s21_ObjectiveCBridgeableP"
+- !private "s26_RangeReplaceableIndexableP"
+- !private "s11_StrideableP"
+- !private "s16_SwiftStringViewP"
+depends-dynamic-lookup:
+depends-external:
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Dispatch.apinotesc"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/ObjectiveC.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreMedia.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/simd.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreImage.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/QuartzCore.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Dispatch.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Metal.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Darwin.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Foundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/AVFoundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreFoundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreAudio.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/MediaPlayer.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreGraphics.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Swift.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/UIKit.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/SwiftOnoneSupport.swiftmodule"
+- "/Users/Teruya/Documents/react-native-development/workspace/FalaFreud/ios/build/Build/Products/Debug-iphonesimulator/include/yoga/Yoga.h"
+- "/Users/Teruya/Documents/react-native-development/workspace/FalaFreud/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTBridge.h"
+- "/Users/Teruya/Documents/react-native-development/workspace/FalaFreud/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTBridgeModule.h"
+- "/Users/Teruya/Documents/react-native-development/workspace/FalaFreud/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTBorderStyle.h"
+- "/Users/Teruya/Documents/react-native-development/workspace/FalaFreud/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTTextDecorationLineType.h"
+- "/Users/Teruya/Documents/react-native-development/workspace/FalaFreud/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTAnimationType.h"
+- "/Users/Teruya/Documents/react-native-development/workspace/FalaFreud/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTFrameUpdate.h"
+- "/Users/Teruya/Documents/react-native-development/workspace/FalaFreud/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTBridgeDelegate.h"
+- "/Users/Teruya/Documents/react-native-development/workspace/FalaFreud/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTInvalidating.h"
+- "/Users/Teruya/Documents/react-native-development/workspace/FalaFreud/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTLog.h"
+- "/Users/Teruya/Documents/react-native-development/workspace/FalaFreud/ios/FalaFreud-Bridging-Header.h"
+- "/Users/Teruya/Documents/react-native-development/workspace/FalaFreud/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTJavaScriptLoader.h"
+- "/Users/Teruya/Documents/react-native-development/workspace/FalaFreud/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTEventDispatcher.h"
+- "/Users/Teruya/Documents/react-native-development/workspace/FalaFreud/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTEventEmitter.h"
+- "/Users/Teruya/Documents/react-native-development/workspace/FalaFreud/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTDefines.h"
+- "/Users/Teruya/Documents/react-native-development/workspace/FalaFreud/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTUtils.h"
+- "/Users/Teruya/Documents/react-native-development/workspace/FalaFreud/ios/build/Build/Products/Debug-iphonesimulator/include/yoga/YGEnums.h"
+- "/Users/Teruya/Documents/react-native-development/workspace/FalaFreud/ios/build/Build/Products/Debug-iphonesimulator/include/yoga/YGMacros.h"
+- "/Users/Teruya/Documents/react-native-development/workspace/FalaFreud/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTPointerEvents.h"
+- "/Users/Teruya/Documents/react-native-development/workspace/FalaFreud/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTAssert.h"
+- "/Users/Teruya/Documents/react-native-development/workspace/FalaFreud/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTConvert.h"
+- "/Users/Teruya/Documents/react-native-development/workspace/FalaFreud/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTRootView.h"
+interface-hash: "0451a374e883db840fb9f26dfe69bed4"

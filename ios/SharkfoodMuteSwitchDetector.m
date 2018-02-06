@@ -126,8 +126,9 @@ void SharkfoodSoundMuteNotificationCompletionProc(SystemSoundID  ssID,void* clie
   if (self.isMute != isMute || self.forceEmit) {
     self.forceEmit = NO;
     _isMute = isMute;
-    if (self.silentNotify)
+    if (self.silentNotify) {
       self.silentNotify(isMute);
+    }
   }
   [self scheduleCall];
 }

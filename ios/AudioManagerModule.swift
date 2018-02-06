@@ -83,6 +83,11 @@ class AudioManagerModule: NSObject, AVAudioPlayerDelegate {
   
   func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
     bridge.eventDispatcher().sendAppEvent( withName: "onAudioFinished", body: nil )
+    
+    if audioTimer != nil {
+      audioTimer.invalidate()
+      audioTimer = nil
+    }
   }
   
  func timeChanged() {

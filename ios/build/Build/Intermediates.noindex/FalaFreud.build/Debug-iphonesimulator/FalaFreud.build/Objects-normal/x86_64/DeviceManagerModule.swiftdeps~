@@ -1,0 +1,206 @@
+### Swift dependencies file v0 ###
+provides-top-level:
+- "DeviceManagerModule"
+provides-nominal:
+- "9FalaFreud19DeviceManagerModuleC"
+provides-member:
+- ["9FalaFreud19DeviceManagerModuleC", ""]
+provides-dynamic-lookup:
+- "setIdleTimerEnable"
+- "setProximityEnable"
+depends-top-level:
+- !private "!"
+- "AssignmentPrecedence"
+- "Bool"
+- "BooleanLiteralType"
+- "DeviceManagerModule"
+- !private "DispatchQueue"
+- "NSObject"
+- "RCTPromiseRejectBlock"
+- "RCTPromiseResolveBlock"
+- !private "UIApplication"
+- !private "UIDevice"
+- "Void"
+depends-member:
+- !private ["s7CVarArgP", "DispatchQueue"]
+- !private ["s7CVarArgP", "UIApplication"]
+- !private ["s7CVarArgP", "UIDevice"]
+- !private ["s7CVarArgP", "async"]
+- !private ["s7CVarArgP", "current"]
+- !private ["s7CVarArgP", "init"]
+- !private ["s7CVarArgP", "isIdleTimerDisabled"]
+- !private ["s7CVarArgP", "isProximityMonitoringEnabled"]
+- !private ["s7CVarArgP", "main"]
+- !private ["s7CVarArgP", "shared"]
+- ["s7CVarArgP", ""]
+- !private ["s28CustomDebugStringConvertibleP", "DispatchQueue"]
+- !private ["s28CustomDebugStringConvertibleP", "UIApplication"]
+- !private ["s28CustomDebugStringConvertibleP", "UIDevice"]
+- !private ["s28CustomDebugStringConvertibleP", "async"]
+- !private ["s28CustomDebugStringConvertibleP", "current"]
+- !private ["s28CustomDebugStringConvertibleP", "init"]
+- !private ["s28CustomDebugStringConvertibleP", "isIdleTimerDisabled"]
+- !private ["s28CustomDebugStringConvertibleP", "isProximityMonitoringEnabled"]
+- !private ["s28CustomDebugStringConvertibleP", "main"]
+- !private ["s28CustomDebugStringConvertibleP", "shared"]
+- ["s28CustomDebugStringConvertibleP", ""]
+- !private ["s23CustomStringConvertibleP", "DispatchQueue"]
+- !private ["s23CustomStringConvertibleP", "UIApplication"]
+- !private ["s23CustomStringConvertibleP", "UIDevice"]
+- !private ["s23CustomStringConvertibleP", "async"]
+- !private ["s23CustomStringConvertibleP", "current"]
+- !private ["s23CustomStringConvertibleP", "init"]
+- !private ["s23CustomStringConvertibleP", "isIdleTimerDisabled"]
+- !private ["s23CustomStringConvertibleP", "isProximityMonitoringEnabled"]
+- !private ["s23CustomStringConvertibleP", "main"]
+- !private ["s23CustomStringConvertibleP", "shared"]
+- ["s23CustomStringConvertibleP", ""]
+- ["9FalaFreud19DeviceManagerModuleC", "Bool"]
+- !private ["9FalaFreud19DeviceManagerModuleC", "DispatchQueue"]
+- ["9FalaFreud19DeviceManagerModuleC", "RCTPromiseRejectBlock"]
+- ["9FalaFreud19DeviceManagerModuleC", "RCTPromiseResolveBlock"]
+- !private ["9FalaFreud19DeviceManagerModuleC", "UIApplication"]
+- !private ["9FalaFreud19DeviceManagerModuleC", "UIDevice"]
+- ["9FalaFreud19DeviceManagerModuleC", "Void"]
+- ["9FalaFreud19DeviceManagerModuleC", "deinit"]
+- ["9FalaFreud19DeviceManagerModuleC", "init"]
+- ["9FalaFreud19DeviceManagerModuleC", "setIdleTimerEnable"]
+- ["9FalaFreud19DeviceManagerModuleC", "setProximityEnable"]
+- !private ["So14DispatchObjectC", "async"]
+- !private ["So14DispatchObjectC", "main"]
+- !private ["So13DispatchQueueC", "async"]
+- !private ["So13DispatchQueueC", "main"]
+- !private ["s9EquatableP", "DispatchQueue"]
+- !private ["s9EquatableP", "UIApplication"]
+- !private ["s9EquatableP", "UIDevice"]
+- !private ["s9EquatableP", "async"]
+- !private ["s9EquatableP", "current"]
+- !private ["s9EquatableP", "init"]
+- !private ["s9EquatableP", "isIdleTimerDisabled"]
+- !private ["s9EquatableP", "isProximityMonitoringEnabled"]
+- !private ["s9EquatableP", "main"]
+- !private ["s9EquatableP", "shared"]
+- ["s9EquatableP", ""]
+- !private ["s8HashableP", "DispatchQueue"]
+- !private ["s8HashableP", "UIApplication"]
+- !private ["s8HashableP", "UIDevice"]
+- !private ["s8HashableP", "async"]
+- !private ["s8HashableP", "current"]
+- !private ["s8HashableP", "init"]
+- !private ["s8HashableP", "isIdleTimerDisabled"]
+- !private ["s8HashableP", "isProximityMonitoringEnabled"]
+- !private ["s8HashableP", "main"]
+- !private ["s8HashableP", "shared"]
+- ["s8HashableP", ""]
+- ["So8NSObjectC", "Bool"]
+- !private ["So8NSObjectC", "DispatchQueue"]
+- ["So8NSObjectC", "RCTPromiseRejectBlock"]
+- ["So8NSObjectC", "RCTPromiseResolveBlock"]
+- !private ["So8NSObjectC", "UIApplication"]
+- !private ["So8NSObjectC", "UIDevice"]
+- ["So8NSObjectC", "Void"]
+- !private ["So8NSObjectC", "async"]
+- !private ["So8NSObjectC", "current"]
+- ["So8NSObjectC", "init"]
+- !private ["So8NSObjectC", "isIdleTimerDisabled"]
+- !private ["So8NSObjectC", "isProximityMonitoringEnabled"]
+- !private ["So8NSObjectC", "main"]
+- ["So8NSObjectC", "setIdleTimerEnable"]
+- ["So8NSObjectC", "setProximityEnable"]
+- !private ["So8NSObjectC", "shared"]
+- ["So8NSObjectC", ""]
+- !private ["So16NSObjectProtocolP", "DispatchQueue"]
+- !private ["So16NSObjectProtocolP", "UIApplication"]
+- !private ["So16NSObjectProtocolP", "UIDevice"]
+- !private ["So16NSObjectProtocolP", "async"]
+- !private ["So16NSObjectProtocolP", "current"]
+- !private ["So16NSObjectProtocolP", "init"]
+- !private ["So16NSObjectProtocolP", "isIdleTimerDisabled"]
+- !private ["So16NSObjectProtocolP", "isProximityMonitoringEnabled"]
+- !private ["So16NSObjectProtocolP", "main"]
+- !private ["So16NSObjectProtocolP", "shared"]
+- ["So16NSObjectProtocolP", ""]
+- !private ["So9OS_objectC", "async"]
+- !private ["So9OS_objectC", "main"]
+- !private ["So13UIApplicationC", "isIdleTimerDisabled"]
+- !private ["So13UIApplicationC", "shared"]
+- !private ["So8UIDeviceC", "current"]
+- !private ["So8UIDeviceC", "isProximityMonitoringEnabled"]
+- !private ["So30UIPasteConfigurationSupportingP", "isIdleTimerDisabled"]
+- !private ["So30UIPasteConfigurationSupportingP", "shared"]
+- !private ["So11UIResponderC", "isIdleTimerDisabled"]
+- !private ["So11UIResponderC", "shared"]
+- !private ["So30UIResponderStandardEditActionsP", "isIdleTimerDisabled"]
+- !private ["So30UIResponderStandardEditActionsP", "shared"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "DispatchQueue"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "UIApplication"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "UIDevice"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "async"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "current"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "init"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "isIdleTimerDisabled"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "isProximityMonitoringEnabled"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "main"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "shared"]
+- ["10Foundation27_KeyValueCodingAndObservingP", ""]
+depends-nominal:
+- "s7CVarArgP"
+- "s28CustomDebugStringConvertibleP"
+- "s23CustomStringConvertibleP"
+- "9FalaFreud19DeviceManagerModuleC"
+- !private "So14DispatchObjectC"
+- !private "So13DispatchQueueC"
+- "s9EquatableP"
+- "s8HashableP"
+- "So8NSObjectC"
+- "So16NSObjectProtocolP"
+- !private "So9OS_objectC"
+- !private "So13UIApplicationC"
+- !private "So8UIDeviceC"
+- !private "So30UIPasteConfigurationSupportingP"
+- !private "So11UIResponderC"
+- !private "So30UIResponderStandardEditActionsP"
+- "10Foundation27_KeyValueCodingAndObservingP"
+depends-dynamic-lookup:
+depends-external:
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Dispatch.apinotesc"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/ObjectiveC.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreMedia.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/simd.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreImage.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/QuartzCore.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Dispatch.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Metal.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Darwin.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Foundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/AVFoundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreFoundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreAudio.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/MediaPlayer.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreGraphics.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Swift.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/UIKit.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/SwiftOnoneSupport.swiftmodule"
+- "/Users/Teruya/Documents/react-native-development/workspace/FalaFreud/ios/build/Build/Products/Debug-iphonesimulator/include/yoga/Yoga.h"
+- "/Users/Teruya/Documents/react-native-development/workspace/FalaFreud/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTBridge.h"
+- "/Users/Teruya/Documents/react-native-development/workspace/FalaFreud/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTBridgeModule.h"
+- "/Users/Teruya/Documents/react-native-development/workspace/FalaFreud/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTBorderStyle.h"
+- "/Users/Teruya/Documents/react-native-development/workspace/FalaFreud/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTTextDecorationLineType.h"
+- "/Users/Teruya/Documents/react-native-development/workspace/FalaFreud/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTAnimationType.h"
+- "/Users/Teruya/Documents/react-native-development/workspace/FalaFreud/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTFrameUpdate.h"
+- "/Users/Teruya/Documents/react-native-development/workspace/FalaFreud/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTBridgeDelegate.h"
+- "/Users/Teruya/Documents/react-native-development/workspace/FalaFreud/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTInvalidating.h"
+- "/Users/Teruya/Documents/react-native-development/workspace/FalaFreud/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTLog.h"
+- "/Users/Teruya/Documents/react-native-development/workspace/FalaFreud/ios/FalaFreud-Bridging-Header.h"
+- "/Users/Teruya/Documents/react-native-development/workspace/FalaFreud/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTJavaScriptLoader.h"
+- "/Users/Teruya/Documents/react-native-development/workspace/FalaFreud/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTEventDispatcher.h"
+- "/Users/Teruya/Documents/react-native-development/workspace/FalaFreud/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTEventEmitter.h"
+- "/Users/Teruya/Documents/react-native-development/workspace/FalaFreud/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTDefines.h"
+- "/Users/Teruya/Documents/react-native-development/workspace/FalaFreud/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTUtils.h"
+- "/Users/Teruya/Documents/react-native-development/workspace/FalaFreud/ios/build/Build/Products/Debug-iphonesimulator/include/yoga/YGEnums.h"
+- "/Users/Teruya/Documents/react-native-development/workspace/FalaFreud/ios/build/Build/Products/Debug-iphonesimulator/include/yoga/YGMacros.h"
+- "/Users/Teruya/Documents/react-native-development/workspace/FalaFreud/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTPointerEvents.h"
+- "/Users/Teruya/Documents/react-native-development/workspace/FalaFreud/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTAssert.h"
+- "/Users/Teruya/Documents/react-native-development/workspace/FalaFreud/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTConvert.h"
+- "/Users/Teruya/Documents/react-native-development/workspace/FalaFreud/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTRootView.h"
+interface-hash: "3919d04feb1b62d95bcb3172e544862c"

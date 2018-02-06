@@ -1,0 +1,38 @@
+[
+    {
+        "merged": "/Users/Teruya/Documents/react-native-development/workspace/FalaFreud/android/app/build/intermediates/res/merged/debug/color/abc_secondary_text_material_light.xml",
+        "source": "/Users/Teruya/.android/build-cache/ff8a72f368326f143f50399a9b7e830c905e750a/output/res/color/abc_secondary_text_material_light.xml"
+    },
+    {
+        "merged": "/Users/Teruya/Documents/react-native-development/workspace/FalaFreud/android/app/build/intermediates/res/merged/debug/color/abc_primary_text_material_dark.xml",
+        "source": "/Users/Teruya/.android/build-cache/ff8a72f368326f143f50399a9b7e830c905e750a/output/res/color/abc_primary_text_material_dark.xml"
+    },
+    {
+        "merged": "/Users/Teruya/Documents/react-native-development/workspace/FalaFreud/android/app/build/intermediates/res/merged/debug/color/switch_thumb_material_dark.xml",
+        "source": "/Users/Teruya/.android/build-cache/ff8a72f368326f143f50399a9b7e830c905e750a/output/res/color/switch_thumb_material_dark.xml"
+    },
+    {
+        "merged": "/Users/Teruya/Documents/react-native-development/workspace/FalaFreud/android/app/build/intermediates/res/merged/debug/color/abc_secondary_text_material_dark.xml",
+        "source": "/Users/Teruya/.android/build-cache/ff8a72f368326f143f50399a9b7e830c905e750a/output/res/color/abc_secondary_text_material_dark.xml"
+    },
+    {
+        "merged": "/Users/Teruya/Documents/react-native-development/workspace/FalaFreud/android/app/build/intermediates/res/merged/debug/color/abc_search_url_text.xml",
+        "source": "/Users/Teruya/.android/build-cache/ff8a72f368326f143f50399a9b7e830c905e750a/output/res/color/abc_search_url_text.xml"
+    },
+    {
+        "merged": "/Users/Teruya/Documents/react-native-development/workspace/FalaFreud/android/app/build/intermediates/res/merged/debug/color/abc_primary_text_material_light.xml",
+        "source": "/Users/Teruya/.android/build-cache/ff8a72f368326f143f50399a9b7e830c905e750a/output/res/color/abc_primary_text_material_light.xml"
+    },
+    {
+        "merged": "/Users/Teruya/Documents/react-native-development/workspace/FalaFreud/android/app/build/intermediates/res/merged/debug/color/switch_thumb_material_light.xml",
+        "source": "/Users/Teruya/.android/build-cache/ff8a72f368326f143f50399a9b7e830c905e750a/output/res/color/switch_thumb_material_light.xml"
+    },
+    {
+        "merged": "/Users/Teruya/Documents/react-native-development/workspace/FalaFreud/android/app/build/intermediates/res/merged/debug/color/abc_primary_text_disable_only_material_dark.xml",
+        "source": "/Users/Teruya/.android/build-cache/ff8a72f368326f143f50399a9b7e830c905e750a/output/res/color/abc_primary_text_disable_only_material_dark.xml"
+    },
+    {
+        "merged": "/Users/Teruya/Documents/react-native-development/workspace/FalaFreud/android/app/build/intermediates/res/merged/debug/color/abc_primary_text_disable_only_material_light.xml",
+        "source": "/Users/Teruya/.android/build-cache/ff8a72f368326f143f50399a9b7e830c905e750a/output/res/color/abc_primary_text_disable_only_material_light.xml"
+    }
+]
