@@ -22,5 +22,6 @@ RCT_EXTERN_METHOD(seekTime:(double *)time resolver:(RCTPromiseResolveBlock)resol
 RCT_EXTERN_METHOD(setTimeInterval:(double *)timeInterval resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 RCT_EXTERN_METHOD(getVolume: (RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 RCT_EXTERN_METHOD(setAudioOutputRoute: (int *)type resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+RCT_EXTERN_METHOD(getCurrentAudioName: (BOOL)fullPath resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 
 @end

@@ -51,6 +51,7 @@ public class AudioManagerModule extends ReactContextBaseJavaModule
     private boolean isToCancel = false;
 
     private android.net.Uri url;
+    private String path = "";
     private int type = 0;
 
     // CONSTRUCTOR =================================================================================
@@ -92,6 +93,7 @@ public class AudioManagerModule extends ReactContextBaseJavaModule
 
                 mediaPlayer = new MediaPlayer();
                 url = Uri.parse(path);
+                this.path = path;
                 mediaPlayer.setDataSource(reactContext, url);
 
                 setAudioOutputRoute(type);
@@ -144,6 +146,7 @@ public class AudioManagerModule extends ReactContextBaseJavaModule
                 if ( mediaPlayer.isPlaying() ) {
                     if ( promise != null ) {
                         promise.resolve(false);
+                        return;
                     }
                 } else {
                     mediaPlayer.setLooping(isLoop);
@@ -197,6 +200,7 @@ public class AudioManagerModule extends ReactContextBaseJavaModule
 
     public boolean stopAudio() {
         if ( mediaPlayer != null ) {
+            path = "";
             isToCancel = true;
             mediaPlayer.stop();
             mediaPlayer = null;
@@ -223,14 +227,15 @@ public class AudioManagerModule extends ReactContextBaseJavaModule
 
     @ReactMethod
     public void setTimeInterval(int milisec, Promise promise) {
-        if ( getReactApplicationContext() != null ) {
-            try
-            {
+        try {
+            if ( timeInterval >= 100 ) {
                 timeInterval = milisec;
                 promise.resolve(true);
-            } catch ( IllegalViewOperationException e ) {
+            } else {
                 promise.resolve(false);
             }
+        } catch ( IllegalViewOperationException e ) {
+            promise.resolve(false);
         }
     }
 
@@ -275,6 +280,21 @@ public class AudioManagerModule extends ReactContextBaseJavaModule
         }
     }
 
+    @ReactMethod
+    public void getCurrentAudioName(boolean fullPath, Promise promise) {
+
+        if ( mediaPlayer != null ) {
+            if( !fullPath ) {
+                String fileName = path.substring(path.lastIndexOf("/")+1);
+                promise.resolve(fileName);
+            } else {
+                promise.resolve(path);
+            }
+        } else {
+            promise.resolve("");
+        }
+    }
+
     public boolean fileExists(String path) {
         File file = new File(path);
         return file.exists();
@@ -290,6 +310,8 @@ public class AudioManagerModule extends ReactContextBaseJavaModule
     @ReactMethod
     private void audioFinished() {
         reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("onAudioFinished", null);
+
+        stopAudio();
     }
 
     // CLASS =======================================================================================
@@ -313,7 +335,7 @@ public class AudioManagerModule extends ReactContextBaseJavaModule
 
             current = mediaPlayer.getCurrentPosition();
 
-            do {
+            while (current != duration) {
 
                 if ( mediaPlayer != null ) {
                     current = mediaPlayer.getCurrentPosition();
@@ -328,7 +350,7 @@ public class AudioManagerModule extends ReactContextBaseJavaModule
                 if( current >= duration || isToCancel) {
                     break;
                 }
-            } while (current != duration);
+            }
             return null;
         }
     }
@@ -368,4 +390,5 @@ public class AudioManagerModule extends ReactContextBaseJavaModule
             }
         }
     }
+
 }

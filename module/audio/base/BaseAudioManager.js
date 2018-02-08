@@ -68,7 +68,7 @@ class BaseAudioManager {
         this.play = this.play.bind(this);
         this.getDuration = this.getDuration.bind(this);
 
-        DeviceEventEmitter.addListener('onTimeChanged', function(time: Event) {
+        DeviceEventEmitter.addListener('onTimeChanged', function(time: Event) {            
             _timeTrackerCallback(time);
         });
 
@@ -217,6 +217,10 @@ class BaseAudioManager {
      */
     async setAudioOutputRoute(audioOutputRoute : int) : boolean {
         return await NativeModules.AudioManagerModule.setAudioOutputRoute(audioOutputRoute);
+    }
+
+    async getCurrentAudioName(fullPath = false) : string {
+        return await NativeModules.AudioManagerModule.getCurrentAudioName(fullPath);
     }
 
     //==========================================================================

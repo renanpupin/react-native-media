@@ -24,6 +24,7 @@ class AudioManagerModule: NSObject, AVAudioPlayerDelegate {
   
   let DEFAULTSPEAKER: Int = 0
   let EARSPEAKER: Int = 1
+  var path : String = ""
   
   // METHODS ================================================================================================================
   
@@ -31,14 +32,17 @@ class AudioManagerModule: NSObject, AVAudioPlayerDelegate {
     
     if paused {
       resolve(false)
-    } else if audioPlayer != nil && audioPlayer.isPlaying {
-      resolve(false)
     } else {
+      
+      if audioPlayer != nil && audioPlayer.isPlaying {
+        stop()
+      }
       
       if let url = URL(string: path) {
         do {
           audioPlayer = try AVAudioPlayer(contentsOf: url)
           if audioPlayer.prepareToPlay() {
+            self.path = path
             resolve(audioPlayer.duration)
           } else {
             resolve(false)
@@ -84,10 +88,7 @@ class AudioManagerModule: NSObject, AVAudioPlayerDelegate {
   func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
     bridge.eventDispatcher().sendAppEvent( withName: "onAudioFinished", body: nil )
     
-    if audioTimer != nil {
-      audioTimer.invalidate()
-      audioTimer = nil
-    }
+    stop()
   }
   
  func timeChanged() {
@@ -124,14 +125,24 @@ class AudioManagerModule: NSObject, AVAudioPlayerDelegate {
   }
   
   @objc func stop(_ resolve: RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) -> Void {
-    
+    resolve(stop());
+  }
+  
+  func stop() -> Bool {
     if( audioPlayer != nil ){
+      self.path = ""
       paused = false
       audioPlayer.stop()
       audioPlayer = nil
-      resolve(true)
+      
+      if audioTimer != nil {
+        audioTimer.invalidate()
+        audioTimer = nil
+      }
+      
+      return (true)
     } else {
-      resolve(false);
+      return (false);
     }
   }
   
@@ -190,6 +201,20 @@ class AudioManagerModule: NSObject, AVAudioPlayerDelegate {
       } catch {
         resolve(false)
       }
+    }
+  }
+  
+  @objc func getCurrentAudioName(_ fullPath: Bool, resolver resolve: RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) {
+  
+    if audioPlayer != nil {
+      if !fullPath {
+        let fileName = (self.path as NSString).lastPathComponent
+        resolve(fileName)
+      } else {
+        resolve(path);
+      }
+    } else {
+      resolve("");
     }
   }
 }
