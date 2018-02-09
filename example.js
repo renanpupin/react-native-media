@@ -196,4 +196,4 @@ var sucess = await DeviceManager.setIdleTimerEnable(true);  // turn on the scree
  * @returns {string} return name or path of the audio file. Return empty if something got wrong or not exist audio file loaded.
  */
 await NativeModules.AudioManagerModule.getCurrentAudioName();
-await NativeModules.AudioManagerModule.getCurrentAudioName(true);
+await NativeModules.AudioManagerModule.getCurrentAudioName(true );

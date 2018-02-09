@@ -50,9 +50,6 @@ class BaseAudioManager {
      */
     _audioFinishedCallback = null;
 
-    /** @constant {int} */
-    _duration = 0;
-
     //==========================================================================
     // CONSTRUCTOR
 
@@ -64,16 +61,24 @@ class BaseAudioManager {
      */
     constructor() {
 
+        this._hasTimeTracker = false;
+        this._hasAudioFinished = false;
+        this._duration = 0;
+
         this.load = this.load.bind(this);
         this.play = this.play.bind(this);
         this.getDuration = this.getDuration.bind(this);
 
-        DeviceEventEmitter.addListener('onTimeChanged', function(time: Event) {            
-            _timeTrackerCallback(time);
+        DeviceEventEmitter.addListener('onTimeChanged', function(time: Event) {
+            if ( _hasAudioFinished ) {
+                _timeTrackerCallback(time);
+            }
         });
 
         DeviceEventEmitter.addListener('onAudioFinished', function() {
-            _audioFinishedCallback();
+            if ( _hasAudioFinished ) {
+                _audioFinishedCallback();
+            }
         });
     }
 
@@ -87,7 +92,7 @@ class BaseAudioManager {
      * @param {boolean} loop - true or false. true to play in loop, else play only once.
      * @returns {boolean} true or false. true if was a sucess to play the file, else return false.
      */
-    async play(loop : boolean) : boolean {
+    async play(loop = false) : boolean {
         try {
             var sucess = await NativeModules.AudioManagerModule.play(loop);
             return sucess;
@@ -106,7 +111,7 @@ class BaseAudioManager {
      * @param {boolean} loop - true or false. true to play in loop, else play only once.
      * @returns {boolean} true or false. true if was a sucess to play the file, else return false.
      */
-    async loadPlay(path : string, audioOutputRoute : int, loop : boolean) : boolean {
+    async loadPlay(path : string, audioOutputRoute = AudioOutputRoute.DEFAULTSPEAKER, loop = false) : boolean {
         var sucess = await this.load(path, audioOutputRoute);
         if ( sucess ) {
             sucess = await this.play(loop);
@@ -219,6 +224,14 @@ class BaseAudioManager {
         return await NativeModules.AudioManagerModule.setAudioOutputRoute(audioOutputRoute);
     }
 
+    /**
+     * Get current audio name or path that already loaded.
+     * Return empty if something got wrong or not exist audio file loaded.
+     *
+     * @async
+     * @param {boolean} fullPath - default value false to get only the name. true to get the file payj.
+     * @returns {string} return name or path of the audio file. Return empty if something got wrong or not exist audio file loaded.
+     */
     async getCurrentAudioName(fullPath = false) : string {
         return await NativeModules.AudioManagerModule.getCurrentAudioName(fullPath);
     }
@@ -240,6 +253,7 @@ class BaseAudioManager {
      */
     setTimeTrackerCallback(timeTrackerCallback : Callback) : void {
         _timeTrackerCallback = timeTrackerCallback;
+        _hasTimeTracker = true;
     }
 
     /**
@@ -249,6 +263,7 @@ class BaseAudioManager {
      */
     setAudioFinishedCallback(audioFinishedCallback : Callback) : void {
         _audioFinishedCallback = audioFinishedCallback;
+        _hasAudioFinished = true;
     }
 }
 
