@@ -61,23 +61,23 @@ class BaseAudioManager {
      */
     constructor() {
 
-        this._hasTimeTracker = false;
-        this._hasAudioFinished = false;
         this._duration = 0;
 
         this.load = this.load.bind(this);
         this.play = this.play.bind(this);
         this.getDuration = this.getDuration.bind(this);
+        this.setTimeTrackerCallback = this.setTimeTrackerCallback.bind(this);
+        this.setAudioFinishedCallback = this.setAudioFinishedCallback.bind(this);
 
-        DeviceEventEmitter.addListener('onTimeChanged', function(time: Event) {
-            if ( _hasAudioFinished ) {
-                _timeTrackerCallback(time);
+        DeviceEventEmitter.addListener('onTimeChanged', (time) => {
+            if ( this._timeTrackerCallback != null ) {
+                this._timeTrackerCallback(time);
             }
         });
 
-        DeviceEventEmitter.addListener('onAudioFinished', function() {
-            if ( _hasAudioFinished ) {
-                _audioFinishedCallback();
+        DeviceEventEmitter.addListener('onAudioFinished', () => {
+            if ( this._audioFinishedCallback != null ) {
+                this._audioFinishedCallback();
             }
         });
     }
@@ -214,11 +214,26 @@ class BaseAudioManager {
     }
 
     /**
+     * Set the devie volume.
+     *
+     * @async
+     * @returns {boolean} true or false, true if was a sucess to set the volume, else return false.
+     */
+    async setVolume(volume) {
+        try {
+            return await NativeModules.AudioManagerModule.setVolume(volume);
+        } catch (e) {
+            console.error(e);
+        }
+        return false
+    }
+
+    /**
      * Set the audio output route.
      *
      * @async
      * @param {int} audioOutputRoute - 0 or 1. 0 to the audio output is default. 1 to the audio output is in the speaker (ear).
-     * @returns {boolean} true or false. true if the was a sucess to set the new type, else return false.
+     * @returns {boolean} true or false. true if was a sucess to set the new type, else return false.
      */
     async setAudioOutputRoute(audioOutputRoute : int) : boolean {
         return await NativeModules.AudioManagerModule.setAudioOutputRoute(audioOutputRoute);
@@ -252,8 +267,7 @@ class BaseAudioManager {
      * @param {callback} timeTrackerCallback - this is a function with on parameter of the type int.
      */
     setTimeTrackerCallback(timeTrackerCallback : Callback) : void {
-        _timeTrackerCallback = timeTrackerCallback;
-        _hasTimeTracker = true;
+        this._timeTrackerCallback = timeTrackerCallback;
     }
 
     /**
@@ -262,8 +276,7 @@ class BaseAudioManager {
      * @param {callback} audioFinishedCallback - this is a function with on parameter of the type int.
      */
     setAudioFinishedCallback(audioFinishedCallback : Callback) : void {
-        _audioFinishedCallback = audioFinishedCallback;
-        _hasAudioFinished = true;
+        this._audioFinishedCallback = audioFinishedCallback;
     }
 }
 

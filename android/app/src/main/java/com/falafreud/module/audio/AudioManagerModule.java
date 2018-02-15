@@ -16,6 +16,7 @@ import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
 import com.facebook.react.uimanager.IllegalViewOperationException;
+import com.falafreud.module.Util;
 
 import java.io.File;
 import java.io.IOException;
@@ -84,7 +85,7 @@ public class AudioManagerModule extends ReactContextBaseJavaModule
     public void load(String path, int type, final Promise promise) {
 
         try {
-            if ( !fileExists(path) ) {
+            if ( !Util.fileExists(path) ) {
                 mediaPlayer = null;
                 promise.resolve(false);
             } else {
@@ -243,7 +244,21 @@ public class AudioManagerModule extends ReactContextBaseJavaModule
     public void getVolume(Promise promise) {
         AudioManager audioManager = (AudioManager) reactContext.getSystemService(AUDIO_SERVICE);
         int volume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+//        Log.d(getName(), String.valueOf(audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC)));
         promise.resolve(volume);
+    }
+
+    @ReactMethod
+    public void setVolume(int volume, Promise promise) {
+        if ( mediaPlayer != null ) {
+//            Log.d(getName(), String.valueOf(volume));
+//            mediaPlayer.setVolume(0.90f, 0.90f);
+            AudioManager audioManager = (AudioManager) reactContext.getSystemService(AUDIO_SERVICE);
+            audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, volume, AudioManager.FLAG_SHOW_UI);
+            promise.resolve(true);
+        } else {
+            promise.resolve(false);
+        }
     }
 
     private void setAudioOutputRoute(int type) {
@@ -295,16 +310,13 @@ public class AudioManagerModule extends ReactContextBaseJavaModule
         }
     }
 
-    public boolean fileExists(String path) {
-        File file = new File(path);
-        return file.exists();
-    }
-
     // SEND EVENT ==================================================================================
 
     @ReactMethod
     private void timeChanged(int time) {
-        reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("onTimeChanged", time);
+        if ( mediaPlayer != null && mediaPlayer.isPlaying() ) {
+            reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("onTimeChanged", time);
+        }
     }
 
     @ReactMethod

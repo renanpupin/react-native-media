@@ -94,7 +94,7 @@ class AudioManagerModule: NSObject, AVAudioPlayerDelegate {
  func timeChanged() {
   
     if audioPlayer != nil && !paused {
-      bridge.eventDispatcher().sendAppEvent( withName: "onTimeChanged", body: audioPlayer.currentTime )
+      bridge.eventDispatcher().sendAppEvent( withName: "onTimeChanged", body: audioPlayer.currentTime * 1000 )
     } else if ( paused ) {
   
     } else {
