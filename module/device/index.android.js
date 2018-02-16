@@ -25,6 +25,16 @@ import { DeviceEventEmitter, NativeModules } from 'react-native';
 class DeviceManager extends BaseDeviceManager {
 
     //==========================================================================
+    // CONSTRUCTOR
+
+    /**
+     * Creates a instance of DeviceManager.
+     */
+    constructor() {
+        super();
+    }
+
+    //==========================================================================
     // METHODS
 
     /**
@@ -44,7 +54,7 @@ class DeviceManager extends BaseDeviceManager {
      * @param {string} status ON/OFF - ON = silent switch is on (sound enable). OFF = silent switch is off (sound enable).
      */
     setOnSilentSwitchStateChanged(silentSwitchStateCallback : Callback) : void {
-
+        console.log("Not exist for Android.");
     }
 }
 

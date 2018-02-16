@@ -43,8 +43,10 @@ class DeviceManager extends BaseDeviceManager {
     constructor() {
         super();
         
-        DeviceEventEmitter.addListener('silentSwitchStateChange', function(status : Event) {
-            _silentSwitchStateCallback(status.status);
+        DeviceEventEmitter.addListener('silentSwitchStateChange', (response) => {
+            if ( this._silentSwitchStateCallback ) {
+                this._silentSwitchStateCallback(response.status);
+            }
         });
     }
 
@@ -53,7 +55,7 @@ class DeviceManager extends BaseDeviceManager {
 
     /**
      * This functionaly not exist in IOS.
-     * In the IOS, the has the silence mode.
+     * In the IOS, has the silence mode.
      *
      * @async
      * @param {boolean} enable
@@ -70,7 +72,7 @@ class DeviceManager extends BaseDeviceManager {
      */
     setOnSilentSwitchStateChanged(silentSwitchStateCallback : Callback) : void {
         NativeModules.SilentSwitch.subscribe();
-        _silentSwitchStateCallback = silentSwitchStateCallback;
+        this._silentSwitchStateCallback = silentSwitchStateCallback;
     }
 }
 
