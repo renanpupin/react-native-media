@@ -51,4 +51,8 @@ class DeviceManagerModule: NSObject {
         break
     }
   }
+  
+  @objc private func addBlur(_ resolve: RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) -> Void {
+    
+  }
 }

@@ -141,7 +141,7 @@ public class AudioManagerModule extends ReactContextBaseJavaModule
      * @param promise
      */
     @ReactMethod
-    public void play(boolean isLoop, Promise promise) {
+    public void play(boolean isLoop, int playFromTime, Promise promise) {
         try {
             if ( mediaPlayer != null ) {
                 if ( mediaPlayer.isPlaying() ) {
@@ -151,6 +151,13 @@ public class AudioManagerModule extends ReactContextBaseJavaModule
                     }
                 } else {
                     mediaPlayer.setLooping(isLoop);
+                    if( playFromTime > 0 ) {
+                        try {
+                            mediaPlayer.seekTo(playFromTime);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
                     new AudioPlayerAsync().execute();
                 }
                 if ( promise != null ) {
@@ -286,8 +293,7 @@ public class AudioManagerModule extends ReactContextBaseJavaModule
 
             stopAudio();
             load(url.getPath(), type, null);
-            play(isLoop, null);
-            mediaPlayer.seekTo(currentTime);
+            play(isLoop, currentTime, null);
 
             if ( promise != null ) {
                 promise.resolve(true);

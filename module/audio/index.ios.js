@@ -62,27 +62,13 @@ class AudioManager extends BaseAudioManager {
     }
 
     /**
-     * Moves the audio to specific position time in mili-seconds.
+     * Not exist.
      *
      * @async
-     * @param {int} milisec - the position time in mili-seconds.
-     * @returns {boolean} true or false. true if was a sucess to seek to the time position, else return false.
+     * @returns {boolean} false.
      */
-    seekTime(milisec : int) : boolean {
-
-        return super.seekTime(milisec / 1000);
-    }
-
-    /**
-     * Set the time inteval in mili-seconds of the time tracker callback.
-     *
-     * @async
-     * @param {int} milisec - the position time in mili-seconds.
-     * @returns {boolean} true or false. true if was a sucess to set the new time interval, else return false.
-     */
-    async setTimeInterval(milisec : int) : boolean {
-
-        return await super.setTimeInterval(milisec / 1000);
+    async setVolume(volume) : boolean {
+        return false
     }
 }
 

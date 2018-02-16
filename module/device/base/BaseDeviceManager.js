@@ -42,8 +42,17 @@ class BaseDeviceManager {
      */
     constructor() {
 
-        DeviceEventEmitter.addListener('onWiredHeadsetPlugged', function(plugged: Event) {
-            _wiredHeadsetPluggedCallback(plugged);
+        this.mute = this.mute.bind(this);
+        this.setOnSilentSwitchStateChanged = this.setOnSilentSwitchStateChanged.bind(this);
+
+        this.setIdleTimerEnable = this.setIdleTimerEnable.bind(this);
+        this.setProximityEnable = this.setProximityEnable.bind(this);
+        this.setWiredHeadsetPluggedCallback = this.setWiredHeadsetPluggedCallback.bind(this);
+
+        DeviceEventEmitter.addListener('onWiredHeadsetPlugged', (plugged) => {
+            if ( this._wiredHeadsetPluggedCallback != null ) {
+                this._wiredHeadsetPluggedCallback(plugged);
+            }
         });
     }
 
@@ -72,6 +81,10 @@ class BaseDeviceManager {
         return await NativeModules.DeviceManagerModule.setProximityEnable(enable);
     }
 
+    async addBLur() : boolean {
+        return await NativeModules.DeviceManagerModule.addBlur();
+    }
+
     //==========================================================================
     // SETTERS & GETTERS
 
@@ -82,7 +95,7 @@ class BaseDeviceManager {
      * @param {Callback} wiredHeadsetPluggedCallback - true for plugged. false to unplugged
      */
     setWiredHeadsetPluggedCallback(wiredHeadsetPluggedCallback : Callback) : void {
-        _wiredHeadsetPluggedCallback = wiredHeadsetPluggedCallback;
+        this._wiredHeadsetPluggedCallback = wiredHeadsetPluggedCallback;
     }
 }
 

@@ -56,13 +56,13 @@ class AudioManagerModule: NSObject, AVAudioPlayerDelegate {
     }
   }
   
-  @objc func play(_ loop: Bool, resolver resolve: RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) -> Void {
+  @objc func play(_ loop: Bool, playFromTime: Int, resolver resolve: RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) -> Void {
+    
+    print(Double(playFromTime)/1000)
     
     if paused {
       resolve(false)
     } else if( audioPlayer != nil && !audioPlayer.isPlaying ){
-      
-      print(loop)
       
       if loop {
         audioPlayer.numberOfLoops = -1
@@ -71,6 +71,9 @@ class AudioManagerModule: NSObject, AVAudioPlayerDelegate {
       }
       
       audioPlayer.delegate = self
+      if playFromTime > 0 {
+        audioPlayer.currentTime = TimeInterval(Double(playFromTime)/1000)
+      }
       audioPlayer.play()
       
       bridge.eventDispatcher().sendAppEvent( withName: "onTimeChanged", body: audioPlayer.currentTime )
@@ -94,7 +97,7 @@ class AudioManagerModule: NSObject, AVAudioPlayerDelegate {
  func timeChanged() {
   
     if audioPlayer != nil && !paused {
-      bridge.eventDispatcher().sendAppEvent( withName: "onTimeChanged", body: audioPlayer.currentTime * 1000 )
+      bridge.eventDispatcher().sendAppEvent( withName: "onTimeChanged", body: Int(audioPlayer.currentTime * 1000) )
     } else if ( paused ) {
   
     } else {
@@ -148,8 +151,10 @@ class AudioManagerModule: NSObject, AVAudioPlayerDelegate {
   
   @objc func seekTime(_ time: Double, resolver resolve: RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) -> Void {
     
+    var tempTime = time / 1000
+    
     if( audioPlayer != nil ){      
-      audioPlayer.currentTime = TimeInterval(Double(time))
+      audioPlayer.currentTime = TimeInterval(Double(tempTime))
       resolve(true)
     } else {
       resolve(false);
@@ -158,10 +163,12 @@ class AudioManagerModule: NSObject, AVAudioPlayerDelegate {
   
   @objc func setTimeInterval(_ timeInterval: Double, resolver resolve: RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) -> Void {
     
-    if timeInterval < 0.1 {
+    var tempTimeInterval = timeInterval / 1000
+    
+    if tempTimeInterval < 0.1 {
       resolve(false)
     } else {
-      self.timeInterval = timeInterval
+      self.timeInterval = tempTimeInterval
       resolve(true)
     }
   }

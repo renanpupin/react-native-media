@@ -69,6 +69,17 @@ class BaseAudioManager {
         this.setTimeTrackerCallback = this.setTimeTrackerCallback.bind(this);
         this.setAudioFinishedCallback = this.setAudioFinishedCallback.bind(this);
 
+        this.loadPlay = this.loadPlay.bind(this);
+        this.pause = this.pause.bind(this);
+        this.resume = this.resume.bind(this);
+        this.stop = this.stop.bind(this);
+        this.seekTime = this.seekTime.bind(this);
+        this.setTimeInterval = this.setTimeInterval.bind(this);
+        this.getVolume = this.getVolume.bind(this);
+        this.setAudioOutputRoute = this.setAudioOutputRoute.bind(this);
+        this.getCurrentAudioName = this.getCurrentAudioName.bind(this);
+        this.getDuration = this.getDuration.bind(this);
+
         DeviceEventEmitter.addListener('onTimeChanged', (time) => {
             if ( this._timeTrackerCallback != null ) {
                 this._timeTrackerCallback(time);
@@ -92,9 +103,9 @@ class BaseAudioManager {
      * @param {boolean} loop - true or false. true to play in loop, else play only once.
      * @returns {boolean} true or false. true if was a sucess to play the file, else return false.
      */
-    async play(loop = false) : boolean {
+    async play(loop = false, playFromTime = 0) : boolean {
         try {
-            var sucess = await NativeModules.AudioManagerModule.play(loop);
+            var sucess = await NativeModules.AudioManagerModule.play(loop, playFromTime);
             return sucess;
         } catch (e) {
             console.error(e);
@@ -111,10 +122,10 @@ class BaseAudioManager {
      * @param {boolean} loop - true or false. true to play in loop, else play only once.
      * @returns {boolean} true or false. true if was a sucess to play the file, else return false.
      */
-    async loadPlay(path : string, audioOutputRoute = AudioOutputRoute.DEFAULTSPEAKER, loop = false) : boolean {
+    async loadPlay(path : string, audioOutputRoute = AudioOutputRoute.DEFAULTSPEAKER, loop = false, playFromTime = 0) : boolean {
         var sucess = await this.load(path, audioOutputRoute);
         if ( sucess ) {
-            sucess = await this.play(loop);
+            sucess = await this.play(loop, playFromTime);
             return sucess;
         } else {
             return false;
@@ -207,21 +218,6 @@ class BaseAudioManager {
     async getVolume() {
         try {
             return await NativeModules.AudioManagerModule.getVolume();
-        } catch (e) {
-            console.error(e);
-        }
-        return false
-    }
-
-    /**
-     * Set the devie volume.
-     *
-     * @async
-     * @returns {boolean} true or false, true if was a sucess to set the volume, else return false.
-     */
-    async setVolume(volume) {
-        try {
-            return await NativeModules.AudioManagerModule.setVolume(volume);
         } catch (e) {
             console.error(e);
         }

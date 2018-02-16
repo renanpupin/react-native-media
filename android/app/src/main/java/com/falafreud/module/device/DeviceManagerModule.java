@@ -4,14 +4,21 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.os.PowerManager;
+import android.util.Base64;
 import android.util.Log;
 
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
+import com.falafreud.module.Util;
+
+import java.io.ByteArrayOutputStream;
 
 import static android.content.Context.AUDIO_SERVICE;
 import static android.content.Context.POWER_SERVICE;
@@ -168,7 +175,15 @@ public class DeviceManagerModule extends ReactContextBaseJavaModule
         }
     }
 
+    @ReactMethod
+    public void addBlur(Promise promise) {
 
+        Bitmap bitmap = Util.fastblur(Util.getScreenShot(getCurrentActivity()), 10);
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+        String encoded = Base64.encodeToString(byteArrayOutputStream.toByteArray(), Base64.DEFAULT);
+        promise.resolve(encoded);
+    }
 
     // SEND EVENT ==================================================================================
 
