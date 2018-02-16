@@ -8,7 +8,6 @@ import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
 import com.falafreud.module.audio.AudioManagerPackage;
-import com.falafreud.module.blur.BlurViewManagerPackage;
 import com.falafreud.module.device.DeviceManagerPackage;
 import com.falafreud.module.directory.DirectoryManagerPackage;
 
@@ -30,7 +29,6 @@ public class MainApplication extends Application implements ReactApplication {
           new AudioManagerPackage(),
           new DeviceManagerPackage(),
           new DirectoryManagerPackage()
-//          new BlurViewManagerPackage()
       );
     }
 

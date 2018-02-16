@@ -36,10 +36,14 @@ var sucess = await AudioManager.load(path, AudioOutputRoute.EARSPEAKER);
 /**
  * Play the audio only if the audio is loadded with sucess.
  * @async
- * @param {boolean} loop - true or false. true to play in loop, else play only once.
+ * @param {boolean} loop (optional) default false - true or false. true to play in loop, else play only once.
+ * @param {int} playFromTime (optional) default 0 - true or false. true to play in loop, else play only once.
  * @returns {boolean} true or false. true if was a sucess to play the file, else return false.
  */
-var sucess = await AudioManager.play(true);
+var sucess = await AudioManager.play();
+var sucess = await AudioManager.play(true, 1000);
+var sucess = await AudioManager.play(false);
+var sucess = await AudioManager.play(true, 40000);
 
 /**
  * Pause the audio if it is playing.

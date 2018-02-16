@@ -221,7 +221,7 @@ public class AudioManagerModule extends ReactContextBaseJavaModule
     @ReactMethod
     public void seekTime(int milisec, Promise promise) {
         try {
-            if( mediaPlayer != null && mediaPlayer.isPlaying() && milisec <= duration ) {
+            if( mediaPlayer != null && milisec <= duration ) {
                 mediaPlayer.seekTo(milisec);
                 promise.resolve(true);
             } else {

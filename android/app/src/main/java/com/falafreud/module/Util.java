@@ -20,7 +20,8 @@ import java.io.File;
 public class Util
 {
     public static Bitmap getScreenShot(Activity activity) {
-        View screenView = activity.getWindow().getDecorView().findViewById(android.R.id.content).getRootView();
+        View screenView = activity.getWindow().getDecorView().getRootView();
+//        View screenView = activity.getWindow().getDecorView().findViewById(android.R.id.content).getRootView();
         screenView.setDrawingCacheEnabled(true);
         Bitmap bitmap = Bitmap.createBitmap(screenView.getDrawingCache());
         screenView.setDrawingCacheEnabled(false);

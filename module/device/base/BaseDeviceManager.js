@@ -81,10 +81,6 @@ class BaseDeviceManager {
         return await NativeModules.DeviceManagerModule.setProximityEnable(enable);
     }
 
-    async addBLur() : boolean {
-        return await NativeModules.DeviceManagerModule.addBlur();
-    }
-
     //==========================================================================
     // SETTERS & GETTERS
 
