@@ -1,21 +1,19 @@
 {
-  "name": "FalaFreud",
-  "version": "0.0.1",
+  "name": "react-native-media",
+  "version": "0.0.2",
   "description": "Native helpers for media control",
   "private": true,
   "main": "index.js",
   "author": ["FalaFreud Inc.", "Haroldo Teruya"],
-  "scripts": {
-    "start": "node node_modules/react-native/local-cli/cli.js start",
-    "test": "jest"
-  },
-  "devDependencies": {
-    "babel-jest": "22.1.0",
-    "babel-preset-react-native": "4.0.0",
-    "jest": "22.1.4",
-    "react-test-renderer": "16.2.0"
-  },
-  "jest": {
-    "preset": "react-native"
+  "scripts": {},
+  "keywords": [
+    "react-native",
+    "react-native-media",
+    "audio",
+    "directory",
+    "utils"
+  ],
+  "peerDependencies": {
+    "react-native": "^0.41.2"
   }
 }
