@@ -1,3 +1,4 @@
+
 # react-native-media
 
 [![React Native Version](https://img.shields.io/badge/react--native-latest-blue.svg?style=flat-square)](http://facebook.github.io/react-native/releases)
@@ -6,7 +7,52 @@
 
 A react-native library to play and record audio on both iOS and android with no callbacks.
 
-## Specifications
+## Getting started
+```bash
+$ npm install react-native-media --save
+
+#or
+
+$ yarn add react-native-media
+```
+
+### Automatic installation
+
+`$ react-native link react-native-media`
+
+### Manual installation
+
+#### iOS
+
+1. In XCode, in the project navigator, right click `Libraries` ➜ `Add Files to [your project's name]`
+2. Go to `node_modules` ➜ `react-native-media` and add `RNReactNativeMedia.xcodeproj`
+3. In XCode, in the project navigator, select your project. Add `libRNReactNativeMedia.a` to your project's `Build Phases` ➜ `Link Binary With Libraries`
+
+#### Android
+
+1. Open up `android/app/src/main/java/[...]/MainActivity.java`
+  - Add the following packages to the imports at the top of the file
+```java
+import com.media.module.audio.AudioManagerPackage;
+import com.media.module.device.DeviceManagerPackage;
+import com.media.module.directory.DirectoryManagerPackage;
+```
+  - Add the follow lines to the list returned by the `getPackages()` method
+```java
+new AudioManagerPackage(),
+new DeviceManagerPackage(),
+new DirectoryManagerPackage()
+```
+2. Append the following lines to `android/settings.gradle`:
+```groovy
+include ':react-native-media'
+project(':react-native-media').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-media/android')
+```
+3. Insert the following lines inside the dependencies block in `android/app/build.gradle`:
+```groovy
+compile project(':react-native-media')
+```
+## Don't forget
 
 ### iOS
 
@@ -17,40 +63,18 @@ A react-native library to play and record audio on both iOS and android with no 
 ### android
 
 * Built with MediaPlayer and MediaRecorder.
-* Add in the manifest.xml the permission:
-    * 'android.permission.WAKE_LOCK'
-    * 'android.permission.MODIFY_AUDIO_SETTINGS'    
+* Add in the `manifest.xml` the permission:
+    * `android.permission.WAKE_LOCK`
+    * `android.permission.MODIFY_AUDIO_SETTINGS`
 
-## Installation
-
-Install the package:
-
-```javascript
-npm install react-native-media --save
-```
-
-or
-
-```javascript
-yarn add react-native-media
-```
-
-### Automatic
-
-Link the native code with your RN application:
-
-```javascript
-react-native link react-native-media
-```
-
-### Manual
+## Usage
 
 [TODO]
 
 ## Player
 
 |Description|Android|iOS
----|---|---
+---|:---:|:---:
 |Load|✓|✓
 |Play|✓|✓
 |Load and Play|✓|✓
@@ -67,16 +91,20 @@ react-native link react-native-media
 |Sleep mode on/off|✓|✓
 
 ## Recorder
-Description ✓ | iOS | Android
----|---|---
-Prepare (Bitrate, SampleRate, Channels, AudioQuality, AudioEncoding, Encoder)
-Start
-Stop
+<!-- 
+Parameters to set 
+> Bitrate, SampleRate, Channels, AudioQuality, AudioEncoding, Encoder
+-->
+Description| iOS | Android
+---|:---:|:---:
+|Prepare|||
+|Start|||
+|Stop|||
 
 
 ## Events
 Description|Android|IOS
----|---|---
+---|:---:|:---:
 |Audio finished play|✓|✓
 |Track current time|✓|✓
 |Volume changed

@@ -1,7 +1,0 @@
-version: "Apple Swift version 4.0 (swiftlang-900.0.65.2 clang-900.0.37)"
-options: "1cfa1254b39705903b7e8c14095bf8c9"
-build_time: [1517922604, 993864000]
-inputs:
-  "/Users/Teruya/Documents/react-native-development/workspace/FalaFreud/ios/DirectoryManagerModule.swift": [1516905039, 0]
-  "/Users/Teruya/Documents/react-native-development/workspace/FalaFreud/ios/AudioManagerModule.swift": [1517576116, 0]
-  "/Users/Teruya/Documents/react-native-development/workspace/FalaFreud/ios/DeviceManagerModule.swift": [1517515869, 0]
