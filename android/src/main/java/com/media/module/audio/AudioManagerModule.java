@@ -8,8 +8,8 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.util.Log;
 
+import com.facebook.react.bridge.LifecycleEventListener;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
@@ -18,7 +18,6 @@ import com.facebook.react.modules.core.DeviceEventManagerModule;
 import com.facebook.react.uimanager.IllegalViewOperationException;
 import com.media.module.Util;
 
-import java.io.File;
 import java.io.IOException;
 
 import static android.content.Context.AUDIO_SERVICE;
@@ -37,7 +36,7 @@ import static android.content.Context.AUDIO_SERVICE;
  * 7. Time tracker, this class dispatch a event emitter passing the current time in mili-seconds of the audio that is playing.
  */
 
-public class AudioManagerModule extends ReactContextBaseJavaModule
+public class AudioManagerModule extends ReactContextBaseJavaModule implements LifecycleEventListener
 {
     // ATRIBUTES ===================================================================================
     public final static int DEFAULTSPEAKER = 0;
@@ -330,6 +329,29 @@ public class AudioManagerModule extends ReactContextBaseJavaModule
         reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("onAudioFinished", null);
 
         stopAudio();
+    }
+
+    @Override
+    public void initialize() {
+        getReactApplicationContext().addLifecycleEventListener(this);
+    }
+
+    @Override
+    public void onHostResume() {
+    }
+
+    @Override
+    public void onHostPause() {
+        if ( mediaPlayer != null && mediaPlayer.isPlaying() && reactContext.hasActiveCatalystInstance() ) {
+            mediaPlayer.pause();
+            reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("audioPausedNotification", null);
+        }
+    }
+
+    @Override
+    public void onHostDestroy() {
+        // do not set state to destroyed, do not send an event. By the current implementation, the
+        // catalyst instance is going to be immediately dropped, and all JS calls with it.
     }
 
     // CLASS =======================================================================================

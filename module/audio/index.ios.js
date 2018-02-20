@@ -47,7 +47,7 @@ class AudioManager extends BaseAudioManager {
         try {
             var resolve = await NativeModules.AudioManagerModule.load(path);
             if ( resolve != false ) {
-                _duration = resolve;
+                this._duration = resolve;
                 if ( await this.setAudioOutputRoute(audioOutputRoute) ) {
                     return true;
                 }
@@ -69,6 +69,15 @@ class AudioManager extends BaseAudioManager {
      */
     async setVolume(volume) : boolean {
         return false
+    }
+
+    /**
+     * Do not exist in IOS, only in Android.
+     *
+     * @param {callback} audioPausedNotificationCallback - no parameter.
+     */
+    setAudioPausedNotificationCallback(audioPausedNotificationCallback : Callback) : void {
+        console.log("Not exist in IOS!");
     }
 }
 

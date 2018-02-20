@@ -25,12 +25,24 @@ import { DeviceEventEmitter, NativeModules } from 'react-native';
 class AudioManager extends BaseAudioManager {
 
     /**
+     * Send signal that the audio paused.
+     * @callback
+     */
+    _audioPausedNotificationCallback = null;
+
+    /**
      * Creates a instance of AudioManager.
      */
     constructor() {
         super();
 
+        this.setAudioPausedNotificationCallback = this.setAudioPausedNotificationCallback.bind(this);
 
+        DeviceEventEmitter.addListener('audioPausedNotification', () => {
+            if ( this._audioPausedNotificationCallback != null ) {
+                this._audioPausedNotificationCallback();
+            }
+        });
     }
 
     //==========================================================================
@@ -49,7 +61,7 @@ class AudioManager extends BaseAudioManager {
         try {
             var resolve = await NativeModules.AudioManagerModule.load(path,audioOutputRoute);
             if ( resolve != false ) {
-                _duration = resolve;
+                this._duration = resolve;
                 return true;
             }
             else {
@@ -74,6 +86,15 @@ class AudioManager extends BaseAudioManager {
             console.error(e);
         }
         return false
+    }
+
+    /**
+     * Set the callback to notify the ui that the audio already paused.
+     *
+     * @param {callback} audioPausedNotificationCallback - no parameter.
+     */
+    setAudioPausedNotificationCallback(audioPausedNotificationCallback : Callback) : void {
+        this._audioPausedNotificationCallback = audioPausedNotificationCallback;
     }
 }
 
