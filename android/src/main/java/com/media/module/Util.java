@@ -1,4 +1,4 @@
-package com.falafreud.module;
+package com.media.module;
 
 import android.app.Activity;
 import android.content.Context;

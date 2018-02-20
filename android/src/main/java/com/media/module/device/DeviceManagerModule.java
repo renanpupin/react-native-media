@@ -16,7 +16,8 @@ import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
-import com.falafreud.module.Util;
+import com.facebook.react.modules.core.DeviceEventManagerModule;
+import com.media.module.Util;
 
 import java.io.ByteArrayOutputStream;
 
@@ -39,10 +40,12 @@ public class DeviceManagerModule extends ReactContextBaseJavaModule
 
     // for proximity management
     private PowerManager.WakeLock proximityWakeLock;
+    private boolean proximitySensorEnable = false;
+    private final ProximitySensorHandler proximitySensorHandler;
 
     // CONSTRUCTOR =================================================================================
 
-    public DeviceManagerModule(ReactApplicationContext reactContext) {
+    public DeviceManagerModule(final ReactApplicationContext reactContext) {
         super(reactContext);
         this.reactContext = reactContext;
 
@@ -53,6 +56,15 @@ public class DeviceManagerModule extends ReactContextBaseJavaModule
 
         // for proximity management
         proximityWakeLock = powerManager.newWakeLock(PowerManager.PROXIMITY_SCREEN_OFF_WAKE_LOCK, getName());
+
+
+        proximitySensorHandler = new ProximitySensorHandler(reactContext, new ProximitySensorHandler.Delegate() {
+            @Override
+            public void onProximityChanged(Boolean isNear) {
+                Log.d(getClass().getSimpleName(), String.valueOf(isNear));
+                reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("onProximityChanged", isNear);
+            }
+        });
     }
 
 
@@ -102,6 +114,8 @@ public class DeviceManagerModule extends ReactContextBaseJavaModule
      */
     @ReactMethod
     public void setProximityEnable(boolean enable, final Promise promise) {
+
+        this.proximitySensorEnable = enable;
 
         if( enable ) {
             // enable = true

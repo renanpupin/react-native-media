@@ -32,6 +32,8 @@ class BaseDeviceManager {
      */
     _wiredHeadsetPluggedCallback = null;
 
+    _onProximityChangedCallback = null;
+
     //==========================================================================
     // CONSTRUCTOR
 
@@ -48,10 +50,17 @@ class BaseDeviceManager {
         this.setIdleTimerEnable = this.setIdleTimerEnable.bind(this);
         this.setProximityEnable = this.setProximityEnable.bind(this);
         this.setWiredHeadsetPluggedCallback = this.setWiredHeadsetPluggedCallback.bind(this);
+        this.setProximityChangedCallback = this.setProximityChangedCallback.bind(this);
 
         DeviceEventEmitter.addListener('onWiredHeadsetPlugged', (plugged) => {
             if ( this._wiredHeadsetPluggedCallback != null ) {
                 this._wiredHeadsetPluggedCallback(plugged);
+            }
+        });
+
+        DeviceEventEmitter.addListener('onProximityChanged', (isNear) => {
+            if ( this._onProximityChangedCallback != null ) {
+                this._onProximityChangedCallback(isNear);
             }
         });
     }
@@ -92,6 +101,10 @@ class BaseDeviceManager {
      */
     setWiredHeadsetPluggedCallback(wiredHeadsetPluggedCallback : Callback) : void {
         this._wiredHeadsetPluggedCallback = wiredHeadsetPluggedCallback;
+    }
+
+    setProximityChangedCallback(onProximityChangedCallback : Callback) : void {
+        this._onProximityChangedCallback = onProximityChangedCallback;
     }
 }
 

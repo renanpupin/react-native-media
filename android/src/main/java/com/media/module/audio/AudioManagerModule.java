@@ -16,7 +16,7 @@ import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
 import com.facebook.react.uimanager.IllegalViewOperationException;
-import com.falafreud.module.Util;
+import com.media.module.Util;
 
 import java.io.File;
 import java.io.IOException;
