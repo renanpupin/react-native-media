@@ -76,7 +76,7 @@ class AudioManagerModule: NSObject, AVAudioPlayerDelegate {
             }
             audioPlayer.play()
             
-            bridge.eventDispatcher().sendAppEvent( withName: "onTimeChanged", body: audioPlayer.currentTime )
+            bridge.eventDispatcher().sendAppEvent( withName: "onTimeChanged", body: Int(audioPlayer.currentTime * 1000) )
             
             DispatchQueue.main.async(execute: {
                 self.audioTimer = Timer.scheduledTimer(timeInterval: self.timeInterval, target: self, selector: #selector(self.timeChanged), userInfo: nil, repeats: true)
