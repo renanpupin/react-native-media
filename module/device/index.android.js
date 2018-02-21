@@ -52,13 +52,13 @@ class DeviceManager extends BaseDeviceManager {
     // METHODS
 
     /**
-     * Stop emitting the proximity event when in background.
+     * Enable/Disable emitting event for proximity when in background.
      *
      * @async
      * @param {boolean} enable - true to continue and false to stop.
      * @returns {boolean} true or false. true if was a sucess, else return false.
      */
-    async emitProximityEventInBackground(enable : boolean) : boolean {
+    async enableProximityEventInBackground(enable : boolean) : boolean {
         return await NativeModules.DeviceManagerModule.setProximityEmitInBackgroundEnable(enable);
     }
 
