@@ -52,6 +52,17 @@ class DeviceManager extends BaseDeviceManager {
     // METHODS
 
     /**
+     * Stop emitting the proximity event when in background.
+     *
+     * @async
+     * @param {boolean} enable - true to continue and false to stop.
+     * @returns {boolean} true or false. true if was a sucess, else return false.
+     */
+    async emitProximityEventInBackground(enable : boolean) : boolean {
+        return await NativeModules.DeviceManagerModule.setProximityEmitInBackgroundEnable(enable);
+    }
+
+    /**
      * Turn on or turn off mute mode.
      *
      * @async
@@ -69,15 +80,6 @@ class DeviceManager extends BaseDeviceManager {
      */
     setOnSilentSwitchStateChanged(silentSwitchStateCallback : Callback) : void {
         console.log("Not exist for Android.");
-    }
-
-    /**
-     * Set the callback to notify the ui that the audio already paused.
-     *
-     * @param {callback} audioPausedNotificationCallback - no parameter.
-     */
-    setAudioPausedNotificationCallback(audioPausedNotificationCallback : Callback) : void {
-        this._audioPausedNotificationCallback = audioPausedNotificationCallback;
     }
 }
 
