@@ -1,16 +1,11 @@
 package com.media.module.directory;
 
-import android.content.Context;
 import android.os.Environment;
-import android.os.PowerManager;
 
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by Teruya on 09/01/2018.

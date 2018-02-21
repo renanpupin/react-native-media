@@ -24,6 +24,12 @@ import { DeviceEventEmitter, NativeModules } from 'react-native';
  */
 class DeviceManager extends BaseDeviceManager {
 
+    /**
+     * Send signal that the audio paused.
+     * @callback
+     */
+    _audioPausedNotificationCallback = null;
+
     //==========================================================================
     // CONSTRUCTOR
 
@@ -32,6 +38,14 @@ class DeviceManager extends BaseDeviceManager {
      */
     constructor() {
         super();
+
+        this.setAudioPausedNotificationCallback = this.setAudioPausedNotificationCallback.bind(this);
+
+        DeviceEventEmitter.addListener('audioPausedNotification', () => {
+            if ( this._audioPausedNotificationCallback != null ) {
+                this._audioPausedNotificationCallback();
+            }
+        });
     }
 
     //==========================================================================
@@ -55,6 +69,15 @@ class DeviceManager extends BaseDeviceManager {
      */
     setOnSilentSwitchStateChanged(silentSwitchStateCallback : Callback) : void {
         console.log("Not exist for Android.");
+    }
+
+    /**
+     * Set the callback to notify the ui that the audio already paused.
+     *
+     * @param {callback} audioPausedNotificationCallback - no parameter.
+     */
+    setAudioPausedNotificationCallback(audioPausedNotificationCallback : Callback) : void {
+        this._audioPausedNotificationCallback = audioPausedNotificationCallback;
     }
 }
 

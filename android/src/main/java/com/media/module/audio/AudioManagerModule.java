@@ -1,5 +1,7 @@
 package com.media.module.audio;
 
+import android.app.Activity;
+import android.app.Application;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -8,6 +10,8 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Bundle;
+import android.util.Log;
 
 import com.facebook.react.bridge.LifecycleEventListener;
 import com.facebook.react.bridge.Promise;
@@ -36,7 +40,7 @@ import static android.content.Context.AUDIO_SERVICE;
  * 7. Time tracker, this class dispatch a event emitter passing the current time in mili-seconds of the audio that is playing.
  */
 
-public class AudioManagerModule extends ReactContextBaseJavaModule implements LifecycleEventListener
+public class AudioManagerModule extends ReactContextBaseJavaModule
 {
     // ATRIBUTES ===================================================================================
     public final static int DEFAULTSPEAKER = 0;
@@ -329,29 +333,6 @@ public class AudioManagerModule extends ReactContextBaseJavaModule implements Li
         reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("onAudioFinished", null);
 
         stopAudio();
-    }
-
-    @Override
-    public void initialize() {
-        getReactApplicationContext().addLifecycleEventListener(this);
-    }
-
-    @Override
-    public void onHostResume() {
-    }
-
-    @Override
-    public void onHostPause() {
-        if ( mediaPlayer != null && mediaPlayer.isPlaying() && reactContext.hasActiveCatalystInstance() ) {
-            mediaPlayer.pause();
-            reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("audioPausedNotification", null);
-        }
-    }
-
-    @Override
-    public void onHostDestroy() {
-        // do not set state to destroyed, do not send an event. By the current implementation, the
-        // catalyst instance is going to be immediately dropped, and all JS calls with it.
     }
 
     // CLASS =======================================================================================

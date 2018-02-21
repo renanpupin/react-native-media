@@ -1,14 +1,8 @@
 package com.media.module;
 
 import android.app.Activity;
-import android.content.Context;
 import android.graphics.Bitmap;
-import android.renderscript.Allocation;
-import android.renderscript.Element;
-import android.renderscript.RenderScript;
-import android.renderscript.ScriptIntrinsicBlur;
 import android.util.Log;
-import android.view.ActionMode;
 import android.view.View;
 
 import java.io.File;

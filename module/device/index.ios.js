@@ -42,7 +42,7 @@ class DeviceManager extends BaseDeviceManager {
      */
     constructor() {
         super();
-        
+
         DeviceEventEmitter.addListener('silentSwitchStateChange', (response) => {
             if ( this._silentSwitchStateCallback ) {
                 this._silentSwitchStateCallback(response.status);
@@ -73,6 +73,15 @@ class DeviceManager extends BaseDeviceManager {
     setOnSilentSwitchStateChanged(silentSwitchStateCallback : Callback) : void {
         NativeModules.SilentSwitch.subscribe();
         this._silentSwitchStateCallback = silentSwitchStateCallback;
+    }
+
+    /**
+     * Do not exist in IOS, only in Android.
+     *
+     * @param {callback} audioPausedNotificationCallback - no parameter.
+     */
+    setAudioPausedNotificationCallback(audioPausedNotificationCallback : Callback) : void {
+        console.log("Not exist in IOS!");
     }
 }
 
