@@ -35,7 +35,7 @@ public class DeviceManagerModule extends ReactContextBaseJavaModule implements L
 
     // for proximity management
     private PowerManager.WakeLock proximityWakeLock;
-    private Boolean proximityEmitEnable = true;
+    private Boolean proximityEmitEnable = false;
 
     // CONSTRUCTOR =================================================================================
 
@@ -50,7 +50,6 @@ public class DeviceManagerModule extends ReactContextBaseJavaModule implements L
 
         // for proximity management
         proximityWakeLock = powerManager.newWakeLock(PowerManager.PROXIMITY_SCREEN_OFF_WAKE_LOCK, getName());
-
 
         new ProximitySensorHandler(reactContext, new ProximitySensorHandler.Delegate() {
             @Override
@@ -202,6 +201,8 @@ public class DeviceManagerModule extends ReactContextBaseJavaModule implements L
     // SEND EVENT ==================================================================================
 
 
+    private Boolean isFirstAcess = true;
+
     @Override
     public void initialize() {
         getReactApplicationContext().addLifecycleEventListener(this);
@@ -210,9 +211,15 @@ public class DeviceManagerModule extends ReactContextBaseJavaModule implements L
     @Override
     public void onHostResume() {
 
-        if ( !proximityEmitEnable ) {
+        Log.d(getName(), proximityEmitEnable + " " + isFirstAcess);
+
+        if ( !proximityEmitEnable && !isFirstAcess ) {
             setProximityEnable(true, null);
         }
+
+        isFirstAcess = false;
+
+        Log.d(getName(), proximityEmitEnable + " " + isFirstAcess);
     }
 
     @Override
