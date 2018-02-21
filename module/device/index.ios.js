@@ -74,15 +74,6 @@ class DeviceManager extends BaseDeviceManager {
         NativeModules.SilentSwitch.subscribe();
         this._silentSwitchStateCallback = silentSwitchStateCallback;
     }
-
-    /**
-     * Do not exist in IOS, only in Android.
-     *
-     * @param {callback} audioPausedNotificationCallback - no parameter.
-     */
-    setAudioPausedNotificationCallback(audioPausedNotificationCallback : Callback) : void {
-        console.log("Not exist in IOS!");
-    }
 }
 
 //==========================================================================
