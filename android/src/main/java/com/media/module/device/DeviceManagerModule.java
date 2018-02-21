@@ -1,22 +1,17 @@
 package com.media.module.device;
 
-import android.app.Activity;
-import android.app.Application;
 import android.graphics.Bitmap;
 import android.media.AudioManager;
-import android.os.Bundle;
 import android.os.PowerManager;
 import android.util.Base64;
 import android.util.Log;
 
-import com.facebook.react.ReactNativeHost;
 import com.facebook.react.bridge.LifecycleEventListener;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
-import com.media.MainApplication;
 import com.media.module.Util;
 
 import java.io.ByteArrayOutputStream;
