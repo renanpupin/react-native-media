@@ -254,7 +254,7 @@ class BaseAudioManager {
     * @returns {int} current time position in mili-seconds if and audio is loaded.
     */
     getDuration() : int {
-        return _duration;
+        return this._duration;
     }
 
     /**
