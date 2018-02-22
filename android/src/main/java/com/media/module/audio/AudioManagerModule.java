@@ -283,7 +283,7 @@ public class AudioManagerModule extends ReactContextBaseJavaModule
     @ReactMethod
     public void setAudioOutputRoute(int type, Promise promise) {
 
-        if( this.type != type  ) {
+        if( this.type != type && mediaPlayer != null ) {
 
             int currentTime = mediaPlayer.getCurrentPosition();
             boolean isLoop = mediaPlayer.isLooping();
