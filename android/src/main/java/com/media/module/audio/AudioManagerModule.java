@@ -272,11 +272,11 @@ public class AudioManagerModule extends ReactContextBaseJavaModule
         if( type == EARSPEAKER ){
             mediaPlayer.setAudioStreamType(AudioManager.STREAM_VOICE_CALL);
             audioManager.setMode(AudioManager.MODE_IN_COMMUNICATION);
-            audioManager.setSpeakerphoneOn(true);
+            audioManager.setSpeakerphoneOn(false);
         } else {
             mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
             audioManager.setMode(AudioManager.MODE_NORMAL);
-            audioManager.setSpeakerphoneOn(false);
+            audioManager.setSpeakerphoneOn(true);
         }
     }
 

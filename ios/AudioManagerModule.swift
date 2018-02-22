@@ -58,8 +58,6 @@ class AudioManagerModule: NSObject, AVAudioPlayerDelegate {
     
     @objc func play(_ loop: Bool, playFromTime: Int, resolver resolve: RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) -> Void {
         
-        print(Double(playFromTime)/1000)
-        
         if paused {
             resolve(false)
         } else if( audioPlayer != nil && !audioPlayer.isPlaying ){

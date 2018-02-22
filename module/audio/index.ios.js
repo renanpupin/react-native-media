@@ -45,10 +45,11 @@ class AudioManager extends BaseAudioManager {
     async load(path : string, audioOutputRoute = 0) : boolean {
 
         try {
-            var resolve = await NativeModules.AudioManagerModule.load(path);
+            let resolve = await NativeModules.AudioManagerModule.load(path);
             if ( resolve != false ) {
                 this._duration = resolve;
-                if ( await this.setAudioOutputRoute(audioOutputRoute) ) {
+                resolve = await this.setAudioOutputRoute(audioOutputRoute)
+                if ( resolve ) {
                     return true;
                 }
             }
