@@ -39,8 +39,6 @@ class DeviceManager extends BaseDeviceManager {
     constructor() {
         super();
 
-        this.setAudioPausedNotificationCallback = this.setAudioPausedNotificationCallback.bind(this);
-
         DeviceEventEmitter.addListener('audioPausedNotification', () => {
             if ( this._audioPausedNotificationCallback != null ) {
                 this._audioPausedNotificationCallback();
