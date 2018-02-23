@@ -35,7 +35,8 @@ public class DeviceManagerModule extends ReactContextBaseJavaModule implements L
 
     // for proximity management
     private PowerManager.WakeLock proximityWakeLock;
-    private Boolean proximityEmitEnable = false;
+    private Boolean proximityEmitEnable = true;
+    private Boolean proximityEmitInBackgroundEnable = false;
 
     // CONSTRUCTOR =================================================================================
 
@@ -55,7 +56,8 @@ public class DeviceManagerModule extends ReactContextBaseJavaModule implements L
             @Override
             public void onProximityChanged(Boolean isNear) {
 
-                if ( reactContext.hasActiveCatalystInstance() ) {
+                Log.d(getName(), "onProximityChanged: " + proximityEmitEnable);
+                if ( reactContext.hasActiveCatalystInstance() && proximityEmitEnable ) {
                     reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("onProximityChanged", isNear);
                 }
             }
@@ -195,13 +197,10 @@ public class DeviceManagerModule extends ReactContextBaseJavaModule implements L
 
     @ReactMethod
     public void setProximityEmitInBackgroundEnable(boolean enable) {
-        proximityEmitEnable = enable;
+        this.proximityEmitInBackgroundEnable = enable;
     }
 
     // SEND EVENT ==================================================================================
-
-
-    private Boolean isFirstAcess = true;
 
     @Override
     public void initialize() {
@@ -211,28 +210,17 @@ public class DeviceManagerModule extends ReactContextBaseJavaModule implements L
     @Override
     public void onHostResume() {
 
-        Log.d(getName(), proximityEmitEnable + " " + isFirstAcess);
-
-        if ( !proximityEmitEnable && !isFirstAcess ) {
-            setProximityEnable(true, null);
-        }
-
-        isFirstAcess = false;
-
-        Log.d(getName(), proximityEmitEnable + " " + isFirstAcess);
+        this.proximityEmitEnable = true;
     }
 
     @Override
     public void onHostPause() {
-        Log.d(getName(), "pause " + proximityEmitEnable);
 
         if ( reactContext.hasActiveCatalystInstance() ) {
             reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("audioPausedNotification", null);
         }
 
-        if ( !proximityEmitEnable ) {
-            setProximityEnable(false, null);
-        }
+        this.proximityEmitEnable = this.proximityEmitInBackgroundEnable;
     }
 
     @Override

@@ -107,10 +107,10 @@ public class AudioManagerModule extends ReactContextBaseJavaModule
                 {
                     public void onPrepared(MediaPlayer mp)
                     {
-                    duration = mediaPlayer.getDuration();
-                    if ( promise != null ) {
-                        promise.resolve(duration);
-                    }
+                        duration = mediaPlayer.getDuration();
+                        if ( promise != null ) {
+                            promise.resolve(duration);
+                        }
                     }
                 });
 
@@ -156,6 +156,7 @@ public class AudioManagerModule extends ReactContextBaseJavaModule
                         }
                     }
                     new AudioPlayerAsync().execute();
+                    mediaPlayer.start();
                 }
                 if ( promise != null ) {
                     promise.resolve(true);
@@ -299,6 +300,7 @@ public class AudioManagerModule extends ReactContextBaseJavaModule
             else {
                 try {
                     mediaPlayer.seekTo(currentTime);
+                    new AudioPlayerAsync().execute();
                 } catch (Exception e) {
                     e.printStackTrace();
                     if ( promise != null ) {
@@ -353,7 +355,6 @@ public class AudioManagerModule extends ReactContextBaseJavaModule
         protected void onPreExecute()
         {
             super.onPreExecute();
-            mediaPlayer.start();
             isToCancel = false;
         }
 
