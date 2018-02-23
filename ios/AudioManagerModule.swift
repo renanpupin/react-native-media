@@ -30,29 +30,24 @@ class AudioManagerModule: NSObject, AVAudioPlayerDelegate {
     
     @objc func load(_ path: String, resolver resolve: RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) -> Void {
         
-        if paused {
-            resolve(false)
-        } else {
-            
-            if audioPlayer != nil && audioPlayer.isPlaying {
-                stop()
-            }
-            
-            if let url = URL(string: path) {
-                do {
-                    audioPlayer = try AVAudioPlayer(contentsOf: url)
-                    if audioPlayer.prepareToPlay() {
-                        self.path = path
-                        resolve(audioPlayer.duration)
-                    } else {
-                        resolve(false)
-                    }
-                } catch {
+        if audioPlayer != nil && audioPlayer.isPlaying {
+            stop()
+        }
+        
+        if let url = URL(string: path) {
+            do {
+                audioPlayer = try AVAudioPlayer(contentsOf: url)
+                if audioPlayer.prepareToPlay() {
+                    self.path = path
+                    resolve(audioPlayer.duration)
+                } else {
                     resolve(false)
                 }
-            } else {
+            } catch {
                 resolve(false)
             }
+        } else {
+            resolve(false)
         }
     }
     
