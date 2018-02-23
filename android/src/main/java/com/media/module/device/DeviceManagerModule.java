@@ -219,8 +219,6 @@ public class DeviceManagerModule extends ReactContextBaseJavaModule implements L
         if ( reactContext.hasActiveCatalystInstance() ) {
             reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("audioPausedNotification", null);
         }
-
-        this.proximityEmitEnable = this.proximityEmitInBackgroundEnable;
     }
 
     @Override
