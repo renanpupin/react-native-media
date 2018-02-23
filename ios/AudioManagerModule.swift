@@ -30,7 +30,7 @@ class AudioManagerModule: NSObject, AVAudioPlayerDelegate {
     
     @objc func load(_ path: String, resolver resolve: RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) -> Void {
         
-        if audioPlayer != nil && audioPlayer.isPlaying {
+        if audioPlayer != nil {
             stop()
         }
         
@@ -40,6 +40,7 @@ class AudioManagerModule: NSObject, AVAudioPlayerDelegate {
                 if audioPlayer.prepareToPlay() {
                     self.path = path
                     resolve(audioPlayer.duration)
+                    
                 } else {
                     resolve(false)
                 }
@@ -182,7 +183,6 @@ class AudioManagerModule: NSObject, AVAudioPlayerDelegate {
     @objc func setAudioOutputRoute(_ type: Int, resolver resolve: RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) {
         
         let session = AVAudioSession.sharedInstance()
-        
         if type == EARSPEAKER {
             do {
                 try session.setCategory(AVAudioSessionCategoryPlayAndRecord)
