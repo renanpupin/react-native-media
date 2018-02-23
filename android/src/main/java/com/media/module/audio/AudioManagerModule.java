@@ -283,14 +283,30 @@ public class AudioManagerModule extends ReactContextBaseJavaModule
     @ReactMethod
     public void setAudioOutputRoute(int type, Promise promise) {
 
-        if( this.type != type  ) {
+        if( this.type != type && mediaPlayer != null ) {
 
             int currentTime = mediaPlayer.getCurrentPosition();
             boolean isLoop = mediaPlayer.isLooping();
 
+            boolean wasPlaying = mediaPlayer.isPlaying();
+
             stopAudio();
             load(url.getPath(), type, null);
-            play(isLoop, currentTime, null);
+
+            if (wasPlaying) {
+                play(isLoop, currentTime, null);
+            }
+            else {
+                try {
+                    mediaPlayer.seekTo(currentTime);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    if ( promise != null ) {
+                        promise.resolve(false);
+                    }
+                    return;
+                }
+            }
 
             if ( promise != null ) {
                 promise.resolve(true);
