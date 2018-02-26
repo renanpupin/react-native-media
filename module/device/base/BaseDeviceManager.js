@@ -16,6 +16,13 @@ import { DeviceEventEmitter, NativeModules } from 'react-native';
 
 //==========================================================================
 
+export const ProximityState = {
+    NEAR: 0,
+    FAR: 1,
+    ONBACKGROUND: 2,
+    ONACTIVE: 3
+}
+
 /**
  * @class
  * @classdesc This class is responsible to provide some functionalities to manage de device in IOS and Android.
@@ -111,4 +118,4 @@ class BaseDeviceManager {
 /**
  * @module BaseDeviceManager
  */
-module.exports = BaseDeviceManager;
+export default BaseDeviceManager;

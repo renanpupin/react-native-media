@@ -37,6 +37,11 @@ public class DeviceManagerModule extends ReactContextBaseJavaModule implements L
     private PowerManager.WakeLock proximityWakeLock;
     private Boolean proximityEmitEnable = true;
     private Boolean proximityEmitInBackgroundEnable = false;
+    private Boolean isProximity = false;
+    private static final int PROXIMITYNEAR = 0;
+    private static final int PROXIMITYFAR = 1;
+    private static final int ONBACKGROUND = 2;
+    private static final int ONACTIVE = 3;
 
     // CONSTRUCTOR =================================================================================
 
@@ -56,9 +61,14 @@ public class DeviceManagerModule extends ReactContextBaseJavaModule implements L
             @Override
             public void onProximityChanged(Boolean isNear) {
 
-                Log.d(getName(), "onProximityChanged: " + proximityEmitEnable);
                 if ( reactContext.hasActiveCatalystInstance() && proximityEmitEnable ) {
-                    reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("onProximityChanged", isNear);
+                    if ( isNear ) {
+                        reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("onProximityChanged", DeviceManagerModule.PROXIMITYNEAR);
+                    } else {
+                        reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("onProximityChanged", DeviceManagerModule.PROXIMITYFAR);
+                    }
+
+                    isProximity = isNear;
                 }
             }
         });
@@ -143,42 +153,13 @@ public class DeviceManagerModule extends ReactContextBaseJavaModule implements L
         if (enable) {
             //turn ringer silent
             amanager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
-
-
-            //turn off sound, disable notifications
             amanager.setStreamMute(AudioManager.STREAM_SYSTEM, true);
-
-            //notifications
-            amanager.setStreamMute(AudioManager.STREAM_NOTIFICATION, true);
-
-            //alarm
-            amanager.setStreamMute(AudioManager.STREAM_ALARM, true);
-
-            //ringer
-            amanager.setStreamMute(AudioManager.STREAM_RING, true);
-
-            //media
             amanager.setStreamMute(AudioManager.STREAM_MUSIC, true);
 
             promise.resolve(true);
         } else {
-
-            //turn ringer silent
             amanager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
-
-            // turn on sound, enable notifications
             amanager.setStreamMute(AudioManager.STREAM_SYSTEM, false);
-
-            //notifications
-            amanager.setStreamMute(AudioManager.STREAM_NOTIFICATION, false);
-
-            //alarm
-            amanager.setStreamMute(AudioManager.STREAM_ALARM, false);
-
-            //ringer
-            amanager.setStreamMute(AudioManager.STREAM_RING, false);
-
-            //media
             amanager.setStreamMute(AudioManager.STREAM_MUSIC, false);
 
             promise.resolve(true);
@@ -211,13 +192,17 @@ public class DeviceManagerModule extends ReactContextBaseJavaModule implements L
     public void onHostResume() {
 
         this.proximityEmitEnable = true;
+
+        if ( reactContext.hasActiveCatalystInstance() && !isProximity ) {
+            reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("onProximityChanged", DeviceManagerModule.ONACTIVE);
+        }
     }
 
     @Override
     public void onHostPause() {
 
-        if ( reactContext.hasActiveCatalystInstance() ) {
-            reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("audioPausedNotification", null);
+        if ( reactContext.hasActiveCatalystInstance() && !isProximity ) {
+            reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("onProximityChanged", DeviceManagerModule.ONBACKGROUND);
         }
     }
 
