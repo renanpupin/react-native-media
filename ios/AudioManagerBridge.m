@@ -23,5 +23,6 @@ RCT_EXTERN_METHOD(setTimeInterval:(double *)timeInterval resolver:(RCTPromiseRes
 RCT_EXTERN_METHOD(getVolume: (RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 RCT_EXTERN_METHOD(setAudioOutputRoute: (int *)type resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 RCT_EXTERN_METHOD(getCurrentAudioName: (BOOL)fullPath resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+RCT_EXTERN_METHOD(hasWiredheadsetPlugged: (RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 
 @end

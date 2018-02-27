@@ -67,8 +67,7 @@ public class AudioManagerModule extends ReactContextBaseJavaModule
     // METHODS =====================================================================================
 
     @Override
-    public String getName()
-    {
+    public String getName() {
         return "AudioManagerModule";
     }
 
@@ -256,8 +255,6 @@ public class AudioManagerModule extends ReactContextBaseJavaModule
     @ReactMethod
     public void setVolume(int volume, Promise promise) {
         if ( mediaPlayer != null ) {
-//            Log.d(getName(), String.valueOf(volume));
-//            mediaPlayer.setVolume(0.90f, 0.90f);
             AudioManager audioManager = (AudioManager) reactContext.getSystemService(AUDIO_SERVICE);
             audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, volume, AudioManager.FLAG_SHOW_UI);
             promise.resolve(true);
@@ -331,6 +328,13 @@ public class AudioManagerModule extends ReactContextBaseJavaModule
         }
     }
 
+    @ReactMethod
+    public void hasWiredheadsetPlugged(Promise promise) {
+
+        AudioManager audioManager = (AudioManager) reactContext.getSystemService(AUDIO_SERVICE);
+        promise.resolve(audioManager.isWiredHeadsetOn());
+    }
+
     // SEND EVENT ==================================================================================
 
     @ReactMethod
@@ -352,8 +356,7 @@ public class AudioManagerModule extends ReactContextBaseJavaModule
     private class AudioPlayerAsync extends AsyncTask<Void, Integer, Void> {
 
         @Override
-        protected void onPreExecute()
-        {
+        protected void onPreExecute() {
             super.onPreExecute();
             isToCancel = false;
         }
@@ -403,7 +406,6 @@ public class AudioManagerModule extends ReactContextBaseJavaModule
                             setAudioOutputRoute(originalType, null);
                         }
 
-
                         reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("onWiredHeadsetPlugged", false);
                         break;
 
@@ -422,5 +424,4 @@ public class AudioManagerModule extends ReactContextBaseJavaModule
             }
         }
     }
-
 }

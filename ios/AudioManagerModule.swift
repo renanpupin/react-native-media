@@ -218,4 +218,35 @@ class AudioManagerModule: NSObject, AVAudioPlayerDelegate {
             resolve("");
         }
     }
+    
+    @objc func hasWiredheadsetPlugged(_ resolve: RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) {
+        
+        let currentRoute = AVAudioSession.sharedInstance().currentRoute
+        if currentRoute.outputs != nil {
+            for description in currentRoute.outputs {
+                if description.portType == AVAudioSessionPortHeadphones {
+                    print("headphone plugged in")
+                    resolve(true)
+                } else {
+                    print("headphone pulled out")
+                    resolve(false)
+                }
+            }
+        } else {
+            print("requires connection to device")
+        }
+    }
+    
+    dynamic private func audioRouteChangeListener(notification:NSNotification) {
+        
+        let audioRouteChangeReason = notification.userInfo![AVAudioSessionRouteChangeReasonKey] as! UInt
+        switch audioRouteChangeReason {
+            case AVAudioSessionRouteChangeReason.newDeviceAvailable.rawValue:
+                bridge.eventDispatcher().sendAppEvent( withName: "onWiredHeadsetPlugged", body: true)
+            case AVAudioSessionRouteChangeReason.oldDeviceUnavailable.rawValue:
+                bridge.eventDispatcher().sendAppEvent( withName: "onWiredHeadsetPlugged", body: false)
+            default:
+                break
+        }
+    }
 }

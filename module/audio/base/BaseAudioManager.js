@@ -247,6 +247,10 @@ class BaseAudioManager {
         return await NativeModules.AudioManagerModule.getCurrentAudioName(fullPath);
     }
 
+    async hasWiredheadsetPlugged() : boolean {
+        return await NativeModules.AudioManagerModule.hasWiredheadsetPlugged();
+    }
+
     //==========================================================================
     // SETTERS & GETTERS
 
