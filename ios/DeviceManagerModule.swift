@@ -42,10 +42,10 @@ class DeviceManagerModule: NSObject {
             NotificationCenter.default.removeObserver(self, name: .UIDeviceProximityStateDidChange, object: nil)
         }
         
-        print("adding")
-        NotificationCenter.default.addObserver(self, selector: #selector(proximityChanged), name: Notification.Name.UIApplicationWillResignActive, object: true)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(proximityChanged), name: Notification.Name.UIApplicationDidBecomeActive, object: false)
+//        print("adding")
+//        NotificationCenter.default.addObserver(self, selector: #selector(proximityChanged), name: Notification.Name.UIApplicationWillResignActive, object: true)
+//
+//        NotificationCenter.default.addObserver(self, selector: #selector(proximityChanged), name: Notification.Name.UIApplicationDidBecomeActive, object: false)
         
         resolve(true)
     }
