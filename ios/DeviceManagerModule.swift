@@ -16,6 +16,11 @@ class DeviceManagerModule: NSObject {
     
     var bridge: RCTBridge!
     
+    let NEAR = 0;
+    let FAR = 1;
+    let ONBACKGROUND = 2;
+    let ONACTIVE = 3;
+    
     // METHODS ================================================================================================================
     
     @objc func setIdleTimerEnable(_ enable: Bool, resolver resolve: @escaping RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) -> Void {
@@ -25,11 +30,7 @@ class DeviceManagerModule: NSObject {
             resolve(true)
         })
     }
-    
-    @objc func appMovedToBackground() {
-        print("App moved to background!")
-    }
-    
+        
     @objc func setProximityEnable(_ enable: Bool, resolver resolve: @escaping RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) -> Void {
         
         let device = UIDevice.current
@@ -37,15 +38,9 @@ class DeviceManagerModule: NSObject {
         if device.isProximityMonitoringEnabled {
             
             NotificationCenter.default.addObserver(self, selector: #selector(proximityChanged), name: .UIDeviceProximityStateDidChange, object: device)
-            
         } else {
             NotificationCenter.default.removeObserver(self, name: .UIDeviceProximityStateDidChange, object: nil)
         }
-        
-//        print("adding")
-//        NotificationCenter.default.addObserver(self, selector: #selector(proximityChanged), name: Notification.Name.UIApplicationWillResignActive, object: true)
-//
-//        NotificationCenter.default.addObserver(self, selector: #selector(proximityChanged), name: Notification.Name.UIApplicationDidBecomeActive, object: false)
         
         resolve(true)
     }
@@ -57,7 +52,9 @@ class DeviceManagerModule: NSObject {
         
         if let device = notification.object as? UIDevice {
             if UIDevice.current.isProximityMonitoringEnabled {
-                bridge.eventDispatcher().sendAppEvent( withName: "onProximityChanged", body: UIDevice.current.proximityState)
+                bridge.eventDispatcher().sendAppEvent( withName: "onProximityChanged", body: NEAR)
+            } else {
+                bridge.eventDispatcher().sendAppEvent( withName: "onProximityChanged", body: FAR)
             }
         }
     }
