@@ -50,18 +50,22 @@ public class ProximitySensorHandler implements SensorEventListener {
 
     public void unregister() {
         Log.d(getName(), "Unregister sensor proximity");
-        sensorManager.unregisterListener(this);
+        sensorManager.unregisterListener(this, sensor);
     }
 
     @Override
     public void onAccuracyChanged(final Sensor arg0, final int arg1) {
     }
 
+    private boolean state = true;
+
     @Override
     public void onSensorChanged(final SensorEvent event) {
         try{
-            if (event.values != null && event.values.length > 0) {
-                delegate.onProximityChanged(event.values[0] < sensor.getMaximumRange());
+            boolean eventResult = event.values != null && event.values.length > 0;
+            if ( state != eventResult) {
+                delegate.onProximityChanged(eventResult);
+                state = eventResult;
             }
         } catch(final Exception exc){
             Log.e(getClass().getSimpleName(), "onSensorChanged exception", exc);
