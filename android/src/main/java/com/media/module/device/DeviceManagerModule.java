@@ -43,6 +43,8 @@ public class DeviceManagerModule extends ReactContextBaseJavaModule implements L
     private static final int ONBACKGROUND = 2;
     private static final int ONACTIVE = 3;
 
+    private ProximitySensorHandler proximitySensorHandler = null;
+
     // CONSTRUCTOR =================================================================================
 
     public DeviceManagerModule(final ReactApplicationContext reactContext) {
@@ -56,22 +58,6 @@ public class DeviceManagerModule extends ReactContextBaseJavaModule implements L
 
         // for proximity management
         proximityWakeLock = powerManager.newWakeLock(PowerManager.PROXIMITY_SCREEN_OFF_WAKE_LOCK, getName());
-
-        new ProximitySensorHandler(reactContext, new ProximitySensorHandler.Delegate() {
-            @Override
-            public void onProximityChanged(Boolean isNear) {
-
-                if ( reactContext.hasActiveCatalystInstance() && proximityEmitEnable ) {
-                    if ( isNear ) {
-                        reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("onProximityChanged", DeviceManagerModule.PROXIMITYNEAR);
-                    } else {
-                        reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("onProximityChanged", DeviceManagerModule.PROXIMITYFAR);
-                    }
-
-                    isProximity = isNear;
-                }
-            }
-        });
     }
 
 
@@ -128,7 +114,11 @@ public class DeviceManagerModule extends ReactContextBaseJavaModule implements L
             if( !proximityWakeLock.isHeld() ) {
                 proximityWakeLock.acquire();
 
-                if ( promise != null ) promise.resolve(true);
+                this.enableProximitySensorHandler();
+
+                if ( promise != null ) {
+                    promise.resolve(true);
+                }
             } else {
                 if ( promise != null ) promise.resolve(false);
             }
@@ -137,11 +127,39 @@ public class DeviceManagerModule extends ReactContextBaseJavaModule implements L
             // do nothing when proximity on
             if ( proximityWakeLock.isHeld() ) {
                 proximityWakeLock.release();
-                if ( promise != null ) promise.resolve(true);
+
+                Log.d(getName(), "setProximityEnable " + enable);
+
+                this.proximitySensorHandler.unregister();
+                this.proximitySensorHandler = null;
+
+                if ( promise != null ) {
+                    promise.resolve(true);
+                }
             } else {
                 if ( promise != null ) promise.resolve(false);
             }
         }
+    }
+
+    private void enableProximitySensorHandler() {
+
+        this.proximitySensorHandler = null;
+        this.proximitySensorHandler = new ProximitySensorHandler(reactContext, new ProximitySensorHandler.Delegate() {
+            @Override
+            public void onProximityChanged(Boolean isNear) {
+
+                if ( reactContext.hasActiveCatalystInstance() && proximityEmitEnable ) {
+                    if ( isNear ) {
+                        reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("onProximityChanged", DeviceManagerModule.PROXIMITYNEAR);
+                    } else {
+                        reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("onProximityChanged", DeviceManagerModule.PROXIMITYFAR);
+                    }
+
+                    isProximity = isNear;
+                }
+            }
+        });
     }
 
     @ReactMethod

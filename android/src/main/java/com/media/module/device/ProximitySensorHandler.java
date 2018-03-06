@@ -44,6 +44,15 @@ public class ProximitySensorHandler implements SensorEventListener {
         }
     }
 
+    private String getName() {
+        return "ProximitySensorHandler";
+    }
+
+    public void unregister() {
+        Log.d(getName(), "Unregister sensor proximity");
+        sensorManager.unregisterListener(this);
+    }
+
     @Override
     public void onAccuracyChanged(final Sensor arg0, final int arg1) {
     }
