@@ -207,7 +207,9 @@ public class AudioManagerModule extends ReactContextBaseJavaModule
         if ( mediaPlayer != null ) {
             path = "";
             isToCancel = true;
-            mediaPlayer.stop();
+            if (mediaPlayer.isPlaying())
+                mediaPlayer.stop();
+            mediaPlayer.reset();
             mediaPlayer.release();
             mediaPlayer = null;
             return true;
