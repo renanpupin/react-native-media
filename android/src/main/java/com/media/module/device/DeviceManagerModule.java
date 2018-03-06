@@ -58,6 +58,8 @@ public class DeviceManagerModule extends ReactContextBaseJavaModule implements L
 
         // for proximity management
         proximityWakeLock = powerManager.newWakeLock(PowerManager.PROXIMITY_SCREEN_OFF_WAKE_LOCK, getName());
+
+        // this.enableProximitySensorHandler();
     }
 
 
@@ -107,6 +109,7 @@ public class DeviceManagerModule extends ReactContextBaseJavaModule implements L
      */
     @ReactMethod
     public void setProximityEnable(Boolean enable, final Promise promise) {
+        Log.d(getName(), "setProximityEnable " + enable);
 
         if( enable ) {
             // enable = true
@@ -127,8 +130,6 @@ public class DeviceManagerModule extends ReactContextBaseJavaModule implements L
             // do nothing when proximity on
             if ( proximityWakeLock.isHeld() ) {
                 proximityWakeLock.release();
-
-                Log.d(getName(), "setProximityEnable " + enable);
 
                 this.proximitySensorHandler.unregister();
                 this.proximitySensorHandler = null;
