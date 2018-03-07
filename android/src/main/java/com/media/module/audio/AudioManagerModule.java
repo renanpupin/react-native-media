@@ -52,6 +52,8 @@ public class AudioManagerModule extends ReactContextBaseJavaModule
     private String path = "";
     private int type = 0;
 
+    private AudioPlayerAsync audioPlayerAsync = null;
+
     // CONSTRUCTOR =================================================================================
 
     public AudioManagerModule(ReactApplicationContext reactContext) {
@@ -114,6 +116,7 @@ public class AudioManagerModule extends ReactContextBaseJavaModule
                 });
 
                 try {
+                    // mediaPlayer.prepareAsync();
                     mediaPlayer.prepare();
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -154,7 +157,12 @@ public class AudioManagerModule extends ReactContextBaseJavaModule
                             e.printStackTrace();
                         }
                     }
-                    new AudioPlayerAsync().execute();
+                    if ( audioPlayerAsync != null ) {
+                        isToCancel = true;
+                        audioPlayerAsync.cancel(true);
+                        audioPlayerAsync = null;
+                        isToCancel = false;
+                    }
                     mediaPlayer.start();
                 }
                 if ( promise != null ) {

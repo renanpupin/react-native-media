@@ -16,8 +16,15 @@ import { DeviceEventEmitter, NativeModules } from 'react-native';
 
 //==========================================================================
 
-
-
+/**
+ * @constant
+ * @type {int}
+ * @default 0
+*/
+const AudioOutputRoute = {
+    DEFAULTSPEAKER: 0,
+    EARSPEAKER: 1
+}
 
 /**
  * @class
@@ -31,22 +38,11 @@ class BaseAudioManager {
     // GLOBAL VARIABLES
 
     /**
-     * @constant
-     * @type {int}
-     * @default 0
-    */
-    const AudioOutputRoute = {
-        DEFAULTSPEAKER: 0,
-        EARSPEAKER: 1
-    }
-
-
-    /**
      * Start Events object
      * @constant
      * @type {string}
     */
-    this.Events = {}
+    // this.Events = {}
 
     /**
      * Send the current time position of the audio.
