@@ -16,15 +16,8 @@ import { DeviceEventEmitter, NativeModules } from 'react-native';
 
 //==========================================================================
 
-/**
- * @constant
- * @type {int}
- * @default 0
-*/
-const AudioOutputRoute = {
-    DEFAULTSPEAKER: 0,
-    EARSPEAKER: 1
-}
+
+
 
 /**
  * @class
@@ -36,6 +29,24 @@ class BaseAudioManager {
 
     //==========================================================================
     // GLOBAL VARIABLES
+
+    /**
+     * @constant
+     * @type {int}
+     * @default 0
+    */
+    const AudioOutputRoute = {
+        DEFAULTSPEAKER: 0,
+        EARSPEAKER: 1
+    }
+
+
+    /**
+     * Start Events object
+     * @constant
+     * @type {string}
+    */
+    this.Events = {}
 
     /**
      * Send the current time position of the audio.
@@ -60,6 +71,20 @@ class BaseAudioManager {
      * - Add listener for event when a audio playback is finished.
      */
     constructor() {
+
+        // this.AudioOutputRoute = {
+        //     DEFAULTSPEAKER: 0,
+        //     EARSPEAKER: 1
+        // };
+        // cannot alter the object values of the AudioOutputRoute
+        // Object.freeze(this.AudioOutputRoute);
+        //
+        // this.Events = {
+        //     onTimeChanged: 'onTimeChanged',
+        //     onAudioFinished: 'onAudioFinished'
+        // };
+        // cannot alter the object values of the AudioOutputRoute
+        // Object.freeze(this.Events);
 
         this._duration = 0;
 

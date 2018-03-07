@@ -51,64 +51,37 @@ public class ProximitySensorHandler implements SensorEventListener {
     }
 
     public void unregister() {
-        Log.d(getName(), "Unregister sensor proximity");
-<<<<<<< HEAD
-        sensorManager.unregisterListener(this, sensor);
-=======
-        sensorManager.unregisterListener(this);
 
+        Log.d(getName(), "Unregister sensor proximity");
+        sensorManager.unregisterListener(this);
         sensor = null;
         isFirstEmit = true;
-        // this.delegate = null;
->>>>>>> 94c35829369cb5d77dc99143085e674172a89935
     }
 
     @Override
     public void onAccuracyChanged(final Sensor arg0, final int arg1) {
     }
 
-    private boolean state = true;
-
     @Override
     public void onSensorChanged(final SensorEvent event) {
+
         try{
-<<<<<<< HEAD
-            boolean eventResult = event.values != null && event.values.length > 0;
-            if ( state != eventResult) {
-                delegate.onProximityChanged(eventResult);
-                state = eventResult;
-=======
             boolean eventResult = event.values[0] < sensor.getMaximumRange();
             Log.d(getName(), "Mudou o sensor = " + (eventResult ? "Near" : "Far"));
-            
+
             if (!isFirstEmit && state != eventResult) {
                 if (eventResult) {
                     //near
                     delegate.onProximityChanged(true);
-                }
-                else {
+                } else {
                     //far
                     delegate.onProximityChanged(false);
                 }
-            }
-            else {
+            } else {
                 isFirstEmit = false;
->>>>>>> 94c35829369cb5d77dc99143085e674172a89935
             }
 
             state = eventResult;
-
-            // boolean eventResult = event.values != null && event.values.length > 0;
-            
-            // if (!isFirstEmit && state != eventResult) {
-            //     Log.d(getName(), "Nao é o primeiro emit, o estado anterior é diferente do atual");
-            //     delegate.onProximityChanged(eventResult);
-            //     state = eventResult;
-            // }
-            // else if (isFirstEmit) {
-            //     Log.d(getName(), "É o primeiro emit");
-            //     isFirstEmit = false;
-            // }
         } catch(final Exception exc){
             Log.e(getClass().getSimpleName(), "onSensorChanged exception", exc);
         }
