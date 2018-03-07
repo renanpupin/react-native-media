@@ -163,6 +163,8 @@ public class AudioManagerModule extends ReactContextBaseJavaModule
                         audioPlayerAsync = null;
                         isToCancel = false;
                     }
+                    audioPlayerAsync = new AudioPlayerAsync();
+                    audioPlayerAsync.execute();
                     mediaPlayer.start();
                 }
                 if ( promise != null ) {

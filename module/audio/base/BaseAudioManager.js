@@ -17,16 +17,6 @@ import { DeviceEventEmitter, NativeModules } from 'react-native';
 //==========================================================================
 
 /**
- * @constant
- * @type {int}
- * @default 0
-*/
-const AudioOutputRoute = {
-    DEFAULTSPEAKER: 0,
-    EARSPEAKER: 1
-}
-
-/**
  * @class
  * @classdesc This class is responsible to provide the basic functionalities to manage an audio file in the IOS and Android.
  * - MP3 suport.
@@ -37,12 +27,8 @@ class BaseAudioManager {
     //==========================================================================
     // GLOBAL VARIABLES
 
-    /**
-     * Start Events object
-     * @constant
-     * @type {string}
-    */
-    // this.Events = {}
+    AudioOutputRoute = {}
+    Events = {}
 
     /**
      * Send the current time position of the audio.
@@ -62,32 +48,29 @@ class BaseAudioManager {
 
     /**
      * Creates a instance of BaseAudioManager.
-     *
-     * - Add listener for event time position of an audio when playing.
-     * - Add listener for event when a audio playback is finished.
      */
     constructor() {
 
-        // this.AudioOutputRoute = {
-        //     DEFAULTSPEAKER: 0,
-        //     EARSPEAKER: 1
-        // };
+        this.AudioOutputRoute = {
+            DEFAULT_SPEAKER: 0,
+            EAR_SPEAKER: 1
+        };
         // cannot alter the object values of the AudioOutputRoute
-        // Object.freeze(this.AudioOutputRoute);
-        //
-        // this.Events = {
-        //     onTimeChanged: 'onTimeChanged',
-        //     onAudioFinished: 'onAudioFinished'
-        // };
+        Object.freeze(this.AudioOutputRoute);
+
+        this.Events = {
+            onTimeChanged: "onTimeChanged",
+            onAudioFinished: 'onAudioFinished'
+        };
         // cannot alter the object values of the AudioOutputRoute
-        // Object.freeze(this.Events);
+        Object.freeze(this.Events);        
 
         this._duration = 0;
 
         this.load = this.load.bind(this);
         this.play = this.play.bind(this);
         this.getDuration = this.getDuration.bind(this);
-        this.setTimeTrackerCallback = this.setTimeTrackerCallback.bind(this);
+        // this.setTimeTrackerCallback = this.setTimeTrackerCallback.bind(this);
         this.setAudioFinishedCallback = this.setAudioFinishedCallback.bind(this);
 
         this.loadPlay = this.loadPlay.bind(this);
@@ -100,18 +83,6 @@ class BaseAudioManager {
         this.setAudioOutputRoute = this.setAudioOutputRoute.bind(this);
         this.getCurrentAudioName = this.getCurrentAudioName.bind(this);
         this.getDuration = this.getDuration.bind(this);
-
-        DeviceEventEmitter.addListener('onTimeChanged', (time) => {
-            if ( this._timeTrackerCallback != null ) {
-                this._timeTrackerCallback(time);
-            }
-        });
-
-        DeviceEventEmitter.addListener('onAudioFinished', () => {
-            if ( this._audioFinishedCallback != null ) {
-                this._audioFinishedCallback();
-            }
-        });
     }
 
     //==========================================================================
@@ -287,9 +258,9 @@ class BaseAudioManager {
      *
      * @param {callback} timeTrackerCallback - this is a function with on parameter of the type int.
      */
-    setTimeTrackerCallback(timeTrackerCallback : Callback) : void {
-        this._timeTrackerCallback = timeTrackerCallback;
-    }
+    // setTimeTrackerCallback(timeTrackerCallback : Callback) : void {
+    //     this._timeTrackerCallback = timeTrackerCallback;
+    // }
 
     /**
      * Set the callback to send when the audio finished playing.
