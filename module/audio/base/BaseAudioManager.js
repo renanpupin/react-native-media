@@ -30,19 +30,6 @@ class BaseAudioManager {
     AudioOutputRoute = {}
     Events = {}
 
-    /**
-     * Send the current time position of the audio.
-     * @callback
-     * @param {int} - current time position in mili-seconds
-     */
-    _timeTrackerCallback = null;
-
-    /**
-     * Send signal that the audio finished.
-     * @callback
-     */
-    _audioFinishedCallback = null;
-
     //==========================================================================
     // CONSTRUCTOR
 
@@ -63,17 +50,14 @@ class BaseAudioManager {
             onAudioFinished: 'onAudioFinished'
         };
         // cannot alter the object values of the AudioOutputRoute
-        Object.freeze(this.Events);        
+        Object.freeze(this.Events);
 
         this._duration = 0;
 
         this.load = this.load.bind(this);
         this.play = this.play.bind(this);
         this.getDuration = this.getDuration.bind(this);
-        // this.setTimeTrackerCallback = this.setTimeTrackerCallback.bind(this);
-        this.setAudioFinishedCallback = this.setAudioFinishedCallback.bind(this);
-
-        this.loadPlay = this.loadPlay.bind(this);
+        this.loadAndPlay = this.loadAndPlay.bind(this);
         this.pause = this.pause.bind(this);
         this.resume = this.resume.bind(this);
         this.stop = this.stop.bind(this);
@@ -82,7 +66,6 @@ class BaseAudioManager {
         this.getVolume = this.getVolume.bind(this);
         this.setAudioOutputRoute = this.setAudioOutputRoute.bind(this);
         this.getCurrentAudioName = this.getCurrentAudioName.bind(this);
-        this.getDuration = this.getDuration.bind(this);
     }
 
     //==========================================================================
@@ -114,7 +97,7 @@ class BaseAudioManager {
      * @param {boolean} loop - true or false. true to play in loop, else play only once.
      * @returns {boolean} true or false. true if was a sucess to play the file, else return false.
      */
-    async loadPlay(path : string, audioOutputRoute = AudioOutputRoute.DEFAULTSPEAKER, loop = false, playFromTime = 0) : boolean {
+    async loadAndPlay(path : string, audioOutputRoute = AudioOutputRoute.DEFAULTSPEAKER, loop = false, playFromTime = 0) : boolean {
         var sucess = await this.load(path, audioOutputRoute);
         if ( sucess ) {
             sucess = await this.play(loop, playFromTime);
@@ -251,24 +234,6 @@ class BaseAudioManager {
     */
     getDuration() : int {
         return this._duration;
-    }
-
-    /**
-     * Set the callback to send the current time position when an audio is playing.
-     *
-     * @param {callback} timeTrackerCallback - this is a function with on parameter of the type int.
-     */
-    // setTimeTrackerCallback(timeTrackerCallback : Callback) : void {
-    //     this._timeTrackerCallback = timeTrackerCallback;
-    // }
-
-    /**
-     * Set the callback to send when the audio finished playing.
-     *
-     * @param {callback} audioFinishedCallback - this is a function with on parameter of the type int.
-     */
-    setAudioFinishedCallback(audioFinishedCallback : Callback) : void {
-        this._audioFinishedCallback = audioFinishedCallback;
     }
 }
 
