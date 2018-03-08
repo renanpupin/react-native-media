@@ -1,6 +1,6 @@
 /**
- * @author Haroldo Shigueaki Teruya <haroldo.s.teruya@gmail.com>
- * @version 0.0
+ * @author FalaFreud, Haroldo Shigueaki Teruya <haroldo.s.teruya@gmail.com>
+ * @version 1.1
  */
 
 //==========================================================================
@@ -10,11 +10,10 @@
  * This class requires:
  * @class
  * @requires [BaseAudioManager]{@link ./base/BaseAudioManager}
- * @requires DeviceEventEmitter from react-native
  * @requires NativeModules from react-native
  */
 import BaseAudioManager from './base/BaseAudioManager';
-import { DeviceEventEmitter, NativeModules } from 'react-native';
+import { NativeModules } from 'react-native';
 
 //==========================================================================
 /**
