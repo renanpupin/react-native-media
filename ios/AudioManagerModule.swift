@@ -159,7 +159,7 @@ class AudioManagerModule: NSObject, AVAudioPlayerDelegate {
         }
     }
 
-    @objc func seekTime(_ time: Double, resolver resolve: RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) -> Void {
+    @objc func seekTo(_ time: Double, resolver resolve: RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) -> Void {
 
         var tempTime = time / 1000
 

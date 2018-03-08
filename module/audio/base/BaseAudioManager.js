@@ -61,7 +61,7 @@ class BaseAudioManager {
         this.pause = this.pause.bind(this);
         this.resume = this.resume.bind(this);
         this.stop = this.stop.bind(this);
-        this.seekTime = this.seekTime.bind(this);
+        this.seekTo = this.seekTo.bind(this);
         this.setTimeInterval = this.setTimeInterval.bind(this);
         this.getVolume = this.getVolume.bind(this);
         this.setAudioOutputRoute = this.setAudioOutputRoute.bind(this);
@@ -159,9 +159,9 @@ class BaseAudioManager {
      * @param {int} milisec - the position time in mili-seconds.
      * @returns {boolean} true or false. true if was a sucess to seek to the time position, else return false.
      */
-    async seekTime(milisec : int) : boolean {
+    async seekTo(milisec : int) : boolean {
         try {
-            return await NativeModules.AudioManagerModule.seekTime(milisec);
+            return await NativeModules.AudioManagerModule.seekTo(milisec);
         } catch (e) {
             console.error(e);
         }
