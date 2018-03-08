@@ -187,21 +187,6 @@ class BaseAudioManager {
     }
 
     /**
-     * Return the device current volume.
-     *
-     * @async
-     * @returns {boolean|int} return the current volume in int or return false if it was not possible get the current device volume.
-     */
-    async getVolume() {
-        try {
-            return await NativeModules.AudioManagerModule.getVolume();
-        } catch (e) {
-            console.error(e);
-        }
-        return false;
-    }
-
-    /**
      * Set the audio output route.
      *
      * @async
@@ -222,10 +207,6 @@ class BaseAudioManager {
      */
     async getCurrentAudioName(fullPath = false) : string {
         return await NativeModules.AudioManagerModule.getCurrentAudioName(fullPath);
-    }
-
-    async hasWiredheadsetPlugged() : boolean {
-        return await NativeModules.AudioManagerModule.hasWiredheadsetPlugged();
     }
 
     //==========================================================================

@@ -56,21 +56,6 @@ class AudioManager extends BaseAudioManager {
         }
         return false;
     }
-
-    /**
-     * Set the devie volume.
-     *
-     * @async
-     * @returns {boolean} true or false, true if was a sucess to set the volume, else return false.
-     */
-    async setVolume(volume) : boolean {
-        try {
-            return await NativeModules.AudioManagerModule.setVolume(volume);
-        } catch (e) {
-            console.error(e);
-        }
-        return false
-    }
 }
 
 //==========================================================================

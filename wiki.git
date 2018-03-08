@@ -12,11 +12,8 @@
 | pause  |   ✓      |  ✓
 | stop  |   ✓      |  ✓
 | seekTime  |   ✓      |  ✓
-| getVolume  |   ✓      |  ✓
-| setVolume | ✓ | ✗
 | setAudioOutputRoute  |   ✓      |  ✓
 | getCurrentAudioName  |   ✓      |  ✓
-| hasWiredheadsetPlugged  |   ✓      |  ✓
 | getDuration  |   ✓      |  ✓
 
 ### Callback:
@@ -237,4 +234,4 @@ async getCurrentAudioName() : int
 ```
 | Returns|Description|
 |:-------------|:-------------
-|int| Return the duration in mili seconds, if no duration is available, it is null. 
+|int| Return the duration in mili seconds, if no duration is available, it is 0. 

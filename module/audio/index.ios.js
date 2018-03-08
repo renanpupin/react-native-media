@@ -60,17 +60,6 @@ class AudioManager extends BaseAudioManager {
         }
         return false;
     }
-
-    /**
-     * Not exist.
-     *
-     * @async
-     * @returns {boolean} false.
-     */
-    async setVolume(volume) : boolean {
-        console.log("Do not exist set volume to IOS.");
-        return false
-    }
 }
 
 //==========================================================================

@@ -78,6 +78,17 @@ class DeviceManager extends BaseDeviceManager {
         NativeModules.SilentSwitch.subscribe();
         this._silentSwitchStateCallback = silentSwitchStateCallback;
     }
+
+    /**
+     * Not exist.
+     *
+     * @async
+     * @returns {boolean} false.
+     */
+    async setVolume(volume) : boolean {
+        console.log("Do not exist set volume to IOS.");
+        return false
+    }
 }
 
 //==========================================================================

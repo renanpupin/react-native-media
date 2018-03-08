@@ -46,16 +46,40 @@ class DeviceManagerModule: NSObject {
     }
     
     func proximityChanged(notification: NSNotification) {
-        
-        print("changed")
-        print(notification.object)
-        
+                
         if let device = notification.object as? UIDevice {
             if UIDevice.current.isProximityMonitoringEnabled {
                 bridge.eventDispatcher().sendAppEvent( withName: "onProximityChanged", body: NEAR)
             } else {
                 bridge.eventDispatcher().sendAppEvent( withName: "onProximityChanged", body: FAR)
             }
+        }
+    }
+    
+    @objc func isWiredHeadsetPlugged(_ resolve: RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) {
+        
+        let currentRoute = AVAudioSession.sharedInstance().currentRoute
+        if currentRoute.outputs != nil {
+            for description in currentRoute.outputs {
+                if description.portType == AVAudioSessionPortHeadphones {
+                    resolve(true)
+                } else {                    
+                    resolve(false)
+                }
+            }
+        } else {
+            print("requires connection to device")
+        }
+    }
+        
+    @objc func getVolume(_ resolve: RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) -> Void {
+        
+        let audioSession = AVAudioSession.sharedInstance()
+        do {
+            var sucess = audioSession.outputVolume
+            resolve(sucess)
+        } catch {
+            resolve(-1)
         }
     }
 }

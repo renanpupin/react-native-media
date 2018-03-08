@@ -58,8 +58,11 @@ class BaseDeviceManager {
         this.setProximityEnable = this.setProximityEnable.bind(this);
         this.setWiredHeadsetPluggedCallback = this.setWiredHeadsetPluggedCallback.bind(this);
         this.setProximityChangedCallback = this.setProximityChangedCallback.bind(this);
+        this.getVolume = this.getVolume.bind(this);
+        this.isWiredHeadsetPlugged = this.isWiredHeadsetPlugged.bind(this);
 
         DeviceEventEmitter.addListener('onWiredHeadsetPlugged', (plugged) => {
+            console.log(plugged);
             if ( this._wiredHeadsetPluggedCallback != null ) {
                 this._wiredHeadsetPluggedCallback(plugged);
             }
@@ -95,6 +98,25 @@ class BaseDeviceManager {
      */
     async setProximityEnable(enable : boolean) : boolean {
         return await NativeModules.DeviceManagerModule.setProximityEnable(enable);
+    }
+
+    /**
+     * Return the device current volume.
+     *
+     * @async
+     * @returns {boolean|int} return the current volume in int or return false if it was not possible get the current device volume.
+     */
+    async getVolume() {
+        try {
+            return await NativeModules.DeviceManagerModule.getVolume();
+        } catch (e) {
+            console.error(e);
+        }
+        return false;
+    }
+
+    async isWiredHeadsetPlugged() : boolean {
+        return await NativeModules.DeviceManagerModule.isWiredHeadsetPlugged();
     }
 
     //==========================================================================
