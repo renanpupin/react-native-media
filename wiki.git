@@ -1,0 +1,240 @@
+# AudioManager
+
+### Function:
+
+|  | Android  | IOS
+| :------------    | :-----:  |-----:
+| load  |   ✓      |  ✓
+| play      |   ✓      |  ✓
+| loadAndPlay  |   ✓      |  ✓
+| pause  |   ✓      |  ✓
+| resume  |   ✓      |  ✓
+| pause  |   ✓      |  ✓
+| stop  |   ✓      |  ✓
+| seekTime  |   ✓      |  ✓
+| getVolume  |   ✓      |  ✓
+| setVolume | ✓ | ✗
+| setAudioOutputRoute  |   ✓      |  ✓
+| getCurrentAudioName  |   ✓      |  ✓
+| hasWiredheadsetPlugged  |   ✓      |  ✓
+| getDuration  |   ✓      |  ✓
+
+### Callback:
+|  | Android  | IOS
+| :------------    | :-----:  |-----:
+| onTimeChanged  |   ✓      |  ✓
+| onAudioFinished      |   ✓      |  ✓
+
+<br>
+<br>
+
+
+# Variables
+This section represents the `enum` .
+
+___
+
+>**AudioOutputRoute**: used to identify the type of the route of the audio output device
+>|  | Description     | Value|Android  | IOS
+>| -------------              |:-------------:      | :-----:| :-----:  |-----:
+>| DEFAULT_SPEAKER   | default speaker | 0    |✓    |✓
+>| EAR_SPEAKER       | ear speaker             | 1    |  ✓   |✓
+
+Example:
+
+```javascript
+AudioManager.AudioOutputRoute.DEFAULT_SPEAKER
+AudioManager.AudioOutputRoute.EAR_SPEAKER
+```
+___
+
+>**Events**: used to identify the name of the event of the audio playback.
+>|  | Description| Value|Android  | IOS
+>| -------------              |:-------------:      | :-----:| :-----:  |-----:
+>| onTimeChanged   | Callback of the time progress in ms | 'onTimeChanged'    |✓    |✓
+>| onAudioFinished       | Callback of the audio playback when finished| 'onAudioFinished'    |  ✓   |✓
+
+Example:
+
+```javascript
+DeviceEventEmitter.addListener(AudioManager.Events.onTimeChanged, (currentTime) => {
+	// currentTime is an int type.
+	// currentTime is in mili-seconds.
+});
+
+DeviceEventEmitter.addListener(AudioManager.Events.onAudioFinished, () => {
+	// do something when an audio playback finished.
+});
+```
+<br>
+<br>
+
+
+# Functions
+
+## load
+>Load in memory the audio file. The file must be local and the format OGG, ACC or MP3. If exist another audio playing or, paused or loaded, this function calls `stop` before to try to load the current audio file path.
+```javascript
+async load  (path : String, audioOutputRoute = AudioOutputRoute.DEFAULTSPEAKER) : boolean
+```
+| Parameter|Description|
+|:-------------|:-------------
+| path   | the audio file path.
+|audioOutputRoute| (optional) the audio output route. By default is the midia audio output.
+
+<br>
+
+| Returns|Description|
+|:-------------|:-------------
+| boolean   | `true` if the was a sucess to load the file. Else `false`, may the file or path invalid.
+
+<br>
+<br>
+
+
+## play
+>Starts the audio playback if was loaded with success by the `load`.
+>Set the `Events` to get the time progress and to know when the audio playback finished.
+```javascript
+async play(loop = false, playFromTime = 0) : boolean
+```
+| Parameter|Description|
+|:-------------|:-------------
+| loop   | (optional) `boolean` type. By default is `false`. `true` to infinite loops. `false` to play just once.
+|playFromTime| (optional) `int` type. By default start in the position time 0. The time must be in mili seconds.
+
+<br>
+
+| Returns|Description|
+|:-------------|:-------------
+| boolean   | `true` if the was a success to play the audio. Else `false`, may the audio already playing.
+
+<br>
+<br>
+
+## loadAndPlay
+> This function only call `load` and `play` in sequence.
+> See `load` and `play` for more details.
+>Set the `Events` to get the time progress and to know when the audio playback finished.
+```javascript
+async loadAndPlay(path : string, audioOutputRoute = AudioOutputRoute.DEFAULTSPEAKER, loop = false, playFromTime = 0) : boolean
+```
+| Parameter|Description|
+|:-------------|:-------------
+| path   | the audio file path.
+|audioOutputRoute| (optional) the audio output route. By default is the midia audio output.
+|loop| (optional) `boolean` type. By default is `false`. `true` to infinite loops. `false` to play just once.
+|playFromTime| (optional) `int` type. By default start in the position time 0. The time must be in mili seconds.
+
+<br>
+
+| Returns|Description|
+|:-------------|:-------------
+| boolean   | `true` if the was a success to load and play the audio. Else `false`, may the file audio invalid or not exist.
+
+<br>
+<br>
+
+## pause
+> Pauses the audio playback, if exist an audio is playing.
+```javascript
+async pause() : boolean
+```
+| Returns|Description|
+|:-------------|:-------------
+| boolean   | `true` if the was a success to pause an audio that is playing Else `false`, may the audio is already paused or not exist an audio playing.
+
+<br>
+<br>
+
+## resume
+> Resumes the audio paused, if exist an audio paused.
+```javascript
+async resume() : boolean
+```
+| Returns|Description|
+|:-------------|:-------------
+| boolean   | `true` if the was a success to resume an audio paused. Else `false`, may the audio is already playing or not exist an audio loaded.
+
+<br>
+<br>
+
+
+## stop
+> Stops the audio that is playing, loaded and paused. This function release the audio hardware and memory resources.
+```javascript
+async stop() : boolean
+```
+| Returns|Description|
+|:-------------|:-------------
+| boolean   | `true` if the was a success to stop the audio. Else `false`, not exist audio loaded or something bad happened.
+
+<br>
+<br>
+
+
+## seekTo
+> Seeks to specified time position. The time is in mili seconds.
+```javascript
+async seekTo(time : int) : boolean
+```
+| Parameters|Description|
+|:-------------|:-------------
+|time|`int` type. The time in mili-seconds. Cannot be bigger than the audio duration. Can be used to reset the audio playback setting to 0.
+
+<br>
+
+| Returns|Description|
+|:-------------|:-------------
+|time|`true` if the was a success to seek to specified time position in the audio playback. Else `false`, not exist audio loaded, time is bigger then the audio duration or something bad happened.
+
+<br>
+<br>
+
+
+## setAudioOutputRoute
+> Set audio output route. By default is the midia speaker. The options is ear and midia. Can change the route if an audio is playing. There is a delay to change completely the route.
+> See the `AudioOutPutRoute` enum.
+```javascript
+async setAudioOutputRoute(audioOutputRoute : int) : boolean
+```
+| Parameters|Description|
+|:-------------|:-------------
+|audioOutputRoute|`int` type. Default value is `AudioOutPutRoute.DEFAULT_SPEAKER` that has the value 0. The `AudioOutPutRoute.EAR_SPEAKER` value is 1.
+
+<br>
+
+| Returns|Description|
+|:-------------|:-------------
+| boolean   | `true` if the was a success to set the audio output route. Else `false` something bad happened.
+
+<br>
+<br>
+
+
+## getCurrentAudioName
+> Get current audio name or path if was loaded or is playing. The path is the same that was used to `load`. By default, just the name is to return.
+```javascript
+async getCurrentAudioName(fullPath = false) : string
+```
+| Parameters|Description|
+|:-------------|:-------------
+|fullPath|`boolean` type. `true` to return the full path. `false` to return the name of the audio file. By default, just the name is to return.
+
+<br>
+
+| Returns|Description|
+|:-------------|:-------------
+| string   | Return the path or the name of the audio loaded. Else return an empty string.
+
+<br>
+<br>
+
+## getDuration
+> Get duration in mili seconds of an audio file.
+```javascript
+async getCurrentAudioName() : int
+```
+| Returns|Description|
+|:-------------|:-------------
+|int| Return the duration in mili seconds, if no duration is available, it is null. 

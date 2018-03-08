@@ -1,6 +1,6 @@
 /**
- * @author Haroldo Shigueaki Teruya <haroldo.s.teruya@gmail.com>
- * @version 0.0
+ * @author FalaFreud, Haroldo Shigueaki Teruya <haroldo.s.teruya@gmail.com>
+ * @version 1.1
  */
 
 //==========================================================================
@@ -9,10 +9,9 @@
 /**
  * This class requires:
  * @class
- * @requires DeviceEventEmitter from react-native
  * @requires NativeModules from react-native
  */
-import { DeviceEventEmitter, NativeModules } from 'react-native';
+import { NativeModules } from 'react-native';
 
 //==========================================================================
 
@@ -27,21 +26,9 @@ class BaseAudioManager {
     //==========================================================================
     // GLOBAL VARIABLES
 
+    // init objects to be used as ENUM
     AudioOutputRoute = {}
     Events = {}
-
-    /**
-     * Send the current time position of the audio.
-     * @callback
-     * @param {int} - current time position in mili-seconds
-     */
-    _timeTrackerCallback = null;
-
-    /**
-     * Send signal that the audio finished.
-     * @callback
-     */
-    _audioFinishedCallback = null;
 
     //==========================================================================
     // CONSTRUCTOR
@@ -51,49 +38,46 @@ class BaseAudioManager {
      */
     constructor() {
 
+        // init the enum int type to identify the type of the audio output route.
         this.AudioOutputRoute = {
-            DEFAULT_SPEAKER: 0,
-            EAR_SPEAKER: 1
+            DEFAULT_SPEAKER: 0, // DEFAULT SPEAKER
+            EAR_SPEAKER: 1      // EAR SPEAKER
         };
         // cannot alter the object values of the AudioOutputRoute
         Object.freeze(this.AudioOutputRoute);
 
+        // init the enum string type to identify the event of the audio playback.
         this.Events = {
-            onTimeChanged: "onTimeChanged",
-            onAudioFinished: 'onAudioFinished'
+            onTimeChanged: "onTimeChanged",    // on time event changed
+            onAudioFinished: 'onAudioFinished' // on audio finished event
         };
         // cannot alter the object values of the AudioOutputRoute
-        Object.freeze(this.Events);        
+        Object.freeze(this.Events);
 
         this._duration = 0;
-
         this.load = this.load.bind(this);
         this.play = this.play.bind(this);
         this.getDuration = this.getDuration.bind(this);
-        // this.setTimeTrackerCallback = this.setTimeTrackerCallback.bind(this);
-        this.setAudioFinishedCallback = this.setAudioFinishedCallback.bind(this);
-
-        this.loadPlay = this.loadPlay.bind(this);
+        this.loadAndPlay = this.loadAndPlay.bind(this);
         this.pause = this.pause.bind(this);
         this.resume = this.resume.bind(this);
         this.stop = this.stop.bind(this);
-        this.seekTime = this.seekTime.bind(this);
+        this.seekTo = this.seekTo.bind(this);
         this.setTimeInterval = this.setTimeInterval.bind(this);
-        this.getVolume = this.getVolume.bind(this);
         this.setAudioOutputRoute = this.setAudioOutputRoute.bind(this);
         this.getCurrentAudioName = this.getCurrentAudioName.bind(this);
-        this.getDuration = this.getDuration.bind(this);
     }
 
     //==========================================================================
     // METHODS
 
     /**
-     * Play the audio only if the audio is loadded with sucess.
+     * Starts an audio playback.
      * @async
      *
      * @param {boolean} loop - true or false. true to play in loop, else play only once.
-     * @returns {boolean} true or false. true if was a sucess to play the file, else return false.
+     * @param {int} playFromTime - time in mili seconds. Specific the start position time in mili seconds.
+     * @returns {boolean} true or false. `true` if the was a success to play the audio. Else `false`, may the audio already playing.
      */
     async play(loop = false, playFromTime = 0) : boolean {
         try {
@@ -106,15 +90,16 @@ class BaseAudioManager {
     }
 
     /**
-     * Load and Play the audio.
+     * This function only call load and play in sequence.
      *
      * @async
-     * @param {string} path - absolute path of the audio file.
+     * @param {string} path - path of the audio file.
      * @param {int} audioOutputRoute - 0 or 1. 0 to the audio output is default. 1 to the audio output is in the speaker (ear).
      * @param {boolean} loop - true or false. true to play in loop, else play only once.
-     * @returns {boolean} true or false. true if was a sucess to play the file, else return false.
+     * @param {int} playFromTime - time in mili seconds. Specific the start position time in mili seconds.
+     * @returns {boolean} true or false. `true` if the was a success to play the audio. Else `false`, may the audio already playing.
      */
-    async loadPlay(path : string, audioOutputRoute = AudioOutputRoute.DEFAULTSPEAKER, loop = false, playFromTime = 0) : boolean {
+    async loadAndPlay(path : string, audioOutputRoute = AudioOutputRoute.DEFAULTSPEAKER, loop = false, playFromTime = 0) : boolean {
         var sucess = await this.load(path, audioOutputRoute);
         if ( sucess ) {
             sucess = await this.play(loop, playFromTime);
@@ -176,9 +161,9 @@ class BaseAudioManager {
      * @param {int} milisec - the position time in mili-seconds.
      * @returns {boolean} true or false. true if was a sucess to seek to the time position, else return false.
      */
-    async seekTime(milisec : int) : boolean {
+    async seekTo(milisec : int) : boolean {
         try {
-            return await NativeModules.AudioManagerModule.seekTime(milisec);
+            return await NativeModules.AudioManagerModule.seekTo(milisec);
         } catch (e) {
             console.error(e);
         }
@@ -213,7 +198,7 @@ class BaseAudioManager {
         } catch (e) {
             console.error(e);
         }
-        return false
+        return false;
     }
 
     /**
@@ -251,24 +236,6 @@ class BaseAudioManager {
     */
     getDuration() : int {
         return this._duration;
-    }
-
-    /**
-     * Set the callback to send the current time position when an audio is playing.
-     *
-     * @param {callback} timeTrackerCallback - this is a function with on parameter of the type int.
-     */
-    // setTimeTrackerCallback(timeTrackerCallback : Callback) : void {
-    //     this._timeTrackerCallback = timeTrackerCallback;
-    // }
-
-    /**
-     * Set the callback to send when the audio finished playing.
-     *
-     * @param {callback} audioFinishedCallback - this is a function with on parameter of the type int.
-     */
-    setAudioFinishedCallback(audioFinishedCallback : Callback) : void {
-        this._audioFinishedCallback = audioFinishedCallback;
     }
 }
 
