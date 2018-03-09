@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.media.AudioManager;
 import android.os.PowerManager;
 import android.util.Base64;
+import android.content.pm.PackageManager;
 import android.util.Log;
 
 import com.facebook.react.bridge.LifecycleEventListener;
@@ -58,8 +59,6 @@ public class DeviceManagerModule extends ReactContextBaseJavaModule implements L
 
         // for proximity management
         proximityWakeLock = powerManager.newWakeLock(PowerManager.PROXIMITY_SCREEN_OFF_WAKE_LOCK, getName());
-
-        // this.enableProximitySensorHandler();
     }
 
 
@@ -110,6 +109,14 @@ public class DeviceManagerModule extends ReactContextBaseJavaModule implements L
     @ReactMethod
     public void setProximityEnable(Boolean enable, final Promise promise) {
         Log.d(getName(), "setProximityEnable " + enable);
+
+        if ( reactContext.getPackageManager() != null && reactContext.getPackageManager().hasSystemFeature(PackageManager.FEATURE_SENSOR_PROXIMITY) ) {
+            Log.d(getName(), "setProximityEnable exist sensor support");
+        } else {
+            Log.d(getName(), "setProximityEnable not exist sensor support");
+            promise.resolve(false);
+            return;
+        }
 
         if( enable ) {
             // enable = true
