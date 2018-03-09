@@ -47,9 +47,6 @@ class DeviceManagerModule: NSObject {
     
     func proximityChanged(notification: NSNotification) {
         
-        print("changed")
-        print(notification.object)
-        
         if let device = notification.object as? UIDevice {
             if UIDevice.current.isProximityMonitoringEnabled {
                 bridge.eventDispatcher().sendAppEvent( withName: "onProximityChanged", body: NEAR)
