@@ -44,7 +44,7 @@ class AudioManagerModule: NSObject, AVAudioPlayerDelegate {
                 audioPlayer = try AVAudioPlayer(contentsOf: url)
                 if audioPlayer.prepareToPlay() {
                     self.path = path
-                    resolve(audioPlayer.duration)
+                    resolve(audioPlayer.duration * 1000)
 
                 } else {
                     resolve(false)
