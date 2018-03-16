@@ -1,6 +1,6 @@
 {
   "name": "react-native-media",
-  "version": "0.1.1",
+  "version": "1.0.0",
   "description": "Native helpers for media control",
   "private": true,
   "main": "index.js",
@@ -14,6 +14,6 @@
     "utils"
   ],
   "peerDependencies": {
-    "react-native": "^0.41.2"
+    "react-native": "^0.51.2"
   }
 }
