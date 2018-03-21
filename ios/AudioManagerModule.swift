@@ -194,8 +194,9 @@ class AudioManagerModule: NSObject, AVAudioPlayerDelegate {
                 resolve(false)
             }
         } else if type == DEFAULTSPEAKER {
-            do {                
-                try session.setCategory(AVAudioSessionCategoryPlayAndRecord)
+            do {
+                try session.setCategory(AVAudioSessionCategoryPlayAndRecord, with: AVAudioSessionCategoryOptions.defaultToSpeaker)
+//                try session.setCategory(AVAudioSessionCategoryPlayAndRecord)
                 try session.overrideOutputAudioPort(AVAudioSessionPortOverride.speaker)
                 try session.setActive(true)
                 resolve(true)
