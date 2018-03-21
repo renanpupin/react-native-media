@@ -9,6 +9,11 @@
 /* Begin PBXBuildFile section */
 		5CD2C09A20614D2D005C3C5B /* CallManagerModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CD2C09920614D2D005C3C5B /* CallManagerModule.swift */; };
 		5CD2C09C20614E4E005C3C5B /* CallManagerBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CD2C09B20614E4E005C3C5B /* CallManagerBridge.m */; };
+		5CD2C09F20615B75005C3C5B /* PushKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CD2C09E20615B75005C3C5B /* PushKit.framework */; };
+		5CD2C0A120615B7B005C3C5B /* CallKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CD2C0A020615B7B005C3C5B /* CallKit.framework */; };
+		5CD2C0A820615BE2005C3C5B /* ProviderDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CD2C0A320615BE2005C3C5B /* ProviderDelegate.swift */; };
+		5CD2C0AA20615BE2005C3C5B /* SpeakerboxCall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CD2C0A520615BE2005C3C5B /* SpeakerboxCall.swift */; };
+		5CD2C0AC20615BE2005C3C5B /* SpeakerboxCallManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CD2C0A720615BE2005C3C5B /* SpeakerboxCallManager.swift */; };
 		F93F43DE202DE0A20079C98E /* DeviceManagerBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = F93F43D0202DE0A20079C98E /* DeviceManagerBridge.m */; };
 		F93F43DF202DE0A20079C98E /* AudioManagerBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = F93F43D4202DE0A20079C98E /* AudioManagerBridge.m */; };
 		F93F43E0202DE0A20079C98E /* DirectoryManagerModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93F43D5202DE0A20079C98E /* DirectoryManagerModule.swift */; };
@@ -35,6 +40,11 @@
 		134814201AA4EA6300B7C361 /* libRNReactNativeMedia.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRNReactNativeMedia.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		5CD2C09920614D2D005C3C5B /* CallManagerModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallManagerModule.swift; sourceTree = "<group>"; };
 		5CD2C09B20614E4E005C3C5B /* CallManagerBridge.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CallManagerBridge.m; sourceTree = "<group>"; };
+		5CD2C09E20615B75005C3C5B /* PushKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PushKit.framework; path = System/Library/Frameworks/PushKit.framework; sourceTree = SDKROOT; };
+		5CD2C0A020615B7B005C3C5B /* CallKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CallKit.framework; path = System/Library/Frameworks/CallKit.framework; sourceTree = SDKROOT; };
+		5CD2C0A320615BE2005C3C5B /* ProviderDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProviderDelegate.swift; sourceTree = "<group>"; };
+		5CD2C0A520615BE2005C3C5B /* SpeakerboxCall.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpeakerboxCall.swift; sourceTree = "<group>"; };
+		5CD2C0A720615BE2005C3C5B /* SpeakerboxCallManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpeakerboxCallManager.swift; sourceTree = "<group>"; };
 		F93F43D0202DE0A20079C98E /* DeviceManagerBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceManagerBridge.m; sourceTree = "<group>"; };
 		F93F43D1202DE0A20079C98E /* RCTSilentSwitch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCTSilentSwitch.h; sourceTree = "<group>"; };
 		F93F43D2202DE0A20079C98E /* mute.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = mute.caf; sourceTree = "<group>"; };
@@ -55,6 +65,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5CD2C0A120615B7B005C3C5B /* CallKit.framework in Frameworks */,
+				5CD2C09F20615B75005C3C5B /* PushKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -72,8 +84,7 @@
 		58B511D21A9E6C8500147676 = {
 			isa = PBXGroup;
 			children = (
-				5CD2C09B20614E4E005C3C5B /* CallManagerBridge.m */,
-				5CD2C09920614D2D005C3C5B /* CallManagerModule.swift */,
+				5CD2C0A220615BBA005C3C5B /* CallManager */,
 				F93F43D4202DE0A20079C98E /* AudioManagerBridge.m */,
 				F93F43D7202DE0A20079C98E /* AudioManagerModule.swift */,
 				F93F43D0202DE0A20079C98E /* DeviceManagerBridge.m */,
@@ -88,7 +99,29 @@
 				F93F43DC202DE0A20079C98E /* SharkfoodMuteSwitchDetector.h */,
 				F93F43D6202DE0A20079C98E /* SharkfoodMuteSwitchDetector.m */,
 				134814211AA4EA7D00B7C361 /* Products */,
+				5CD2C09D20615B75005C3C5B /* Frameworks */,
 			);
+			sourceTree = "<group>";
+		};
+		5CD2C09D20615B75005C3C5B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				5CD2C0A020615B7B005C3C5B /* CallKit.framework */,
+				5CD2C09E20615B75005C3C5B /* PushKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		5CD2C0A220615BBA005C3C5B /* CallManager */ = {
+			isa = PBXGroup;
+			children = (
+				5CD2C09B20614E4E005C3C5B /* CallManagerBridge.m */,
+				5CD2C09920614D2D005C3C5B /* CallManagerModule.swift */,
+				5CD2C0A320615BE2005C3C5B /* ProviderDelegate.swift */,
+				5CD2C0A520615BE2005C3C5B /* SpeakerboxCall.swift */,
+				5CD2C0A720615BE2005C3C5B /* SpeakerboxCallManager.swift */,
+			);
+			path = CallManager;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -148,6 +181,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5CD2C0AC20615BE2005C3C5B /* SpeakerboxCallManager.swift in Sources */,
+				5CD2C0A820615BE2005C3C5B /* ProviderDelegate.swift in Sources */,
 				5CD2C09C20614E4E005C3C5B /* CallManagerBridge.m in Sources */,
 				F93F43DF202DE0A20079C98E /* AudioManagerBridge.m in Sources */,
 				F93F43E0202DE0A20079C98E /* DirectoryManagerModule.swift in Sources */,
@@ -158,6 +193,7 @@
 				F93F43E3202DE0A20079C98E /* DeviceManagerModule.swift in Sources */,
 				5CD2C09A20614D2D005C3C5B /* CallManagerModule.swift in Sources */,
 				F93F43E4202DE0A20079C98E /* RCTSilentSwitch.m in Sources */,
+				5CD2C0AA20615BE2005C3C5B /* SpeakerboxCall.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -207,7 +243,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -250,7 +286,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";

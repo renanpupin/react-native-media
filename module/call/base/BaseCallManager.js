@@ -27,6 +27,11 @@ class BaseCallManager {
 
     //==========================================================================
     // CONSTRUCTOR
+    constructor() {
+        DeviceEventEmitter.addListener('onProximityChanged', (something) => {
+            alert(something);
+        });
+    }
 
     //==========================================================================
     // METHODS
