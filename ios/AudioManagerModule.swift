@@ -58,9 +58,7 @@ class AudioManagerModule: NSObject, AVAudioPlayerDelegate {
     }
 
     @objc func play(_ loop: Bool, playFromTime: Int, resolver resolve: RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) -> Void {
-
-//        NotificationCenter.default.removeObserver(self, name: Notification.Name.UIApplicationDidBecomeActive, object: true)
-
+        
         if paused {
             resolve(false)
         } else if( audioPlayer != nil && !audioPlayer.isPlaying ){
@@ -210,8 +208,8 @@ class AudioManagerModule: NSObject, AVAudioPlayerDelegate {
             }
         } else if type == DEFAULTSPEAKER {
             do {
-                // try session.setCategory(AVAudioSessionCategoryPlayback, with: AVAudioSessionCategoryOptions.defaultToSpeaker)
-                try session.setCategory(AVAudioSessionCategoryPlayAndRecord)
+                try session.setCategory(AVAudioSessionCategoryPlayAndRecord, with: AVAudioSessionCategoryOptions.defaultToSpeaker)
+//                try session.setCategory(AVAudioSessionCategoryPlayAndRecord)
                 try session.overrideOutputAudioPort(AVAudioSessionPortOverride.speaker)
                 try session.setActive(true)
                 resolve(true)
