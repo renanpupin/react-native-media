@@ -24,6 +24,8 @@ import { DeviceEventEmitter, NativeModules } from 'react-native';
  */
 class AudioManager extends BaseAudioManager {
 
+    _initialAudioOutputRoute = 0;
+
     /**
      * Creates a instance of AudioManager.
      */
@@ -48,12 +50,13 @@ class AudioManager extends BaseAudioManager {
             let resolve = await NativeModules.AudioManagerModule.load(path);
             if ( resolve != false ) {
                 this._duration = resolve;
-                resolve = await this.setAudioOutputRoute(audioOutputRoute)
+                if ( this._initialAudioOutputRoute != audioOutputRoute ) {
+                    resolve = await this.setAudioOutputRoute(audioOutputRoute)
+                }                              
                 if ( resolve ) {
                     return true;
                 }
-            }
-            else {
+            } else {
                 return false;
             }
         } catch (e) {
