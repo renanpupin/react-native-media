@@ -27,23 +27,9 @@ class BaseCallManager {
 
     //==========================================================================
     // CONSTRUCTOR
-    constructor() {
-        DeviceEventEmitter.addListener('onProximityChanged', (something) => {
-            alert(something);
-        });
-    }
 
     //==========================================================================
     // METHODS
-
-    /**
-     *
-     * @async
-     * @return {}
-     */
-    async test() : string {
-        return await NativeModules.CallManagerModule.test();
-    }
 
     //==========================================================================
     // SETTERS & GETTERS

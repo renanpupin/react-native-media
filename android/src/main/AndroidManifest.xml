@@ -1,4 +1,3 @@
-
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.media">
 
@@ -6,6 +5,22 @@
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />        
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
 
+    <application>
+        <receiver
+            android:name=".module.call.SocketIOBroadcastReceiver"
+            android:enabled="true"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="com.media.call.RestartService" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name=".module.call.SocketIOService"
+            android:enabled="true"/>
+    </application>
 </manifest>
-  

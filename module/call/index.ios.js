@@ -26,6 +26,25 @@ class CallManager extends BaseCallManager {
 
     //==========================================================================
     // METHODS
+
+    /**
+     *
+     * @async
+     * @return {}
+     */
+    async test() : string {
+        return await NativeModules.CallManagerModule.test();
+    }
+
+    /**
+     *
+     * @async
+     * @return {}
+     */
+    async connectSocketIO(ipAddress : String, mainBundlePackageName : String, serverChannel : String) : int {
+        console.log("CallManager connectSocketIO not exist for IOS");
+        return -1;
+    }
 }
 
 //==========================================================================

@@ -32,5 +32,6 @@ repositories {
 
 dependencies {
     compile 'com.facebook.react:react-native:+'
+    compile 'com.github.nkzawa:socket.io-client:0.3.0'
 }
   
