@@ -24,6 +24,15 @@ import { DeviceEventEmitter, NativeModules } from 'react-native';
  */
 class CallManager extends BaseCallManager {
 
+    constructor() {
+        super();
+
+        console.log("CallManager constructor");
+        DeviceEventEmitter.addListener('onCallReceived', (data) => {
+            console.log(data);
+        });
+    }
+
     //==========================================================================
     // METHODS
 

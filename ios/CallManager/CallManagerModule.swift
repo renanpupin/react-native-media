@@ -28,6 +28,7 @@ class CallManagerModule: UIResponder, UIApplicationDelegate {
     let timeIntervalNotification = 3
     let maxCallCounterNotification = 4
     var model = CallModel()
+    var bridge: RCTBridge!
     
     // Trigger VoIP registration on launch
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
@@ -51,7 +52,8 @@ class CallManagerModule: UIResponder, UIApplicationDelegate {
     }
     
     func receiveCall() {
-        print("receive call")
+        print("receiveCall")
+        bridge.eventDispatcher().sendAppEvent( withName: "onCallReceived", body: "go go go go" )
     }
 }
 
