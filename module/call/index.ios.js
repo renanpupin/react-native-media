@@ -31,6 +31,10 @@ class CallManager extends BaseCallManager {
         DeviceEventEmitter.addListener('onCallReceived', (data) => {
             console.log(data);
         });
+
+        console.log(async () => {
+            return await NativeModules.CallManagerModule.getCallIfExist();
+        });
     }
 
     //==========================================================================
@@ -41,8 +45,8 @@ class CallManager extends BaseCallManager {
      * @async
      * @return {}
      */
-    async test() : string {
-        return await NativeModules.CallManagerModule.test();
+    async registerPushKit() : string {
+        return await NativeModules.CallManagerModule.registerPushKit();
     }
 
     /**

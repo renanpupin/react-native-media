@@ -28,32 +28,35 @@ class CallManagerModule: UIResponder, UIApplicationDelegate {
     let timeIntervalNotification = 3
     let maxCallCounterNotification = 4
     var model = CallModel()
+    var hasCall = ""
     var bridge: RCTBridge!
-    
-    // Trigger VoIP registration on launch
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
+        
+    @objc func registerPushKit(_ resolve: @escaping RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) -> Void {
+//        self.model.name = "Justing testing"
+//        self.model.currentCallStatus = self.model.lostStatus
+//        displayNotification()
         pushRegistry.delegate = self
         pushRegistry.desiredPushTypes = [.voIP]
         
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) {
             (granted, error) in
             if granted {
-                application.registerForRemoteNotifications()
+                UIApplication.shared.registerForRemoteNotifications()
                 self.model.isPermissionNotificationGranted = granted
             }
         }
-        return true
     }
     
-    @objc func test(_ resolve: @escaping RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) -> Void {
-        self.model.name = "Justing testing"
-        self.model.currentCallStatus = self.model.lostStatus
-        displayNotification()
+    @objc func getCallIfExist(_ resolve: @escaping RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) -> Void {
+        print("getCallIfExist")
+        
+        resolve(self.hasCall)
     }
     
     func receiveCall() {
         print("receiveCall")
-        bridge.eventDispatcher().sendAppEvent( withName: "onCallReceived", body: "go go go go" )
+//        self.hasCall = ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+//        bridge.eventDispatcher().sendAppEvent( withName: "onCallReceived", body: "go go go go" )
     }
 }
 

@@ -41,7 +41,6 @@
 		5CD2C09920614D2D005C3C5B /* CallManagerModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallManagerModule.swift; sourceTree = "<group>"; };
 		5CD2C09B20614E4E005C3C5B /* CallManagerBridge.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CallManagerBridge.m; sourceTree = "<group>"; };
 		5CD2C09E20615B75005C3C5B /* PushKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PushKit.framework; path = System/Library/Frameworks/PushKit.framework; sourceTree = SDKROOT; };
-		5CD2C0A020615B7B005C3C5B /* CallKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CallKit.framework; path = System/Library/Frameworks/CallKit.framework; sourceTree = SDKROOT; };
 		F93F43D0202DE0A20079C98E /* DeviceManagerBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceManagerBridge.m; sourceTree = "<group>"; };
 		F93F43D1202DE0A20079C98E /* RCTSilentSwitch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCTSilentSwitch.h; sourceTree = "<group>"; };
 		F93F43D2202DE0A20079C98E /* mute.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = mute.caf; sourceTree = "<group>"; };
@@ -104,7 +103,6 @@
 			isa = PBXGroup;
 			children = (
 				5C707C9E206461C300C9302A /* UserNotifications.framework */,
-				5CD2C0A020615B7B005C3C5B /* CallKit.framework */,
 				5CD2C09E20615B75005C3C5B /* PushKit.framework */,
 			);
 			name = Frameworks;
