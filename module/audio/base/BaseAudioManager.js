@@ -89,6 +89,7 @@ class BaseAudioManager {
         this.getDuration = this.getDuration.bind(this);
         this.setTimeTrackerCallback = this.setTimeTrackerCallback.bind(this);
         this.setAudioFinishedCallback = this.setAudioFinishedCallback.bind(this);
+        this.hasWiredheadsetPlugged = this.hasWiredheadsetPlugged.bind(this);
 
         this.loadPlay = this.loadPlay.bind(this);
         this.pause = this.pause.bind(this);
