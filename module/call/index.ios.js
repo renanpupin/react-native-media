@@ -28,13 +28,13 @@ class CallManager extends BaseCallManager {
         super();
 
         console.log("CallManager constructor");
-        DeviceEventEmitter.addListener('onCallReceived', (data) => {
-            console.log(data);
-        });
-
-        console.log(async () => {
-            return await NativeModules.CallManagerModule.getCallIfExist();
-        });
+        // DeviceEventEmitter.addListener('onCallReceived', (data) => {
+        //     console.log(data);
+        // });
+        //
+        // console.log(async () => {
+        //     return await NativeModules.CallManagerModule.getCallIfExist();
+        // });
     }
 
     //==========================================================================

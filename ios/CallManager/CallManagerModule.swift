@@ -35,6 +35,7 @@ class CallManagerModule: UIResponder, UIApplicationDelegate {
 //        self.model.name = "Justing testing"
 //        self.model.currentCallStatus = self.model.lostStatus
 //        displayNotification()
+        
         pushRegistry.delegate = self
         pushRegistry.desiredPushTypes = [.voIP]
         
@@ -43,6 +44,7 @@ class CallManagerModule: UIResponder, UIApplicationDelegate {
             if granted {
                 UIApplication.shared.registerForRemoteNotifications()
                 self.model.isPermissionNotificationGranted = granted
+                resolve("registerPushKit")
             }
         }
     }
@@ -153,14 +155,16 @@ extension CallManagerModule: PKPushRegistryDelegate {
         
         displayNotification()
         
-        DispatchQueue.main.async(execute: {
+//        DispatchQueue.main.async(execute:
+//            {
             self.model.alertTimerNotification = Timer.scheduledTimer(
                 timeInterval: TimeInterval(self.timeIntervalNotification),
                 target: self,
                 selector: #selector(self.startNotificationAlert),
                 userInfo: nil,
                 repeats: true)
-        })
+//            }
+//        )
         self.model.isCalling = true
     }
     
