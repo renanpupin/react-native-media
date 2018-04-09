@@ -229,7 +229,7 @@ public class AudioManagerModule extends ReactContextBaseJavaModule
     }
 
     @ReactMethod
-    public void seekTo(int milisec, Promise promise) {
+    public void seekTime(int milisec, Promise promise) {
         try {
             if( mediaPlayer != null && milisec <= duration ) {
                 mediaPlayer.seekTo(milisec);
@@ -253,6 +253,25 @@ public class AudioManagerModule extends ReactContextBaseJavaModule
                 promise.resolve(false);
             }
         } catch ( IllegalViewOperationException e ) {
+            promise.resolve(false);
+        }
+    }
+
+    @ReactMethod
+    public void getVolume(Promise promise) {
+        AudioManager audioManager = (AudioManager) reactContext.getSystemService(AUDIO_SERVICE);
+        int volume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+//        Log.d(getName(), String.valueOf(audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC)));
+        promise.resolve(volume);
+    }
+
+    @ReactMethod
+    public void setVolume(int volume, Promise promise) {
+        if ( mediaPlayer != null ) {
+            AudioManager audioManager = (AudioManager) reactContext.getSystemService(AUDIO_SERVICE);
+            audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, volume, AudioManager.FLAG_SHOW_UI);
+            promise.resolve(true);
+        } else {
             promise.resolve(false);
         }
     }
@@ -320,6 +339,13 @@ public class AudioManagerModule extends ReactContextBaseJavaModule
         } else {
             promise.resolve("");
         }
+    }
+
+    @ReactMethod
+    public void hasWiredheadsetPlugged(Promise promise) {
+
+        AudioManager audioManager = (AudioManager) reactContext.getSystemService(AUDIO_SERVICE);
+        promise.resolve(audioManager.isWiredHeadsetOn());
     }
 
     // SEND EVENT ==================================================================================

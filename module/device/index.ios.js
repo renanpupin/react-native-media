@@ -1,6 +1,6 @@
 /**
  * @author Haroldo Shigueaki Teruya <haroldo.s.teruya@gmail.com>
- * @version 0.0
+ * @version 1.0.0
  */
 
 //==========================================================================
@@ -77,17 +77,6 @@ class DeviceManager extends BaseDeviceManager {
     setOnSilentSwitchStateChanged(silentSwitchStateCallback : Callback) : void {
         NativeModules.SilentSwitch.subscribe();
         this._silentSwitchStateCallback = silentSwitchStateCallback;
-    }
-
-    /**
-     * Not exist.
-     *
-     * @async
-     * @returns {boolean} false.
-     */
-    async setVolume(volume) : boolean {
-        console.log("Do not exist set volume to IOS.");
-        return false
     }
 }
 

@@ -88,8 +88,8 @@ class AudioManagerModule: NSObject, AVAudioPlayerDelegate {
     }
 
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-        
         bridge.eventDispatcher().sendAppEvent( withName: "onAudioFinished", body: nil )
+
         stop()
     }
 
@@ -116,7 +116,8 @@ class AudioManagerModule: NSObject, AVAudioPlayerDelegate {
     }
 
     @objc func forcePause(sucess : Bool) {
-        
+
+        print("pausing")
         if( audioPlayer != nil && audioPlayer.isPlaying ){
             paused = true
             audioPlayer.pause()
@@ -139,7 +140,6 @@ class AudioManagerModule: NSObject, AVAudioPlayerDelegate {
     }
 
     func stop() -> Bool {
-        
         if( audioPlayer != nil ){
             self.path = ""
             paused = false
@@ -157,7 +157,7 @@ class AudioManagerModule: NSObject, AVAudioPlayerDelegate {
         }
     }
 
-    @objc func seekTo(_ time: Double, resolver resolve: RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) -> Void {
+    @objc func seekTime(_ time: Double, resolver resolve: RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) -> Void {
 
         var tempTime = time / 1000
 
@@ -181,6 +181,19 @@ class AudioManagerModule: NSObject, AVAudioPlayerDelegate {
         }
     }
 
+    @objc func getVolume(_ resolve: RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) -> Void {
+
+        let audioSession = AVAudioSession.sharedInstance()
+        do {
+            try audioSession.setActive(true)
+            var sucess = audioSession.outputVolume
+            try audioSession.setActive(false)
+            resolve(sucess)
+        } catch {
+            resolve(false)
+        }
+    }
+
     @objc func setAudioOutputRoute(_ type: Int, resolver resolve: RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) {
 
         let session = AVAudioSession.sharedInstance()
@@ -194,8 +207,9 @@ class AudioManagerModule: NSObject, AVAudioPlayerDelegate {
                 resolve(false)
             }
         } else if type == DEFAULTSPEAKER {
-            do {                
-                try session.setCategory(AVAudioSessionCategoryPlayAndRecord)
+            do {
+                try session.setCategory(AVAudioSessionCategoryPlayAndRecord, with: AVAudioSessionCategoryOptions.defaultToSpeaker)
+//                try session.setCategory(AVAudioSessionCategoryPlayAndRecord)
                 try session.overrideOutputAudioPort(AVAudioSessionPortOverride.speaker)
                 try session.setActive(true)
                 resolve(true)
@@ -219,8 +233,26 @@ class AudioManagerModule: NSObject, AVAudioPlayerDelegate {
         }
     }
 
-    @objc func audioRouteChangeListener(notification:NSNotification) {
-        
+    @objc func hasWiredheadsetPlugged(_ resolve: RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) {
+
+        let currentRoute = AVAudioSession.sharedInstance().currentRoute
+        if currentRoute.outputs != nil {
+            for description in currentRoute.outputs {
+                if description.portType == AVAudioSessionPortHeadphones {
+                    print("headphone plugged in")
+                    resolve(true)
+                } else {
+                    print("headphone pulled out")
+                    resolve(false)
+                }
+            }
+        } else {
+            print("requires connection to device")
+        }
+    }
+
+    dynamic private func audioRouteChangeListener(notification:NSNotification) {
+
         let audioRouteChangeReason = notification.userInfo![AVAudioSessionRouteChangeReasonKey] as! UInt
         switch audioRouteChangeReason {
             case AVAudioSessionRouteChangeReason.newDeviceAvailable.rawValue:
@@ -233,15 +265,16 @@ class AudioManagerModule: NSObject, AVAudioPlayerDelegate {
     }
 
     @objc func addAppStateListener() {
-        NotificationCenter.default.addObserver(self, selector: #selector(audioRouteChangeListener), name: .AVAudioSessionRouteChange, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(appMovedToBackground), name: .UIApplicationWillResignActive, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(appMovedToActive), name: .UIApplicationDidBecomeActive, object: nil)
     }
 
     @objc func appMovedToBackground() {
         if audioPlayer != nil && audioPlayer.isPlaying {
+            print("native to pause")
             paused = true
             audioPlayer.pause()
+            print("native paused")
         }
         bridge.eventDispatcher().sendAppEvent( withName: "onProximityChanged", body: ONBACKGROUND)
     }

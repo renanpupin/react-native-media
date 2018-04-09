@@ -1,6 +1,6 @@
 /**
- * @author FalaFreud, Haroldo Shigueaki Teruya <haroldo.s.teruya@gmail.com>
- * @version 1.1
+ * @author Haroldo Shigueaki Teruya <haroldo.s.teruya@gmail.com>
+ * @version 1.0.0
  */
 
 //==========================================================================
@@ -10,10 +10,11 @@
  * This class requires:
  * @class
  * @requires [BaseAudioManager]{@link ./base/BaseAudioManager}
+ * @requires DeviceEventEmitter from react-native
  * @requires NativeModules from react-native
  */
 import BaseAudioManager from './base/BaseAudioManager';
-import { NativeModules } from 'react-native';
+import { DeviceEventEmitter, NativeModules } from 'react-native';
 
 //==========================================================================
 /**
@@ -41,20 +42,36 @@ class AudioManager extends BaseAudioManager {
      * @param {int} audioOutputRoute - 0 or 1. 0 to the audio output is default. 1 to the audio output is in the speaker (ear).
      * @returns {boolean} true or false. true if was a sucess to load the file, else return false.
      */
-    async load(path : string, audioOutputRoute = this.AudioOutputRoute.DEFAULT_SPEAKER) : boolean {
+    async load(path : string, audioOutputRoute = 0) : boolean {
 
         try {
-            var resolve = await NativeModules.AudioManagerModule.load(path, audioOutputRoute);
+            var resolve = await NativeModules.AudioManagerModule.load(path,audioOutputRoute);
             if ( resolve != false ) {
                 this._duration = resolve;
                 return true;
-            } else {
+            }
+            else {
                 return false;
             }
         } catch (e) {
             console.error(e);
         }
         return false;
+    }
+
+    /**
+     * Set the devie volume.
+     *
+     * @async
+     * @returns {boolean} true or false, true if was a sucess to set the volume, else return false.
+     */
+    async setVolume(volume) : boolean {
+        try {
+            return await NativeModules.AudioManagerModule.setVolume(volume);
+        } catch (e) {
+            console.error(e);
+        }
+        return false
     }
 }
 
