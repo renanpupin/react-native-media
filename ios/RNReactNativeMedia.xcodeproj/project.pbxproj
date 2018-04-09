@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5C707C9020645F9E00C9302A /* CallModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C707C8F20645F9E00C9302A /* CallModel.swift */; };
 		5C707C9F206461C300C9302A /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C707C9E206461C300C9302A /* UserNotifications.framework */; };
 		5CD2C09A20614D2D005C3C5B /* CallManagerModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CD2C09920614D2D005C3C5B /* CallManagerModule.swift */; };
 		5CD2C09C20614E4E005C3C5B /* CallManagerBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CD2C09B20614E4E005C3C5B /* CallManagerBridge.m */; };
@@ -36,7 +35,6 @@
 
 /* Begin PBXFileReference section */
 		134814201AA4EA6300B7C361 /* libRNReactNativeMedia.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRNReactNativeMedia.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		5C707C8F20645F9E00C9302A /* CallModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallModel.swift; sourceTree = "<group>"; };
 		5C707C9E206461C300C9302A /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		5CD2C09920614D2D005C3C5B /* CallManagerModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallManagerModule.swift; sourceTree = "<group>"; };
 		5CD2C09B20614E4E005C3C5B /* CallManagerBridge.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CallManagerBridge.m; sourceTree = "<group>"; };
@@ -113,7 +111,6 @@
 			children = (
 				5CD2C09B20614E4E005C3C5B /* CallManagerBridge.m */,
 				5CD2C09920614D2D005C3C5B /* CallManagerModule.swift */,
-				5C707C8F20645F9E00C9302A /* CallModel.swift */,
 			);
 			path = CallManager;
 			sourceTree = "<group>";
@@ -185,7 +182,6 @@
 				F93F43E3202DE0A20079C98E /* DeviceManagerModule.swift in Sources */,
 				5CD2C09A20614D2D005C3C5B /* CallManagerModule.swift in Sources */,
 				F93F43E4202DE0A20079C98E /* RCTSilentSwitch.m in Sources */,
-				5C707C9020645F9E00C9302A /* CallModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

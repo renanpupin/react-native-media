@@ -24,39 +24,48 @@ import { DeviceEventEmitter, NativeModules } from 'react-native';
  */
 class CallManager extends BaseCallManager {
 
+    //==========================================================================
+    // GLOBAL VARIABLES
+
+    Event = {}
+
+    //==========================================================================
+    // CONSTRUCTOR
+
     constructor() {
         super();
 
-        console.log("CallManager constructor");
-        // DeviceEventEmitter.addListener('onCallReceived', (data) => {
-        //     console.log(data);
-        // });
-        //
-        // console.log(async () => {
-        //     return await NativeModules.CallManagerModule.getCallIfExist();
-        // });
+        this.Event = {
+            ON_INCOMING_CALL: "onIncomingCall",
+            ON_LOST_CALL: "onLostCall",
+        }
+        Object.freeze(this.Event);
+
+        this.requestAuthorization = this.requestAuthorization.bind(this);
+        this.requestDeviceToken = this.requestDeviceToken.bind(this);
     }
 
     //==========================================================================
     // METHODS
 
     /**
+     * This function request to registry and request authorization.
      *
      * @async
-     * @return {}
+     * @returns {boolean} true or false. true if was a sucess, else return false.
      */
-    async registerPushKit() : string {
-        return await NativeModules.CallManagerModule.registerPushKit();
+    async requestAuthorization() {
+        return await NativeModules.CallManagerModule.requestAuthorization();
     }
 
     /**
+     * This function request the device token.
      *
      * @async
-     * @return {}
+     * @returns {string} the device token in string. Return empty if do not exist.
      */
-    async connectSocketIO(ipAddress : String, mainBundlePackageName : String, serverChannel : String) : int {
-        console.log("CallManager connectSocketIO not exist for IOS");
-        return -1;
+    async requestDeviceToken() {
+        return await NativeModules.CallManagerModule.requestDeviceToken();
     }
 }
 
