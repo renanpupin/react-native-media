@@ -7,9 +7,6 @@
 //
 
 import Foundation
-import UIKit
-import PushKit
-import UserNotifications
 
 /*
  * UserDefaults.standard.bool(forKey: "USER_NOTIFICATION_REQUEST_AUTHORIZATION")
@@ -17,10 +14,7 @@ import UserNotifications
  */
 
 @objc(CallManagerModule)
-class CallManagerModule: UIResponder, UIApplicationDelegate {
-
-    let pushRegistry = PKPushRegistry(queue: DispatchQueue.main)
-    var bridge: RCTBridge!
+class CallManagerModule: NSObject {
 
     @objc func requestAuthorization(_ resolve: @escaping RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) -> Void {
         resolve(UserDefaults.standard.bool(forKey: "USER_NOTIFICATION_REQUEST_AUTHORIZATION"))
