@@ -1,6 +1,6 @@
 /**
  * @author Haroldo Shigueaki Teruya <haroldo.s.teruya@gmail.com>
- * @version 0.0
+ * @version 1.0.0
  */
 
 //==========================================================================
@@ -43,6 +43,8 @@ class CallManager extends BaseCallManager {
 
         this.requestAuthorization = this.requestAuthorization.bind(this);
         this.requestDeviceToken = this.requestDeviceToken.bind(this);
+        this.requestCallStatus = this.requestCallStatus.bind(this);
+        this.getCallData = this.getCallData.bind(this);
     }
 
     //==========================================================================
@@ -54,7 +56,7 @@ class CallManager extends BaseCallManager {
      * @async
      * @returns {boolean} true or false. true if was a sucess, else return false.
      */
-    async requestAuthorization() {
+    async requestAuthorization(): boolean {
         return await NativeModules.CallManagerModule.requestAuthorization();
     }
 
@@ -64,8 +66,31 @@ class CallManager extends BaseCallManager {
      * @async
      * @returns {string} the device token in string. Return empty if do not exist.
      */
-    async requestDeviceToken() {
+    async requestDeviceToken(): string {
         return await NativeModules.CallManagerModule.requestDeviceToken();
+    }
+
+    /**
+     * This function request the call status:
+     * INCOMING_CALL
+     * LOST_CALL
+     * NONE
+     *
+     * @async
+     * @returns {int}
+     */
+    async requestCallStatus(): int {
+        return await NativeModules.CallManagerModule.requestCallStatus();
+    }
+
+    /**
+     * If exist some call status, get your current data.
+     *
+     * @async
+     * @returns {string}
+     */
+    async getCallData(): string {
+        return await NativeModules.CallManagerModule.getCallData();
     }
 }
 
