@@ -27,7 +27,7 @@ class CallManager extends BaseCallManager {
     //==========================================================================
     // GLOBAL VARIABLES
 
-    Event = {}
+    Response = {}
 
     //==========================================================================
     // CONSTRUCTOR
@@ -35,11 +35,12 @@ class CallManager extends BaseCallManager {
     constructor() {
         super();
 
-        this.Event = {
-            ON_INCOMING_CALL: "onIncomingCall",
-            ON_LOST_CALL: "onLostCall",
+        this.Response = {
+            NONE: -1,         // nothing
+            INCOMING_CALL: 0, // exist an incoming call
+            LOST_CALL: 1      // exist an lost call
         }
-        Object.freeze(this.Event);
+        Object.freeze(this.Response);
 
         this.requestAuthorization = this.requestAuthorization.bind(this);
         this.requestDeviceToken = this.requestDeviceToken.bind(this);
@@ -72,12 +73,12 @@ class CallManager extends BaseCallManager {
 
     /**
      * This function request the call status:
-     * INCOMING_CALL
-     * LOST_CALL
-     * NONE
+     * NONE: -1
+     * INCOMING_CALL: 0
+     * LOST_CALL: 1
      *
      * @async
-     * @returns {int}
+     * @returns {int} see Response to get the call status.
      */
     async requestCallStatus(): int {
         return await NativeModules.CallManagerModule.requestCallStatus();
@@ -87,7 +88,7 @@ class CallManager extends BaseCallManager {
      * If exist some call status, get your current data.
      *
      * @async
-     * @returns {string}
+     * @returns {string} return the call data if Response is INCOMING_CALL or a LOST_CALL.
      */
     async getCallData(): string {
         return await NativeModules.CallManagerModule.getCallData();
