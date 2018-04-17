@@ -31,7 +31,4 @@ repositories {
 
 dependencies {
     implementation 'com.facebook.react:react-native:+'
-    implementation ('com.github.nkzawa:socket.io-client:0.3.0') {
-        exclude group: 'org.json', module: 'json'
-    }
 }

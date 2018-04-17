@@ -13,9 +13,7 @@
     "directory",
     "utils",
     "call",
-    "device",
-    "power",
-    "proximity"
+    "device"
   ],
   "peerDependencies": {
     "react-native": "^0.51.2"
