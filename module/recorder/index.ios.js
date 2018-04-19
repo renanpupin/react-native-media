@@ -24,6 +24,13 @@ import { NativeModules } from 'react-native';
 class RecorderManager extends BaseRecorderManager {
 
     //==========================================================================
+    // CONSTRUCTOR
+
+    constructor() {
+        super();
+    }
+    
+    //==========================================================================
     // METHODS
 }
 
