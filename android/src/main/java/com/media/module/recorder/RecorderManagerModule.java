@@ -135,13 +135,19 @@ public class RecorderManagerModule extends ReactContextBaseJavaModule
 
         // destroying recorder
         if (recorder != null) {
+
             try {
+                recorder.setOnErrorListener(null);
+                recorder.setOnInfoListener(null);
+                recorder.setPreviewDisplay(null);
                 recorder.stop();
                 recorder.release();
-            }
-            catch (final RuntimeException e) {
-                // https://developer.android.com/reference/android/media/MediaRecorder.html#stop()
-                Log.d(getName(), "RUNTIME_EXCEPTION: device cannot record or no data received yet.");
+            } catch (IllegalStateException e) {
+                Log.d(getName(), Log.getStackTraceString(e));
+            } catch (RuntimeException e) {
+                Log.d(getName(), Log.getStackTraceString(e));
+            } catch (Exception e) {
+                Log.d(getName(), Log.getStackTraceString(e));
             } finally {
                 recorder = null;
             }
@@ -209,7 +215,7 @@ public class RecorderManagerModule extends ReactContextBaseJavaModule
                 case VORBIS:
                     return MediaRecorder.AudioEncoder.VORBIS;
                 default:
-                    return MediaRecorder.AudioEncoder.AAC;
+                    return MediaRecorder.AudioEncoder.DEFAULT;
             }
         }
     }

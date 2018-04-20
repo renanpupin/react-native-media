@@ -29,9 +29,9 @@ class RecorderManagerModule: NSObject, AVAudioRecorderDelegate {
     }
 
     enum AudioOutputFormat : String {
+        case MPEG4AAC       = "mpeg_4"; // default aac
         case LinearPCM      = "lpcm";
         case AppleIMA4      = "ima4";
-        case MPEG4AAC       = "aac";
         case MACE3          = "MAC3";
         case MACE6          = "MAC6";
         case ULaw           = "ulaw";
@@ -47,8 +47,6 @@ class RecorderManagerModule: NSObject, AVAudioRecorderDelegate {
     var recordingSession: AVAudioSession = AVAudioSession.sharedInstance()
     var audioTimer: Timer!
 
-//    audioEncoding
-//    audioEncodingBitRate
     @objc func start(_ path: String, audioOutputFormat: String, timeLimit: Int, sampleRate: Int, channels: Int, resolver resolve: @escaping RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) -> Void {
 
         // verify the path

@@ -40,7 +40,7 @@ class BaseRecorderManager {
             UNKNOWN_ERROR:      3, // no ideia, but something is wrong...
             INVALID_AUDIO_PATH: 4, // the path of the audio where must be temporary store is invalid
             NOTHING_TO_STOP:    5, // can not stop something that never started
-            NO_PERMISSION:      6  // do you have permission in manifest.xml?
+            NO_PERMISSION:      6  // do you have permission in the manifest.xml or the user has permission?
         };
         Object.freeze(this.Response);
 
@@ -51,6 +51,9 @@ class BaseRecorderManager {
         };
         Object.freeze(this.Event);
 
+        /**
+         * Not used for IOS
+         */
         this.AudioEncoder = {
             AAC:        "aac",      // default value
             AAC_ELD:    "aac_eld",
@@ -75,6 +78,11 @@ class BaseRecorderManager {
         this.DEFAULT_SAMPLE_RATE = 44100;          // works in all devices, by Google Documentation
         this.DEFAULT_ENCODING_BIT_RATE = 32000;    // or for best perfomance 96000;
         this.DEFAULT_CHANNEL = 1;
+
+        Object.freeze(this.DEFAULT_TIME_LIMIT);
+        Object.freeze(this.DEFAULT_SAMPLE_RATE);
+        Object.freeze(this.DEFAULT_ENCODING_BIT_RATE);
+        Object.freeze(this.DEFAULT_CHANNEL);
 
         this.start = this.start.bind(this);
         this.stop = this.stop.bind(this);

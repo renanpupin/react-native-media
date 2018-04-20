@@ -34,16 +34,16 @@ class RecorderManager extends BaseRecorderManager {
     // METHODS
 
     /**
-     * This function prepare and start the record process.
+     * This function start the record process even if exist an record process.
      *
      * - The Event.ON_STARTED is invoked when start the record process with success.
-     * - If already exist an process, this function stop, destroy, prepare and start the record process. The Event.ON_ENDED and Event.ON_STARTED is invoked if everything going well.
+     * - If already exist an process, the Event.ON_ENDED and Event.ON_STARTED is invoked if everything going well.
      *
      * @async
      * @param {string} path              - the absolute audio path.
-     * @param {string} audioOutputFormat - Use this.AudioOutputFormat to see available formats.
-     * @param {int} timeLimit            - duration of the record process in milisecs.
-     * @param {int} sampleRate           - works in all devices, by Google Documentation.
+     * @param {string} audioOutputFormat - audio output format. Use this.AudioOutputFormat to see available formats.
+     * @param {int} timeLimit            - record process duration in milisecs.
+     * @param {int} sampleRate           - number of samples of audio carried per second, measured in Hz.
      * @param {int} channels             - recommendation is 1.
      * @return {int} return an this.Response as response.
      */
@@ -53,8 +53,8 @@ class RecorderManager extends BaseRecorderManager {
         timeLimit =             this.DEFAULT_TIME_LIMIT,        /* in milisecs: 3000 = 5 min */
         sampleRate =            this.DEFAULT_SAMPLE_RATE,       /* 44100 */
         channels =              this.DEFAULT_CHANNEL,           /* 1 */
-        audioEncoding =         this.AudioEncoder.AAC,          /* In IOS, not exist */
-        audioEncodingBitRate =  this.DEFAULT_ENCODING_BIT_RATE  /* In IOS, not exist */
+        audioEncoding,          /* In IOS, not exist */
+        audioEncodingBitRate    /* In IOS, not exist */
     ) : int {
         return await NativeModules.RecorderManagerModule.start(
             path,
