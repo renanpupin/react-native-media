@@ -72,7 +72,7 @@
 		58B511D21A9E6C8500147676 = {
 			isa = PBXGroup;
 			children = (
-				5CF8CA6920876B920049C8F7 /* Recorder */,
+				5C207B8F2088DF46009176D4 /* RecorderManager */,
 				F93F43D4202DE0A20079C98E /* AudioManagerBridge.m */,
 				F93F43D7202DE0A20079C98E /* AudioManagerModule.swift */,
 				F93F43D0202DE0A20079C98E /* DeviceManagerBridge.m */,
@@ -90,13 +90,13 @@
 			);
 			sourceTree = "<group>";
 		};
-		5CF8CA6920876B920049C8F7 /* Recorder */ = {
+		5C207B8F2088DF46009176D4 /* RecorderManager */ = {
 			isa = PBXGroup;
 			children = (
-				5CF8CA6C20876BFF0049C8F7 /* RecorderManagerBridge.m */,
 				5CF8CA6A20876BEA0049C8F7 /* RecorderManagerModule.swift */,
+				5CF8CA6C20876BFF0049C8F7 /* RecorderManagerBridge.m */,
 			);
-			path = Recorder;
+			path = RecorderManager;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

@@ -34,25 +34,25 @@ class BaseRecorderManager {
 
     constructor() {
         this.Response = {
-            IS_RECORDING:       0,
-            SUCCESS:            1,
-            FAILED:             2,
-            UNKNOWN_ERROR:      3,
-            INVALID_AUDIO_PATH: 4,
-            NOTHING_TO_STOP:    5,
-            NO_PERMISSION:      6
+            IS_RECORDING:       0, // already exist a record process
+            SUCCESS:            1, // can start record process
+            FAILED:             2, // can not start record process
+            UNKNOWN_ERROR:      3, // no ideia, but something is wrong...
+            INVALID_AUDIO_PATH: 4, // the path of the audio where must be temporary store is invalid
+            NOTHING_TO_STOP:    5, // can not stop something that never started
+            NO_PERMISSION:      6  // do you have permission in manifest.xml?
         };
         Object.freeze(this.Response);
 
         this.Event = {
-            ON_STARTED:         "ON_STARTED",
-            ON_TIME_CHANGED:    "ON_TIME_CHANGED",
-            ON_ENDED:           "ON_ENDED"
+            ON_STARTED:         "ON_STARTED",      // started record process
+            ON_TIME_CHANGED:    "ON_TIME_CHANGED", // updating the record process time progress
+            ON_ENDED:           "ON_ENDED"         // ended record process
         };
         Object.freeze(this.Event);
 
         this.AudioEncoder = {
-            AAC:        "aac", // default
+            AAC:        "aac",      // default value
             AAC_ELD:    "aac_eld",
             AMR_NB:     "amr_nb",
             AMR_WB:     "amr_wb",
@@ -62,7 +62,7 @@ class BaseRecorderManager {
         Object.freeze(this.AudioEncoder);
 
         this.AudioOutputFormat = {
-            MPEG_4:     "mpeg_4", // default
+            MPEG_4:     "mpeg_4",    // default value
             AAC_ADTS:   "aac_adts",
             AMR_NB:     "amr_nb",
             AMR_WB:     "amr_wb",
@@ -71,9 +71,9 @@ class BaseRecorderManager {
         };
         Object.freeze(this.AudioOutputFormat);
 
-        this.DEFAULT_TIME_LIMIT = 300000;
-        this.DEFAULT_SAMPLE_RATE = 44100; // works in all devices, by Google
-        this.DEFAULT_ENCODING_BIT_RATE = 96000;
+        this.DEFAULT_TIME_LIMIT = 300000;          // 5 min
+        this.DEFAULT_SAMPLE_RATE = 44100;          // works in all devices, by Google Documentation
+        this.DEFAULT_ENCODING_BIT_RATE = 32000;    // or for best perfomance 96000;
         this.DEFAULT_CHANNEL = 1;
 
         this.start = this.start.bind(this);
@@ -84,29 +84,22 @@ class BaseRecorderManager {
     //==========================================================================
     // METHODS
 
-    async start(
-        path,
-        audioOutputFormat = this.AudioOutputFormat.MPEG_4,
-        audioEncoding = this.AudioEncoder.AAC,
-        timeLimit = this.DEFAULT_TIME_LIMIT,
-        sampleRate = this.DEFAULT_SAMPLE_RATE,
-        channels = this.DEFAULT_CHANNEL,
-        audioEncodingBitRate = this.DEFAULT_ENCODING_BIT_RATE) : int {
-
-        return await NativeModules.RecorderManagerModule.start(
-            path,
-            audioOutputFormat,
-            audioEncoding,
-            timeLimit,
-            sampleRate,
-            channels,
-            audioEncodingBitRate);
-    }
-
+    /**
+     * This function stop the audio record process.
+     *
+     * @async
+     * @return {int} return an this.Response as response.
+     */
     async stop() : int {
         return await NativeModules.RecorderManagerModule.stop();
     }
 
+    /**
+     * This function stop and destoy the audio record process.
+     *
+     * @async
+     * @return {int} return an this.Response as response.
+     */
     async destroy() : int {
         return await NativeModules.RecorderManagerModule.destroy();
     }
