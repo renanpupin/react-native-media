@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5CF8CA6B20876BEA0049C8F7 /* RecorderManagerModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF8CA6A20876BEA0049C8F7 /* RecorderManagerModule.swift */; };
+		5CF8CA6D20876BFF0049C8F7 /* RecorderManagerBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CF8CA6C20876BFF0049C8F7 /* RecorderManagerBridge.m */; };
 		F93F43DE202DE0A20079C98E /* DeviceManagerBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = F93F43D0202DE0A20079C98E /* DeviceManagerBridge.m */; };
 		F93F43DF202DE0A20079C98E /* AudioManagerBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = F93F43D4202DE0A20079C98E /* AudioManagerBridge.m */; };
 		F93F43E0202DE0A20079C98E /* DirectoryManagerModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93F43D5202DE0A20079C98E /* DirectoryManagerModule.swift */; };
@@ -31,6 +33,8 @@
 
 /* Begin PBXFileReference section */
 		134814201AA4EA6300B7C361 /* libRNReactNativeMedia.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRNReactNativeMedia.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		5CF8CA6A20876BEA0049C8F7 /* RecorderManagerModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecorderManagerModule.swift; sourceTree = "<group>"; };
+		5CF8CA6C20876BFF0049C8F7 /* RecorderManagerBridge.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RecorderManagerBridge.m; sourceTree = "<group>"; };
 		F93F43D0202DE0A20079C98E /* DeviceManagerBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceManagerBridge.m; sourceTree = "<group>"; };
 		F93F43D1202DE0A20079C98E /* RCTSilentSwitch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCTSilentSwitch.h; sourceTree = "<group>"; };
 		F93F43D2202DE0A20079C98E /* mute.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = mute.caf; sourceTree = "<group>"; };
@@ -68,6 +72,7 @@
 		58B511D21A9E6C8500147676 = {
 			isa = PBXGroup;
 			children = (
+				5C207B8F2088DF46009176D4 /* RecorderManager */,
 				F93F43D4202DE0A20079C98E /* AudioManagerBridge.m */,
 				F93F43D7202DE0A20079C98E /* AudioManagerModule.swift */,
 				F93F43D0202DE0A20079C98E /* DeviceManagerBridge.m */,
@@ -83,6 +88,15 @@
 				F93F43D6202DE0A20079C98E /* SharkfoodMuteSwitchDetector.m */,
 				134814211AA4EA7D00B7C361 /* Products */,
 			);
+			sourceTree = "<group>";
+		};
+		5C207B8F2088DF46009176D4 /* RecorderManager */ = {
+			isa = PBXGroup;
+			children = (
+				5CF8CA6A20876BEA0049C8F7 /* RecorderManagerModule.swift */,
+				5CF8CA6C20876BFF0049C8F7 /* RecorderManagerBridge.m */,
+			);
+			path = RecorderManager;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -142,6 +156,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5CF8CA6B20876BEA0049C8F7 /* RecorderManagerModule.swift in Sources */,
 				F93F43DF202DE0A20079C98E /* AudioManagerBridge.m in Sources */,
 				F93F43E0202DE0A20079C98E /* DirectoryManagerModule.swift in Sources */,
 				F93F43DE202DE0A20079C98E /* DeviceManagerBridge.m in Sources */,
@@ -149,6 +164,7 @@
 				F93F43E2202DE0A20079C98E /* AudioManagerModule.swift in Sources */,
 				F93F43E5202DE0A20079C98E /* DirectoryManagerBridge.m in Sources */,
 				F93F43E3202DE0A20079C98E /* DeviceManagerModule.swift in Sources */,
+				5CF8CA6D20876BFF0049C8F7 /* RecorderManagerBridge.m in Sources */,
 				F93F43E4202DE0A20079C98E /* RCTSilentSwitch.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
