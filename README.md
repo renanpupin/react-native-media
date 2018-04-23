@@ -1,11 +1,19 @@
 
-# react-native-media
+
+# react-native-media 1.2.2
 
 [![React Native Version](https://img.shields.io/badge/react--native-latest-blue.svg?style=flat-square)](http://facebook.github.io/react-native/releases)
 
 ![Logo](logo.png)
 
-A react-native library to play and record audio on both iOS and android with no callbacks.
+A react-native library to:
+- play audio;
+- record audio;
+- get system directories;
+- handle device behavior:
+    - proximity events;
+    - keep awake;
+- handle voip incoming call;
 
 ## Getting started
 ```bash
@@ -36,12 +44,14 @@ $ yarn add react-native-media
 import com.media.module.audio.AudioManagerPackage;
 import com.media.module.device.DeviceManagerPackage;
 import com.media.module.directory.DirectoryManagerPackage;
+import com.media.module.directory.RecorderManagerPackage;
 ```
   - Add the follow lines to the list returned by the `getPackages()` method
 ```java
 new AudioManagerPackage(),
 new DeviceManagerPackage(),
-new DirectoryManagerPackage()
+new DirectoryManagerPackage(),
+new RecorderManagerPackage()
 ```
 2. Append the following lines to `android/settings.gradle`:
 ```groovy
@@ -59,57 +69,27 @@ compile project(':react-native-media')
 * Built with AVAudioPlayer and AVAudioRecorder.
 * Add `mute.caf` from the library to your project bundle
     * Project Navigator > [YOUR PROJECT NAME] > Build Phases > Copy Bundle Resources
+* Add in `info.plist` the following configuration:
+    * Key: Privacy - Microphone Usage Description.
+    * Type: String.
+    * Value: This sample uses the microphone to record your speech and convert it to text.
 
-### android
+## The Components
 
-* Built with MediaPlayer and MediaRecorder.
-* Add in the `manifest.xml` the permission:
-    * `android.permission.WAKE_LOCK`
-    * `android.permission.MODIFY_AUDIO_SETTINGS`
+### AudioManager
 
-## Usage
+The audio manager is a singleton to handle the audio files.
+See complete documentation [here](https://github.com/renanpupin/react-native-media/wiki/AudioManager)
 
-[TODO]
+### RecorderManager
 
-## Player
+The recorder manager is a singleton to record external audio using the device microphone.
+See complete documentation [here](https://github.com/renanpupin/react-native-media/wiki/RecorderManager)
 
-|Description|Android|iOS
----|:---:|:---:
-|Load|✓|✓
-|Play|✓|✓
-|Load and Play|✓|✓
-|Pause|✓|✓
-|Resume|✓|✓
-|Stop|✓|✓
-|Seek Time|✓|✓
-|Get Volume|✓|✓
-|Set System Volume|
-|Set Loops (-1 for infinite)|✓|✓
-|Turn speakers on/off|✓|✓
-|Set audio routes|✓|✓
-|Mute|✓|
-|Sleep mode on/off|✓|✓
+### CallManager (soon)
 
-## Recorder
-<!-- 
-Parameters to set 
-> Bitrate, SampleRate, Channels, AudioQuality, AudioEncoding, Encoder
--->
-Description| iOS | Android
----|:---:|:---:
-|Prepare|||
-|Start|||
-|Stop|||
+The call manager is a singleton to notify a specific device locked an incoming call.
+* In the **IOS**, the UI is already implemented in the native modules.
+* In the **Android**, the callbacks  and the UI must be implemented.
 
-
-## Events
-Description|Android|IOS
----|:---:|:---:
-|Audio finished play|✓|✓
-|Track current time|✓|✓
-|Volume changed
-|System volume changed
-|Wired headset plugged/unplugged|✓|✓
-|Audio focus changed
-|Silent mode changed (iOS only)| |✓
-|Dim screen by proximity on/off|✓|✓
+See complete documentation [here](https://github.com/renanpupin/react-native-media/wiki/CallManager)

@@ -11,7 +11,11 @@
     "react-native-media",
     "audio",
     "directory",
-    "utils"
+    "utils",
+    "record",
+    "voip",
+    "incoming",
+    "call"
   ],
   "peerDependencies": {
     "react-native": "^0.51.2"
