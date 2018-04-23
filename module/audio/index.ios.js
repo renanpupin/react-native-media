@@ -1,6 +1,6 @@
 /**
- * @author FalaFreud, Haroldo Shigueaki Teruya <haroldo.s.teruya@gmail.com>
- * @version 1.1
+ * @author Haroldo Shigueaki Teruya <haroldo.s.teruya@gmail.com>
+ * @version 1.0
  */
 
 //==========================================================================
@@ -10,10 +10,11 @@
  * This class requires:
  * @class
  * @requires [BaseAudioManager]{@link ./base/BaseAudioManager}
+ * @requires DeviceEventEmitter from react-native
  * @requires NativeModules from react-native
  */
 import BaseAudioManager from './base/BaseAudioManager';
-import { NativeModules } from 'react-native';
+import { DeviceEventEmitter, NativeModules } from 'react-native';
 
 //==========================================================================
 /**
@@ -43,7 +44,7 @@ class AudioManager extends BaseAudioManager {
      * @param {int} audioOutputRoute - 0 or 1. 0 to the audio output is default. 1 to the audio output is in the speaker (ear).
      * @returns {boolean} true or false. true if the was a sucess to load the file, else return false.
      */
-    async load(path : string, audioOutputRoute = this.AudioOutputRoute.DEFAULT_SPEAKER) : boolean {
+    async load(path : string, audioOutputRoute = 0) : boolean {
 
         try {
             let resolve = await NativeModules.AudioManagerModule.load(path);
@@ -76,6 +77,16 @@ class AudioManager extends BaseAudioManager {
             console.error(e);
         }
         return false;
+    }
+
+    /**
+     * Not exist.
+     *
+     * @async
+     * @returns {boolean} false.
+     */
+    async setVolume(volume) : boolean {
+        return false
     }
 }
 

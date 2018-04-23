@@ -1,6 +1,6 @@
 /**
  * @author Haroldo Shigueaki Teruya <haroldo.s.teruya@gmail.com>
- * @version 0.0
+ * @version 1.0
  */
 
 //==========================================================================
@@ -78,21 +78,6 @@ class DeviceManager extends BaseDeviceManager {
      */
     setOnSilentSwitchStateChanged(silentSwitchStateCallback : Callback) : void {
         console.log("Not exist for Android.");
-    }
-
-    /**
-     * Set the devie volume.
-     *
-     * @async
-     * @returns {boolean} true or false, true if was a sucess to set the volume, else return false.
-     */
-    async setVolume(volume) : boolean {
-        try {
-            return await NativeModules.DeviceManagerModule.setVolume(volume);
-        } catch (e) {
-            console.error(e);
-        }
-        return false
     }
 }
 

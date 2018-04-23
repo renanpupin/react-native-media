@@ -207,29 +207,6 @@ public class DeviceManagerModule extends ReactContextBaseJavaModule implements L
         this.proximityEmitInBackgroundEnable = enable;
     }
 
-    @ReactMethod
-    public void isWiredHeadsetPlugged(Promise promise) {
-
-        AudioManager audioManager = (AudioManager) reactContext.getSystemService(AUDIO_SERVICE);
-        promise.resolve(audioManager.isWiredHeadsetOn());
-    }
-
-    @ReactMethod
-    public void getVolume(Promise promise) {
-
-        AudioManager audioManager = (AudioManager) reactContext.getSystemService(AUDIO_SERVICE);
-        int volume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
-        promise.resolve(volume);
-    }
-
-    @ReactMethod
-    public void setVolume(int volume, Promise promise) {
-
-        AudioManager audioManager = (AudioManager) reactContext.getSystemService(AUDIO_SERVICE);
-        audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, volume, AudioManager.FLAG_SHOW_UI);
-        promise.resolve(true);
-    }
-
     // SEND EVENT ==================================================================================
 
     @Override
