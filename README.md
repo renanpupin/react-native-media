@@ -1,7 +1,6 @@
 
-# react-native-media
 
-[![version 1.1.2](https://img.shields.io/badge/react--native-latest-blue.svg?style=flat-square)]
+# react-native-media 1.2.2
 
 [![React Native Version](https://img.shields.io/badge/react--native-latest-blue.svg?style=flat-square)](http://facebook.github.io/react-native/releases)
 
@@ -45,12 +44,14 @@ $ yarn add react-native-media
 import com.media.module.audio.AudioManagerPackage;
 import com.media.module.device.DeviceManagerPackage;
 import com.media.module.directory.DirectoryManagerPackage;
+import com.media.module.directory.RecorderManagerPackage;
 ```
   - Add the follow lines to the list returned by the `getPackages()` method
 ```java
 new AudioManagerPackage(),
 new DeviceManagerPackage(),
-new DirectoryManagerPackage()
+new DirectoryManagerPackage(),
+new RecorderManagerPackage()
 ```
 2. Append the following lines to `android/settings.gradle`:
 ```groovy
@@ -73,23 +74,22 @@ compile project(':react-native-media')
     * Type: String.
     * Value: This sample uses the microphone to record your speech and convert it to text.
 
-### The Components
+## The Components
 
-## AudioManager
+### AudioManager
 
 The audio manager is a singleton to handle the audio files.
 See complete documentation [here](https://github.com/renanpupin/react-native-media/wiki/AudioManager)
 
+### RecorderManager
 
-## CallManager
+The recorder manager is a singleton to record external audio using the device microphone.
+See complete documentation [here](https://github.com/renanpupin/react-native-media/wiki/RecorderManager)
+
+### CallManager (soon)
 
 The call manager is a singleton to notify a specific device locked an incoming call.
 * In the **IOS**, the UI is already implemented in the native modules.
 * In the **Android**, the callbacks  and the UI must be implemented.
 
 See complete documentation [here](https://github.com/renanpupin/react-native-media/wiki/CallManager)
-
-## RecorderManager
-
-The recorder manager is a singleton to record external audio using the device microphone.
-See complete documentation [here](https://github.com/renanpupin/react-native-media/wiki/RecorderManager)
