@@ -86,7 +86,7 @@ See complete documentation [here](https://github.com/renanpupin/react-native-med
 The recorder manager is a singleton to record external audio using the device microphone.
 See complete documentation [here](https://github.com/renanpupin/react-native-media/wiki/RecorderManager)
 
-### CallManager (soon)
+### CallManager
 
 The call manager is a singleton to notify a specific device locked an incoming call.
 * In the **IOS**, the UI is already implemented in the native modules.
