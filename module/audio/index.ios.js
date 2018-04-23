@@ -1,6 +1,6 @@
 /**
  * @author Haroldo Shigueaki Teruya <haroldo.s.teruya@gmail.com>
- * @version 1.0
+ * @version 1.0.1
  */
 
 //==========================================================================
@@ -19,7 +19,7 @@ import { DeviceEventEmitter, NativeModules } from 'react-native';
 //==========================================================================
 /**
  * @class
- * @classdesc This class is responsible to provide the basic functionalities to manage an audio file in the Android.
+ * @classdesc This class is responsible to provide the basic functionalities to manage an audio file in the IOS.
  * See [Class BaseAudioManager]{@link ./base/BaseAudioManager}
  */
 class AudioManager extends BaseAudioManager {

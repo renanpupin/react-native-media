@@ -79,10 +79,10 @@ class BaseRecorderManager {
         this.DEFAULT_ENCODING_BIT_RATE = 32000;    // or for best perfomance 96000;
         this.DEFAULT_CHANNEL = 1;
 
-        Object.freeze(this.DEFAULT_TIME_LIMIT);
-        Object.freeze(this.DEFAULT_SAMPLE_RATE);
-        Object.freeze(this.DEFAULT_ENCODING_BIT_RATE);
-        Object.freeze(this.DEFAULT_CHANNEL);
+        // Object.freeze(this.DEFAULT_TIME_LIMIT);
+        // Object.freeze(this.DEFAULT_SAMPLE_RATE);
+        // Object.freeze(this.DEFAULT_ENCODING_BIT_RATE);
+        // Object.freeze(this.DEFAULT_CHANNEL);
 
         this.start = this.start.bind(this);
         this.stop = this.stop.bind(this);

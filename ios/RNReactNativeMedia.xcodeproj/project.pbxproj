@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5CD7625B208E522B00D93B18 /* CallManagerModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CD76259208E522B00D93B18 /* CallManagerModule.swift */; };
+		5CD7625C208E522B00D93B18 /* CallManagerBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CD7625A208E522B00D93B18 /* CallManagerBridge.m */; };
 		5CF8CA6B20876BEA0049C8F7 /* RecorderManagerModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF8CA6A20876BEA0049C8F7 /* RecorderManagerModule.swift */; };
 		5CF8CA6D20876BFF0049C8F7 /* RecorderManagerBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CF8CA6C20876BFF0049C8F7 /* RecorderManagerBridge.m */; };
 		F93F43DE202DE0A20079C98E /* DeviceManagerBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = F93F43D0202DE0A20079C98E /* DeviceManagerBridge.m */; };
@@ -33,6 +35,8 @@
 
 /* Begin PBXFileReference section */
 		134814201AA4EA6300B7C361 /* libRNReactNativeMedia.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRNReactNativeMedia.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		5CD76259208E522B00D93B18 /* CallManagerModule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallManagerModule.swift; sourceTree = "<group>"; };
+		5CD7625A208E522B00D93B18 /* CallManagerBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CallManagerBridge.m; sourceTree = "<group>"; };
 		5CF8CA6A20876BEA0049C8F7 /* RecorderManagerModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecorderManagerModule.swift; sourceTree = "<group>"; };
 		5CF8CA6C20876BFF0049C8F7 /* RecorderManagerBridge.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RecorderManagerBridge.m; sourceTree = "<group>"; };
 		F93F43D0202DE0A20079C98E /* DeviceManagerBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceManagerBridge.m; sourceTree = "<group>"; };
@@ -72,6 +76,7 @@
 		58B511D21A9E6C8500147676 = {
 			isa = PBXGroup;
 			children = (
+				5CD76258208E522B00D93B18 /* CallManager */,
 				5C207B8F2088DF46009176D4 /* RecorderManager */,
 				F93F43D4202DE0A20079C98E /* AudioManagerBridge.m */,
 				F93F43D7202DE0A20079C98E /* AudioManagerModule.swift */,
@@ -97,6 +102,15 @@
 				5CF8CA6C20876BFF0049C8F7 /* RecorderManagerBridge.m */,
 			);
 			path = RecorderManager;
+			sourceTree = "<group>";
+		};
+		5CD76258208E522B00D93B18 /* CallManager */ = {
+			isa = PBXGroup;
+			children = (
+				5CD76259208E522B00D93B18 /* CallManagerModule.swift */,
+				5CD7625A208E522B00D93B18 /* CallManagerBridge.m */,
+			);
+			path = CallManager;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -162,9 +176,11 @@
 				F93F43DE202DE0A20079C98E /* DeviceManagerBridge.m in Sources */,
 				F93F43E1202DE0A20079C98E /* SharkfoodMuteSwitchDetector.m in Sources */,
 				F93F43E2202DE0A20079C98E /* AudioManagerModule.swift in Sources */,
+				5CD7625B208E522B00D93B18 /* CallManagerModule.swift in Sources */,
 				F93F43E5202DE0A20079C98E /* DirectoryManagerBridge.m in Sources */,
 				F93F43E3202DE0A20079C98E /* DeviceManagerModule.swift in Sources */,
 				5CF8CA6D20876BFF0049C8F7 /* RecorderManagerBridge.m in Sources */,
+				5CD7625C208E522B00D93B18 /* CallManagerBridge.m in Sources */,
 				F93F43E4202DE0A20079C98E /* RCTSilentSwitch.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
