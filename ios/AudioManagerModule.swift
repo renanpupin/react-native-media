@@ -10,9 +10,10 @@ import Foundation
 import AVFoundation
 import MediaPlayer
 import AudioToolbox
+import CoreBluetooth
 
 @objc(AudioManagerModule)
-class AudioManagerModule: NSObject, AVAudioPlayerDelegate {
+class AudioManagerModule: NSObject, AVAudioPlayerDelegate{
 
     // ATTRIBUTES =============================================================================================================
 
@@ -45,7 +46,6 @@ class AudioManagerModule: NSObject, AVAudioPlayerDelegate {
                 if audioPlayer.prepareToPlay() {
                     self.path = path
                     resolve(audioPlayer.duration * 1000)
-
                 } else {
                     resolve(false)
                 }
@@ -198,19 +198,19 @@ class AudioManagerModule: NSObject, AVAudioPlayerDelegate {
 
         let session = AVAudioSession.sharedInstance()
         if type == EARSPEAKER {
+            // ear = 1
             do {
                 try session.setCategory(AVAudioSessionCategoryPlayAndRecord)
-                try session.overrideOutputAudioPort(AVAudioSessionPortOverride.none)
                 try session.setActive(true)
                 resolve(true)
             } catch {
                 resolve(false)
             }
         } else if type == DEFAULTSPEAKER {
+            // default = 0
             do {
-                try session.setCategory(AVAudioSessionCategoryPlayAndRecord, with: AVAudioSessionCategoryOptions.defaultToSpeaker)
-//                try session.setCategory(AVAudioSessionCategoryPlayAndRecord)
-                try session.overrideOutputAudioPort(AVAudioSessionPortOverride.speaker)
+                try session.setCategory(AVAudioSessionCategoryPlayback, with: [AVAudioSessionCategoryOptions.defaultToSpeaker, AVAudioSessionCategoryOptions.allowBluetooth])
+                try session.setPreferredInput(session.preferredInput)
                 try session.setActive(true)
                 resolve(true)
             } catch {
@@ -239,17 +239,32 @@ class AudioManagerModule: NSObject, AVAudioPlayerDelegate {
         if currentRoute.outputs != nil {
             for description in currentRoute.outputs {
                 if description.portType == AVAudioSessionPortHeadphones {
-                    print("headphone plugged in")
+                    print("hasWiredheadsetPlugged: headphone plugged in")
                     resolve(true)
+                    return
+                } else if description.portType == AVAudioSessionPortBluetoothA2DP {
+                    print("hasWiredheadsetPlugged: AVAudioSessionPortBluetoothA2DP connected")
+                    resolve(true)
+                    return
+                } else if description.portType == AVAudioSessionPortBluetoothHFP {
+                    print("hasWiredheadsetPlugged: AVAudioSessionPortBluetoothA2DP connected")
+                    resolve(true)
+                    return
+                } else if description.portType == AVAudioSessionPortBluetoothLE {
+                    print("hasWiredheadsetPlugged: AVAudioSessionPortBluetoothA2DP connected")
+                    resolve(true)
+                    return
                 } else {
-                    print("headphone pulled out")
+                    print("hasWiredheadsetPlugged: nothing!")
                     resolve(false)
+                    return
                 }
             }
-        } else {
-            print("requires connection to device")
         }
+        resolve(false)
+        return
     }
+
 
     dynamic private func audioRouteChangeListener(notification:NSNotification) {
 
@@ -271,10 +286,8 @@ class AudioManagerModule: NSObject, AVAudioPlayerDelegate {
 
     @objc func appMovedToBackground() {
         if audioPlayer != nil && audioPlayer.isPlaying {
-            print("native to pause")
             paused = true
             audioPlayer.pause()
-            print("native paused")
         }
         bridge.eventDispatcher().sendAppEvent( withName: "onProximityChanged", body: ONBACKGROUND)
     }

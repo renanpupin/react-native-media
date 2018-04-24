@@ -50,20 +50,6 @@ class AudioManager extends BaseAudioManager {
             let resolve = await NativeModules.AudioManagerModule.load(path);
             if ( resolve != false ) {
                 this._duration = resolve;
-
-                // =============================================================
-                // Before this version, setAudioOutputRoute always was setted.
-                // In this version, setAudioOutputRoute sometimes was setted.
-                // With this workaround:
-                // - iPhone 7 and iPhone 5s has different behavior when not setted setAudioOutputRoute.
-                // - Not sure which versions has the same and different behavior. Then it is forcing to have.
-                if ( await this.hasWiredheadsetPlugged() ) {
-                    await this.setAudioOutputRoute(1);
-                } else {
-                    await this.setAudioOutputRoute(0);
-                }
-                // =============================================================
-
                 if ( this._initialAudioOutputRoute != audioOutputRoute ) {
                     resolve = await this.setAudioOutputRoute(audioOutputRoute);
                 }
