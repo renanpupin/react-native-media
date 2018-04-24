@@ -13,42 +13,7 @@ import AudioToolbox
 import CoreBluetooth
 
 @objc(AudioManagerModule)
-class AudioManagerModule: NSObject, AVAudioPlayerDelegate, CBCentralManagerDelegate {
-
-    func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
-        //Manage Some Condition then disconnect
-        print("Disconnected from peripheral")
-        peripherals?.append(peripheral)
-    }
-
-    func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
-
-        print("Discovered peripheral \(peripheral.name,peripheral.identifier.uuidString)")
-        print("advertisementData\(advertisementData)")
-        // Use discovered peripheral here
-    }
-
-    func centralManagerDidUpdateState(_ central: CBCentralManager) {
-        print("Checking")
-        switch(central.state)
-        {
-        case.unsupported:
-            print("BLE is not supported")
-        case.unauthorized:
-            print("BLE is unauthorized")
-        case.unknown:
-            print("BLE is Unknown")
-        case.resetting:
-            print("BLE is Resetting")
-        case.poweredOff:
-            print("BLE service is powered off")
-        case.poweredOn:
-            print("BLE service is powered on")
-            print("Start Scanning")
-            manager.scanForPeripherals(withServices: nil, options: nil)
-        }
-    }
-
+class AudioManagerModule: NSObject, AVAudioPlayerDelegate{
 
     // ATTRIBUTES =============================================================================================================
 
@@ -66,10 +31,6 @@ class AudioManagerModule: NSObject, AVAudioPlayerDelegate, CBCentralManagerDeleg
     let FAR = 1;
     let ONBACKGROUND = 2;
     let ONACTIVE = 3;
-
-    private var manager: CBCentralManager!
-    var peripherals: [CBPeripheral]?
-
 
     // METHODS ================================================================================================================
 
@@ -321,8 +282,6 @@ class AudioManagerModule: NSObject, AVAudioPlayerDelegate, CBCentralManagerDeleg
     @objc func addAppStateListener() {
         NotificationCenter.default.addObserver(self, selector: #selector(appMovedToBackground), name: .UIApplicationWillResignActive, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(appMovedToActive), name: .UIApplicationDidBecomeActive, object: nil)
-
-        manager = CBCentralManager(delegate: self, queue: nil, options: nil)
     }
 
     @objc func appMovedToBackground() {
