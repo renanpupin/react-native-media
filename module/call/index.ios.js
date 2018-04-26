@@ -14,6 +14,8 @@
  * @requires NativeModules from react-native
  */
 import BaseCallManager from './base/BaseCallManager';
+import AudioManager from '../audio/';
+import DirectoryManager from '../directory/';
 import { DeviceEventEmitter, NativeModules } from 'react-native';
 
 //==========================================================================
@@ -92,6 +94,18 @@ class CallManager extends BaseCallManager {
      */
     async getCallData(): string {
         return await NativeModules.CallManagerModule.getCallData();
+    }
+
+    async playRingtone(name : string, audioOutputRoute = AudioManager.OutputRoute.DEFAULT_SPEAKER, loop = false) : boolean {
+        return await AudioManager.loadPlay("file:///" + await DirectoryManager.getMainBundleDirectoryPath() + "/" + name + ".mp3", audioOutputRoute, loop, 0);
+    }
+
+    async stopRingtone(name = "", audioOutputRoute = AudioManager.OutputRoute.DEFAULT_SPEAKER) : boolean {
+        if ( name === "" ) {
+            return await AudioManager.stop();
+        } else {
+            return await AudioManager.loadPlay("file:///" + await DirectoryManager.getMainBundleDirectoryPath() + "/" + name + ".mp3", audioOutputRoute, false, 0);
+        }
     }
 }
 

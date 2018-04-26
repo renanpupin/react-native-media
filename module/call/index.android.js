@@ -1,65 +1,78 @@
 /**
- * @author Haroldo Shigueaki Teruya <haroldo.s.teruya@gmail.com>
- * @version 1.1.0
- */
+* @author Haroldo Shigueaki Teruya <haroldo.s.teruya@gmail.com>
+* @version 1.1.0
+*/
 
- //==========================================================================
- // IMPORTS
+//==========================================================================
+// IMPORTS
 
- /**
-  * This class requires:
-  * @class
-  * @requires [BaseCallManager]{@link ./base/BaseCallManager}
-  * @requires DeviceEventEmitter from react-native
-  * @requires NativeModules from react-native
-  */
- import BaseCallManager from './base/BaseCallManager';
- import { DeviceEventEmitter, NativeModules } from 'react-native';
+/**
+* This class requires:
+* @class
+* @requires [BaseCallManager]{@link ./base/BaseCallManager}
+* @requires DeviceEventEmitter from react-native
+* @requires NativeModules from react-native
+*/
+import BaseCallManager from './base/BaseCallManager';
+import { AudioManager } from '../';
+import { DeviceEventEmitter, NativeModules } from 'react-native';
 
- //==========================================================================
+//==========================================================================
 
- /**
-  * @class
-  * @classdesc
-  */
- class CallManager extends BaseCallManager {
+/**
+* @class
+* @classdesc
+*/
+class CallManager extends BaseCallManager {
 
-     //==========================================================================
-     // GLOBAL VARIABLES
+    //==========================================================================
+    // GLOBAL VARIABLES
 
-     //==========================================================================
-     // CONSTRUCTOR
+    //==========================================================================
+    // CONSTRUCTOR
 
-     constructor() {
-         super();
+    constructor() {
+        super();
 
-         this.requestAuthorization = this.requestAuthorization.bind(this);
-         this.requestDeviceToken = this.requestDeviceToken.bind(this);
-         this.requestCallStatus = this.requestCallStatus.bind(this);
-         this.getCallData = this.getCallData.bind(this);
-     }
+        this.requestAuthorization = this.requestAuthorization.bind(this);
+        this.requestDeviceToken = this.requestDeviceToken.bind(this);
+        this.requestCallStatus = this.requestCallStatus.bind(this);
+        this.getCallData = this.getCallData.bind(this);
+    }
 
-     //==========================================================================
-     // METHODS
+    //==========================================================================
+    // METHODS
 
-     async requestAuthorization() {
-         console.log("Not implemented in Android, see OneSignal documentation.");
-     }
+    async requestAuthorization() {
+        console.log("Not implemented in Android, see OneSignal documentation.");
+    }
 
-     async requestDeviceToken() {
-         console.log("Not implemented in Android, see OneSignal documentation.");
-     }
+    async requestDeviceToken() {
+        console.log("Not implemented in Android, see OneSignal documentation.");
+    }
 
-     async requestCallStatus() {
-         console.log("Not implemented in Android, see OneSignal documentation.");
-     }
+    async requestCallStatus() {
+        console.log("Not implemented in Android, see OneSignal documentation.");
+    }
 
-     async getCallData() {
-         console.log("Not implemented in Android, see OneSignal documentation.");
-     }
- }
+    async getCallData() {
+        console.log("Not implemented in Android, see OneSignal documentation.");
+    }
 
- //==========================================================================
- // EXPORTS
+    async playRingtone(name : string, audioOutputRoute = 0, loop = false) : boolean {
+        return await NativeModules.AudioManagerModule.playRingtone(name, audioOutputRoute, loop);
+    }
 
- module.exports = new CallManager();
+    async stopRingtone(name = "", audioOutputRoute = AudioManager.OutputRoute.DEFAULT_SPEAKER) : boolean {
+        if ( name === "" ) {
+            return await NativeModules.AudioManagerModule.stop();
+        } else {
+            return await NativeModules.AudioManagerModule.playRingtone(name, audioOutputRoute, false);
+        }
+    }
+}
+
+//==========================================================================
+// EXPORTS
+
+module.exports = new CallManager();

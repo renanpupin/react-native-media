@@ -8,6 +8,8 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.util.Log;
+
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
@@ -48,7 +50,10 @@ public class AudioManagerModule extends ReactContextBaseJavaModule
     private int timeInterval = 200;
     private boolean isToCancel = false;
 
-    private android.net.Uri url;
+    // maybe do not need
+    private boolean isRingtone = false;
+
+    private android.net.Uri url = null;
     private String path = "";
     private int type = 0;
 
@@ -73,12 +78,6 @@ public class AudioManagerModule extends ReactContextBaseJavaModule
         return "AudioManagerModule";
     }
 
-    /**
-     *
-     *
-     * @param path
-     * @param promise
-     */
     @ReactMethod
     public void load(String path, int type, final Promise promise) {
 
@@ -116,7 +115,6 @@ public class AudioManagerModule extends ReactContextBaseJavaModule
                 });
 
                 try {
-                    // mediaPlayer.prepareAsync();
                     mediaPlayer.prepare();
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -124,6 +122,43 @@ public class AudioManagerModule extends ReactContextBaseJavaModule
                         promise.resolve(false);
                     }
                 }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            if ( promise != null ) {
+                promise.resolve(false);
+            }
+        }
+    }
+
+    @ReactMethod
+    public void playRingtone(String path, final int type, final boolean isLoop, final Promise promise) {
+
+        try {
+            if ( path.isEmpty() ) {
+                this.mediaPlayer = null;
+                if ( promise != null ) {
+                    promise.resolve(false);
+                }
+            } else {
+
+                this.stopAudio();
+
+                int resID = this.reactContext.getResources().getIdentifier(path, "raw", this.reactContext.getPackageName());
+                this.path = path;
+                this.url = null;
+
+                this.mediaPlayer = MediaPlayer.create(this.reactContext, resID);
+                this.mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener()
+                {
+                    @Override
+                    public void onPrepared(MediaPlayer mp)
+                    {
+                        mediaPlayer.setLooping(isLoop);
+                        setAudioOutputRoute(type);
+                        mediaPlayer.start();
+                    }
+                });
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -206,7 +241,7 @@ public class AudioManagerModule extends ReactContextBaseJavaModule
     @ReactMethod
     public void stop(Promise promise) {
         try {
-            promise.resolve(stopAudio());
+            promise.resolve(this.stopAudio());
         } catch (IllegalViewOperationException e) {
             e.printStackTrace();
             promise.resolve(false);
@@ -214,14 +249,16 @@ public class AudioManagerModule extends ReactContextBaseJavaModule
     }
 
     public boolean stopAudio() {
-        if ( mediaPlayer != null ) {
-            path = "";
-            isToCancel = true;
-            if (mediaPlayer.isPlaying())
+        if ( this.mediaPlayer != null ) {
+            this.path = "";
+            this.isToCancel = true;
+            if (mediaPlayer.isPlaying()) {
+                mediaPlayer.pause();
                 mediaPlayer.stop();
-            mediaPlayer.reset();
-            mediaPlayer.release();
-            mediaPlayer = null;
+            }
+            this.mediaPlayer.reset();
+            this.mediaPlayer.release();
+            this.mediaPlayer = null;
             return true;
         } else {
             return false;
@@ -294,34 +331,39 @@ public class AudioManagerModule extends ReactContextBaseJavaModule
     @ReactMethod
     public void setAudioOutputRoute(int type, Promise promise) {
 
-        if( this.type != type && mediaPlayer != null ) {
+        if( this.type != type && this.mediaPlayer != null ) {
 
-            int currentTime = mediaPlayer.getCurrentPosition();
-            boolean isLoop = mediaPlayer.isLooping();
+            int currentTime = this.mediaPlayer.getCurrentPosition();
+            boolean isLoop = this.mediaPlayer.isLooping();
+            boolean wasPlaying = this.mediaPlayer.isPlaying();
 
-            boolean wasPlaying = mediaPlayer.isPlaying();
+            if ( this.url != null ) {
+                // audio
+                this.stopAudio();
+                this.load(this.url.getPath(), type, null);
 
-            stopAudio();
-            load(url.getPath(), type, null);
-
-            if (wasPlaying) {
-                play(isLoop, currentTime, null);
-            }
-            else {
-                try {
-                    mediaPlayer.seekTo(currentTime);
-                    new AudioPlayerAsync().execute();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    if ( promise != null ) {
-                        promise.resolve(false);
-                    }
-                    return;
+                if (wasPlaying) {
+                    play(isLoop, currentTime, null);
                 }
-            }
+                else {
+                    try {
+                        mediaPlayer.seekTo(currentTime);
+                        new AudioPlayerAsync().execute();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        if ( promise != null ) {
+                            promise.resolve(false);
+                        }
+                        return;
+                    }
+                }
 
-            if ( promise != null ) {
-                promise.resolve(true);
+                if ( promise != null ) {
+                    promise.resolve(true);
+                }
+            } else {
+                // ringtone
+                this.setAudioOutputRoute(type);
             }
         }
     }

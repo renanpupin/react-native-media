@@ -209,8 +209,14 @@ class AudioManagerModule: NSObject, AVAudioPlayerDelegate{
         } else if type == DEFAULTSPEAKER {
             // default = 0
             do {
-                try session.setCategory(AVAudioSessionCategoryPlayback, with: [AVAudioSessionCategoryOptions.defaultToSpeaker, AVAudioSessionCategoryOptions.allowBluetooth])
-                try session.setPreferredInput(session.preferredInput)
+                if self.getDeviceConnected() == "" {
+                    // no device connected
+                    try session.setCategory(AVAudioSessionCategoryPlayback)
+                } else {
+                    // something is connected
+                    try session.setCategory(AVAudioSessionCategoryPlayback, with: [AVAudioSessionCategoryOptions.allowBluetooth])
+                    try session.setPreferredInput(session.preferredInput)
+                }
                 try session.setActive(true)
                 resolve(true)
             } catch {
@@ -221,7 +227,7 @@ class AudioManagerModule: NSObject, AVAudioPlayerDelegate{
 
     @objc func getCurrentAudioName(_ fullPath: Bool, resolver resolve: RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) {
 
-        if audioPlayer != nil {
+        if self.audioPlayer != nil {
             if !fullPath {
                 let fileName = (self.path as NSString).lastPathComponent
                 resolve(fileName)
@@ -235,34 +241,37 @@ class AudioManagerModule: NSObject, AVAudioPlayerDelegate{
 
     @objc func hasWiredheadsetPlugged(_ resolve: RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) {
 
+        if self.getDeviceConnected() == "" {
+            resolve(false)
+        } else {
+            resolve(true)
+        }
+    }
+
+    func getDeviceConnected() -> String {
+
         let currentRoute = AVAudioSession.sharedInstance().currentRoute
         if currentRoute.outputs != nil {
             for description in currentRoute.outputs {
                 if description.portType == AVAudioSessionPortHeadphones {
                     print("hasWiredheadsetPlugged: headphone plugged in")
-                    resolve(true)
-                    return
+                    return description.portType
                 } else if description.portType == AVAudioSessionPortBluetoothA2DP {
                     print("hasWiredheadsetPlugged: AVAudioSessionPortBluetoothA2DP connected")
-                    resolve(true)
-                    return
+                    return description.portType
                 } else if description.portType == AVAudioSessionPortBluetoothHFP {
                     print("hasWiredheadsetPlugged: AVAudioSessionPortBluetoothA2DP connected")
-                    resolve(true)
-                    return
+                    return description.portType
                 } else if description.portType == AVAudioSessionPortBluetoothLE {
                     print("hasWiredheadsetPlugged: AVAudioSessionPortBluetoothA2DP connected")
-                    resolve(true)
-                    return
+                    return description.portType
                 } else {
                     print("hasWiredheadsetPlugged: nothing!")
-                    resolve(false)
-                    return
+                    return ""
                 }
             }
         }
-        resolve(false)
-        return
+        return ""
     }
 
 

@@ -17,16 +17,6 @@ import { DeviceEventEmitter, NativeModules } from 'react-native';
 //==========================================================================
 
 /**
- * @constant
- * @type {int}
- * @default 0
-*/
-const AudioOutputRoute = {
-    DEFAULTSPEAKER: 0,
-    EARSPEAKER: 1
-}
-
-/**
  * @class
  * @classdesc This class is responsible to provide the basic functionalities to manage an audio file in the IOS and Android.
  * - MP3 suport.
@@ -37,12 +27,7 @@ class BaseAudioManager {
     //==========================================================================
     // GLOBAL VARIABLES
 
-    /**
-     * Start Events object
-     * @constant
-     * @type {string}
-    */
-    // this.Events = {}
+    OutputRoute = {}
 
     /**
      * Send the current time position of the audio.
@@ -68,19 +53,12 @@ class BaseAudioManager {
      */
     constructor() {
 
-        // this.AudioOutputRoute = {
-        //     DEFAULTSPEAKER: 0,
-        //     EARSPEAKER: 1
-        // };
+        this.OutputRoute = {
+            DEFAULT_SPEAKER: 0,
+            EAR_SPEAKER: 1
+        };
         // cannot alter the object values of the AudioOutputRoute
-        // Object.freeze(this.AudioOutputRoute);
-        //
-        // this.Events = {
-        //     onTimeChanged: 'onTimeChanged',
-        //     onAudioFinished: 'onAudioFinished'
-        // };
-        // cannot alter the object values of the AudioOutputRoute
-        // Object.freeze(this.Events);
+        Object.freeze(this.OutputRoute);
 
         this._duration = 0;
 
@@ -144,7 +122,7 @@ class BaseAudioManager {
      * @param {boolean} loop - true or false. true to play in loop, else play only once.
      * @returns {boolean} true or false. true if was a sucess to play the file, else return false.
      */
-    async loadPlay(path : string, audioOutputRoute = AudioOutputRoute.DEFAULTSPEAKER, loop = false, playFromTime = 0) : boolean {
+    async loadPlay(path : string, audioOutputRoute = OutputRoute.DEFAULT_SPEAKER, loop = false, playFromTime = 0) : boolean {
         var sucess = await this.load(path, audioOutputRoute);
         if ( sucess ) {
             sucess = await this.play(loop, playFromTime);
