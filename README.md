@@ -93,3 +93,35 @@ The call manager is a singleton to notify a specific device locked an incoming c
 * In the **Android**, the callbacks  and the UI must be implemented.
 
 See complete documentation [here](https://github.com/renanpupin/react-native-media/wiki/CallManager)
+
+## Releases
+
+### 1.3.3
+|New Feature    | Android  | IOS
+| :------------ | :-----:  |-----:
+| playRingtone  |   ✓      |  ✓
+| stopRingtone  |   ✓      |  ✓
+
+<br/>
+
+### 1.2.3
+|New Feature    | Android  | IOS
+| :------------ | :-----:  |-----:
+| Bluetooth audio output   |   ✓      |  ✓
+
+<br/>
+
+### 1.2.2
+| Bluetooth audio output| Target  | Play any audio with the device connected | Expected
+|:--------:              |:----:|:-------------:|:-------:|
+| Bluetooth audio output| IOS  | Play any audio with the device connected with a bluetooth headset | Listen the audio in the headset by bluetooth
+
+<br/>
+
+### 1.2.2
+
+|New Feature    | Android  | IOS
+| :------------ | :-----:  |-----:
+| CallManager |   ✓      |  ✓
+
+See the [complete documentation here](https://github.com/renanpupin/react-native-media/wiki/CallManager).
