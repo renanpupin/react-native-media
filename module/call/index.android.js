@@ -14,7 +14,7 @@
 * @requires NativeModules from react-native
 */
 import BaseCallManager from './base/BaseCallManager';
-import { AudioManager } from '../';
+import AudioManager from '../audio/';
 import { DeviceEventEmitter, NativeModules } from 'react-native';
 
 //==========================================================================

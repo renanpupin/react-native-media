@@ -225,17 +225,6 @@ class BaseAudioManager {
     }
 
     /**
-     * Set the audio output route.
-     *
-     * @async
-     * @param {int} audioOutputRoute - 0 or 1. 0 to the audio output is default. 1 to the audio output is in the speaker (ear).
-     * @returns {boolean} true or false. true if was a sucess to set the new type, else return false.
-     */
-    async setAudioOutputRoute(audioOutputRoute : int) : boolean {
-        return await NativeModules.AudioManagerModule.setAudioOutputRoute(audioOutputRoute);
-    }
-
-    /**
      * Get current audio name or path that already loaded.
      * Return empty if something got wrong or not exist audio file loaded.
      *
@@ -277,6 +266,17 @@ class BaseAudioManager {
      */
     setAudioFinishedCallback(audioFinishedCallback : Callback) : void {
         this._audioFinishedCallback = audioFinishedCallback;
+    }
+
+    /**
+     * Set the audio output route.
+     *
+     * @async
+     * @param {int} audioOutputRoute - 0 or 1. 0 to the audio output is default. 1 to the audio output is in the speaker (ear).
+     * @returns {boolean} true or false. true if was a sucess to set the new type, else return false.
+     */
+    async setAudioOutputRoute(audioOutputRoute : int) : boolean {
+        return await NativeModules.AudioManagerModule.setAudioOutputRoute(audioOutputRoute);
     }
 }
 

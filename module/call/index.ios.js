@@ -97,14 +97,16 @@ class CallManager extends BaseCallManager {
     }
 
     async playRingtone(name : string, audioOutputRoute = AudioManager.OutputRoute.DEFAULT_SPEAKER, loop = false) : boolean {
-        return await AudioManager.loadPlay("file:///" + await DirectoryManager.getMainBundleDirectoryPath() + "/" + name + ".mp3", audioOutputRoute, loop, 0);
+        let path = "file:///" + await DirectoryManager.getMainBundleDirectoryPath() + "/" + name + ".mp3";
+        return await NativeModules.AudioManagerModule.playRingtone(path, audioOutputRoute, loop);
     }
 
-    async stopRingtone(name = "", audioOutputRoute = AudioManager.OutputRoute.DEFAULT_SPEAKER) : boolean {
+    async stopRingtone(name = "", audioOutputRoute = AudioManager.OutputRoute.DEFAULT_SPEAKER) : boolean {        
         if ( name === "" ) {
             return await AudioManager.stop();
         } else {
-            return await AudioManager.loadPlay("file:///" + await DirectoryManager.getMainBundleDirectoryPath() + "/" + name + ".mp3", audioOutputRoute, false, 0);
+            let path = "file:///" + await DirectoryManager.getMainBundleDirectoryPath() + "/" + name + ".mp3";
+            return await NativeModules.AudioManagerModule.playRingtone(path, audioOutputRoute, false);
         }
     }
 }

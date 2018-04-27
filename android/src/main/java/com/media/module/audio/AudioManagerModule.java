@@ -4,6 +4,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.res.AssetFileDescriptor;
+import android.content.res.Resources;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -103,10 +105,8 @@ public class AudioManagerModule extends ReactContextBaseJavaModule
                     }
                 });
 
-                mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener()
-                {
-                    public void onPrepared(MediaPlayer mp)
-                    {
+                mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                    public void onPrepared(MediaPlayer mp) {
                         duration = mediaPlayer.getDuration();
                         if ( promise != null ) {
                             promise.resolve(duration);
@@ -148,17 +148,17 @@ public class AudioManagerModule extends ReactContextBaseJavaModule
                 this.path = path;
                 this.url = null;
 
-                this.mediaPlayer = MediaPlayer.create(this.reactContext, resID);
-                this.mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener()
-                {
-                    @Override
-                    public void onPrepared(MediaPlayer mp)
-                    {
-                        mediaPlayer.setLooping(isLoop);
-                        setAudioOutputRoute(type);
-                        mediaPlayer.start();
-                    }
-                });
+                Log.d(getName(), isLoop + " " + type + " " + path);
+
+                Resources res = getReactApplicationContext().getResources();
+                AssetFileDescriptor afd = res.openRawResourceFd(resID);
+
+                mediaPlayer = new MediaPlayer();
+                setAudioOutputRoute(type);
+                mediaPlayer.setLooping(true);
+                mediaPlayer.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
+                mediaPlayer.prepare();
+                mediaPlayer.start();
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -252,11 +252,9 @@ public class AudioManagerModule extends ReactContextBaseJavaModule
         if ( this.mediaPlayer != null ) {
             this.path = "";
             this.isToCancel = true;
-            if (mediaPlayer.isPlaying()) {
-                mediaPlayer.pause();
+            if ( mediaPlayer.isPlaying() ) {
                 mediaPlayer.stop();
             }
-            this.mediaPlayer.reset();
             this.mediaPlayer.release();
             this.mediaPlayer = null;
             return true;
@@ -363,7 +361,8 @@ public class AudioManagerModule extends ReactContextBaseJavaModule
                 }
             } else {
                 // ringtone
-                this.setAudioOutputRoute(type);
+                // this.setAudioOutputRoute(type);
+                this.playRingtone(path, type, isLoop, promise);
             }
         }
     }
