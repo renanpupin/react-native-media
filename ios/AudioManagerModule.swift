@@ -14,36 +14,37 @@ import CoreBluetooth
 
 @objc(AudioManagerModule)
 class AudioManagerModule: NSObject, AVAudioPlayerDelegate{
-
+    
     // ATTRIBUTES =============================================================================================================
-
+    
     var bridge: RCTBridge!
     var audioPlayer: AVAudioPlayer!
     var audioTimer: Timer!
     var paused: Bool = false
+    var isRingtone: Bool = false
     var timeInterval = 0.2
-
+    
     let DEFAULTSPEAKER: Int = 0
     let EARSPEAKER: Int = 1
     var path : String = ""
-
+    
     let NEAR = 0;
     let FAR = 1;
     let ONBACKGROUND = 2;
     let ONACTIVE = 3;
-
+    
     // METHODS ================================================================================================================
-
+    
     @objc func load(_ path: String, resolver resolve: RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) -> Void {
-
-        if audioPlayer != nil {
-            stop()
+        
+        self.isRingtone = false
+        if self.audioPlayer != nil {
+            self.stop()
         }
-
         if let url = URL(string: path) {
             do {
-                audioPlayer = try AVAudioPlayer(contentsOf: url)
-                if audioPlayer.prepareToPlay() {
+                self.audioPlayer = try AVAudioPlayer(contentsOf: url)
+                if self.audioPlayer.prepareToPlay() {
                     self.path = path
                     resolve(audioPlayer.duration * 1000)
                 } else {
@@ -56,123 +57,155 @@ class AudioManagerModule: NSObject, AVAudioPlayerDelegate{
             resolve(false)
         }
     }
-
+    
     @objc func play(_ loop: Bool, playFromTime: Int, resolver resolve: RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) -> Void {
-
-        if paused {
+        
+        if self.paused {
             resolve(false)
-        } else if( audioPlayer != nil && !audioPlayer.isPlaying ){
-
+        } else if( self.audioPlayer != nil && !self.audioPlayer.isPlaying ){
+            
             if loop {
-                audioPlayer.numberOfLoops = -1
+                self.audioPlayer.numberOfLoops = -1
             } else {
-                audioPlayer.numberOfLoops = 0
+                self.audioPlayer.numberOfLoops = 0
             }
-
-            audioPlayer.delegate = self
+            
+            self.audioPlayer.delegate = self
             if playFromTime > 0 {
-                audioPlayer.currentTime = TimeInterval(Double(playFromTime)/1000)
+                self.audioPlayer.currentTime = TimeInterval(Double(playFromTime)/1000)
             }
-            audioPlayer.play()
-
-            bridge.eventDispatcher().sendAppEvent( withName: "onTimeChanged", body: Int(audioPlayer.currentTime * 1000) )
-
+            self.audioPlayer.play()
+            self.bridge.eventDispatcher().sendAppEvent( withName: "onTimeChanged", body: Int(audioPlayer.currentTime * 1000) )
+            
             DispatchQueue.main.async(execute: {
                 self.audioTimer = Timer.scheduledTimer(timeInterval: self.timeInterval, target: self, selector: #selector(self.timeChanged), userInfo: nil, repeats: true)
             })
-
+            
             resolve(true)
         } else {
             resolve(false);
         }
     }
-
+    
+    @objc func playRingtone(_ path: String, type: Int, loop: Bool, resolver resolve: RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) -> Void {
+        
+        self.isRingtone = true
+        if self.audioPlayer != nil {
+            self.stop()
+        }
+        if let url = URL(string: path) {
+            do {
+                self.audioPlayer = try AVAudioPlayer(contentsOf: url)
+                if self.audioPlayer.prepareToPlay() {
+                    self.path = path
+                    if loop {
+                        self.audioPlayer.numberOfLoops = -1
+                    } else {
+                        self.audioPlayer.numberOfLoops = 0
+                    }
+                    self.audioPlayer.delegate = self
+                    self.audioPlayer.play()
+                    resolve(true)
+                } else {
+                    resolve(false)
+                }
+            } catch {
+                resolve(false)
+            }
+        } else {
+            resolve(false)
+        }
+    }
+    
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-        bridge.eventDispatcher().sendAppEvent( withName: "onAudioFinished", body: nil )
-
-        stop()
+        
+        print("AudioManagerModule audioPlayerDidFinishPlaying: \(self.isRingtone)")
+        if ( self.isRingtone ) {
+            
+        } else {
+            self.bridge.eventDispatcher().sendAppEvent(withName: "onAudioFinished", body: nil)
+        }
+        self.stop()
     }
-
+    
     func timeChanged() {
-
-        if audioPlayer != nil && !paused {
-            bridge.eventDispatcher().sendAppEvent( withName: "onTimeChanged", body: Int(audioPlayer.currentTime * 1000) )
-        } else if ( paused ) {
-
+        
+        if self.audioPlayer != nil && !self.paused {
+            self.bridge.eventDispatcher().sendAppEvent(withName: "onTimeChanged", body: Int(self.audioPlayer.currentTime * 1000) )
+        } else if ( self.paused ) {
+            
         } else {
-            audioTimer.invalidate()
+            self.audioTimer.invalidate()
         }
     }
-
+    
     @objc func pause(_ resolve: RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) -> Void {
-
-        if( audioPlayer != nil && audioPlayer.isPlaying ){
-            paused = true
-            audioPlayer.pause()
+        
+        if( self.audioPlayer != nil && self.audioPlayer.isPlaying ){
+            self.paused = true
+            self.audioPlayer.pause()
             resolve(true)
         } else {
             resolve(false);
         }
     }
-
+    
     @objc func forcePause(sucess : Bool) {
-
-        print("pausing")
-        if( audioPlayer != nil && audioPlayer.isPlaying ){
-            paused = true
-            audioPlayer.pause()
+        
+        if( self.audioPlayer != nil && self.audioPlayer.isPlaying ){
+            self.paused = true
+            self.audioPlayer.pause()
         }
     }
-
+    
     @objc func resume(_ resolve: RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) -> Void {
-
-        if( audioPlayer != nil && !audioPlayer.isPlaying && paused ){
-            paused = false
-            audioPlayer.play()
+        
+        if( self.audioPlayer != nil && !self.audioPlayer.isPlaying && self.paused ){
+            self.paused = false
+            self.audioPlayer.play()
             resolve(true)
         } else {
             resolve(false);
         }
     }
-
+    
     @objc func stop(_ resolve: RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) -> Void {
         resolve(stop());
     }
-
+    
     func stop() -> Bool {
-        if( audioPlayer != nil ){
+        
+        if( self.audioPlayer != nil ){
             self.path = ""
-            paused = false
-            audioPlayer.stop()
-            audioPlayer = nil
-
-            if audioTimer != nil {
-                audioTimer.invalidate()
-                audioTimer = nil
+            self.paused = false
+            self.audioPlayer.stop()
+            self.audioPlayer = nil
+            if self.audioTimer != nil {
+                self.audioTimer.invalidate()
+                self.audioTimer = nil
             }
-
-            return (true)
+            return true
         } else {
-            return (false);
+            return false
         }
     }
-
+    
     @objc func seekTime(_ time: Double, resolver resolve: RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) -> Void {
-
+        
         var tempTime = time / 1000
-
-        if( audioPlayer != nil ){
-            audioPlayer.currentTime = TimeInterval(Double(tempTime))
+        
+        if( self.audioPlayer != nil ){
+            self.audioPlayer.currentTime = TimeInterval(Double(tempTime))
             resolve(true)
         } else {
             resolve(false);
         }
     }
-
+    
     @objc func setTimeInterval(_ timeInterval: Double, resolver resolve: RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) -> Void {
-
+        
         var tempTimeInterval = timeInterval / 1000
-
+        
         if tempTimeInterval < 0.1 {
             resolve(false)
         } else {
@@ -180,9 +213,9 @@ class AudioManagerModule: NSObject, AVAudioPlayerDelegate{
             resolve(true)
         }
     }
-
+    
     @objc func getVolume(_ resolve: RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) -> Void {
-
+        
         let audioSession = AVAudioSession.sharedInstance()
         do {
             try audioSession.setActive(true)
@@ -193,24 +226,31 @@ class AudioManagerModule: NSObject, AVAudioPlayerDelegate{
             resolve(false)
         }
     }
-
+    
     @objc func setAudioOutputRoute(_ type: Int, resolver resolve: RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) {
-
+        
         let session = AVAudioSession.sharedInstance()
-        if type == EARSPEAKER {
+        if type == self.EARSPEAKER {
             // ear = 1
             do {
+                //                if self.isRingtone {
+                //                } else {
                 try session.setCategory(AVAudioSessionCategoryPlayAndRecord)
+                //                }
                 try session.setActive(true)
                 resolve(true)
             } catch {
                 resolve(false)
             }
-        } else if type == DEFAULTSPEAKER {
+        } else if type == self.DEFAULTSPEAKER {
             // default = 0
             do {
-                try session.setCategory(AVAudioSessionCategoryPlayback, with: [AVAudioSessionCategoryOptions.defaultToSpeaker, AVAudioSessionCategoryOptions.allowBluetooth])
-                try session.setPreferredInput(session.preferredInput)
+                if self.isRingtone {
+                    try session.setCategory(AVAudioSessionCategorySoloAmbient, with: [AVAudioSessionCategoryOptions.allowBluetooth])
+                } else {
+                    try session.setCategory(AVAudioSessionCategoryPlayback, with: [AVAudioSessionCategoryOptions.allowBluetooth])
+                    try session.setPreferredInput(session.preferredInput)
+                }
                 try session.setActive(true)
                 resolve(true)
             } catch {
@@ -218,10 +258,10 @@ class AudioManagerModule: NSObject, AVAudioPlayerDelegate{
             }
         }
     }
-
+    
     @objc func getCurrentAudioName(_ fullPath: Bool, resolver resolve: RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) {
-
-        if audioPlayer != nil {
+        
+        if self.audioPlayer != nil {
             if !fullPath {
                 let fileName = (self.path as NSString).lastPathComponent
                 resolve(fileName)
@@ -232,67 +272,69 @@ class AudioManagerModule: NSObject, AVAudioPlayerDelegate{
             resolve("");
         }
     }
-
+    
     @objc func hasWiredheadsetPlugged(_ resolve: RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) {
-
+        
+        if self.getDeviceConnected() == "" {
+            resolve(false)
+        } else {
+            resolve(true)
+        }
+    }
+    
+    func getDeviceConnected() -> String {
+        
         let currentRoute = AVAudioSession.sharedInstance().currentRoute
         if currentRoute.outputs != nil {
             for description in currentRoute.outputs {
                 if description.portType == AVAudioSessionPortHeadphones {
                     print("hasWiredheadsetPlugged: headphone plugged in")
-                    resolve(true)
-                    return
+                    return description.portType
                 } else if description.portType == AVAudioSessionPortBluetoothA2DP {
                     print("hasWiredheadsetPlugged: AVAudioSessionPortBluetoothA2DP connected")
-                    resolve(true)
-                    return
+                    return description.portType
                 } else if description.portType == AVAudioSessionPortBluetoothHFP {
                     print("hasWiredheadsetPlugged: AVAudioSessionPortBluetoothA2DP connected")
-                    resolve(true)
-                    return
+                    return description.portType
                 } else if description.portType == AVAudioSessionPortBluetoothLE {
                     print("hasWiredheadsetPlugged: AVAudioSessionPortBluetoothA2DP connected")
-                    resolve(true)
-                    return
+                    return description.portType
                 } else {
                     print("hasWiredheadsetPlugged: nothing!")
-                    resolve(false)
-                    return
+                    return ""
                 }
             }
         }
-        resolve(false)
-        return
+        return ""
     }
-
-
+    
     dynamic private func audioRouteChangeListener(notification:NSNotification) {
-
+        
         let audioRouteChangeReason = notification.userInfo![AVAudioSessionRouteChangeReasonKey] as! UInt
         switch audioRouteChangeReason {
-            case AVAudioSessionRouteChangeReason.newDeviceAvailable.rawValue:
-                bridge.eventDispatcher().sendAppEvent( withName: "onWiredHeadsetPlugged", body: true)
-            case AVAudioSessionRouteChangeReason.oldDeviceUnavailable.rawValue:
-                bridge.eventDispatcher().sendAppEvent( withName: "onWiredHeadsetPlugged", body: false)
-            default:
-                break
+        case AVAudioSessionRouteChangeReason.newDeviceAvailable.rawValue:
+            self.bridge.eventDispatcher().sendAppEvent(withName: "onWiredHeadsetPlugged", body: true)
+        case AVAudioSessionRouteChangeReason.oldDeviceUnavailable.rawValue:
+            self.bridge.eventDispatcher().sendAppEvent(withName: "onWiredHeadsetPlugged", body: false)
+        default:
+            break
         }
     }
-
+    
     @objc func addAppStateListener() {
-        NotificationCenter.default.addObserver(self, selector: #selector(appMovedToBackground), name: .UIApplicationWillResignActive, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(appMovedToActive), name: .UIApplicationDidBecomeActive, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.appMovedToBackground), name: .UIApplicationWillResignActive, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.appMovedToActive), name: .UIApplicationDidBecomeActive, object: nil)
     }
-
+    
     @objc func appMovedToBackground() {
-        if audioPlayer != nil && audioPlayer.isPlaying {
-            paused = true
-            audioPlayer.pause()
+        if self.audioPlayer != nil && self.audioPlayer.isPlaying {
+            self.paused = true
+            self.audioPlayer.pause()
         }
-        bridge.eventDispatcher().sendAppEvent( withName: "onProximityChanged", body: ONBACKGROUND)
+        self.bridge.eventDispatcher().sendAppEvent( withName: "onProximityChanged", body: self.ONBACKGROUND)
     }
-
+    
     @objc func appMovedToActive() {
-        bridge.eventDispatcher().sendAppEvent( withName: "onProximityChanged", body: ONACTIVE)
+        self.bridge.eventDispatcher().sendAppEvent( withName: "onProximityChanged", body: self.ONACTIVE)
     }
 }

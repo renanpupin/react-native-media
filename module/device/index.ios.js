@@ -47,7 +47,6 @@ class DeviceManager extends BaseDeviceManager {
         this.setOnSilentSwitchStateChanged = this.setOnSilentSwitchStateChanged.bind(this);
 
         DeviceEventEmitter.addListener('silentSwitchStateChange', (response) => {
-
             if ( this._silentSwitchStateCallback != null ) {
                 this._silentSwitchStateCallback(response.status);
             }
