@@ -155,7 +155,7 @@ public class AudioManagerModule extends ReactContextBaseJavaModule
 
                 mediaPlayer = new MediaPlayer();
                 setAudioOutputRoute(type);
-                mediaPlayer.setLooping(true);
+                mediaPlayer.setLooping(isLoop);
                 mediaPlayer.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
                 mediaPlayer.prepare();
                 mediaPlayer.start();
