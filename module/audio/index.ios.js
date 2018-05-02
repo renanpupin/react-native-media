@@ -44,7 +44,7 @@ class AudioManager extends BaseAudioManager {
      * @param {int} audioOutputRoute - 0 or 1. 0 to the audio output is default. 1 to the audio output is in the speaker (ear).
      * @returns {boolean} true or false. true if the was a sucess to load the file, else return false.
      */
-    async load(path : string, audioOutputRoute = OutputRoute.DEFAULT_SPEAKER) : boolean {
+    async load(path : string, audioOutputRoute = this.OutputRoute.DEFAULT_SPEAKER) : boolean {
 
         try {
             let resolve = await NativeModules.AudioManagerModule.load(path);

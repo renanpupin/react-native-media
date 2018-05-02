@@ -122,7 +122,7 @@ class BaseAudioManager {
      * @param {boolean} loop - true or false. true to play in loop, else play only once.
      * @returns {boolean} true or false. true if was a sucess to play the file, else return false.
      */
-    async loadPlay(path : string, audioOutputRoute = OutputRoute.DEFAULT_SPEAKER, loop = false, playFromTime = 0) : boolean {
+    async loadPlay(path : string, audioOutputRoute = this.OutputRoute.DEFAULT_SPEAKER, loop = false, playFromTime = 0) : boolean {
         var sucess = await this.load(path, audioOutputRoute);
         if ( sucess ) {
             sucess = await this.play(loop, playFromTime);
