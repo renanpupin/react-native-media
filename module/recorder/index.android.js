@@ -43,7 +43,6 @@ class RecorderManager extends BaseRecorderManager {
      * @param {string} path              - the absolute audio path.
      * @param {string} audioOutputFormat - audio output format. Use this.AudioOutputFormat to see available formats.
      * @param {string} audioEncoding     - audio encoder to process. Use this.AudioEncoder to see available audio encoder.
-     * @param {int} timeLimit            - record process duration in milisecs.
      * @param {int} sampleRate           - number of samples of audio carried per second, measured in Hz.
      * @param {int} channels             - recommendation is 1.
      * @param {int} audioEncodingBitRate - bits stored/recorded by second
@@ -52,7 +51,6 @@ class RecorderManager extends BaseRecorderManager {
     async start(
         path,
         audioOutputFormat =     this.AudioOutputFormat.MPEG_4,  /* mpeg_4 */
-        timeLimit =             this.DEFAULT_TIME_LIMIT,        /* in milisecs: 3000 = 5 min */
         sampleRate =            this.DEFAULT_SAMPLE_RATE,       /* 44100 */
         channels =              this.DEFAULT_CHANNEL,           /* 1 */
         audioEncoding =         this.AudioEncoder.AAC,          /* aac */
@@ -61,8 +59,7 @@ class RecorderManager extends BaseRecorderManager {
         return await NativeModules.RecorderManagerModule.start(
             path,
             audioOutputFormat,
-            audioEncoding,
-            timeLimit,
+            audioEncoding,            
             sampleRate,
             channels,
             audioEncodingBitRate);

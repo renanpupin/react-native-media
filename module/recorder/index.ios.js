@@ -50,7 +50,6 @@ class RecorderManager extends BaseRecorderManager {
     async start(
         path,
         audioOutputFormat =     this.AudioOutputFormat.MPEG_4,  /* mpeg_4 */
-        timeLimit =             this.DEFAULT_TIME_LIMIT,        /* in milisecs: 3000 = 5 min */
         sampleRate =            this.DEFAULT_SAMPLE_RATE,       /* 44100 */
         channels =              this.DEFAULT_CHANNEL,           /* 1 */
         audioEncoding,          /* In IOS, not exist */
@@ -58,8 +57,7 @@ class RecorderManager extends BaseRecorderManager {
     ) : int {
         return await NativeModules.RecorderManagerModule.start(
             path,
-            audioOutputFormat,
-            timeLimit,
+            audioOutputFormat,            
             sampleRate,
             channels);
     }

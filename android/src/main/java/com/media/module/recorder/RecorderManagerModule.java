@@ -47,7 +47,6 @@ public class RecorderManagerModule extends ReactContextBaseJavaModule
             String path,
             String audioOutputFormat,
             String audioEncoding,
-            final int timeLimit,
             int sampleRate,
             int channels,
             int audioEncodingBitRate,
@@ -100,12 +99,7 @@ public class RecorderManagerModule extends ReactContextBaseJavaModule
                         sendEvent(Event.ON_TIME_CHANGED, 0);
                     } else {
                         int duration = (int)this.scheduledExecutionTime() - currentTimeInMs;
-                        if ( duration > timeLimit  ) {
-                            sendEvent(Event.ON_ENDED, null);
-                            destroy(null);
-                        } else {
-                            sendEvent(Event.ON_TIME_CHANGED, duration);
-                        }
+                        sendEvent(Event.ON_TIME_CHANGED, duration);                        
                     }
                 }
             }, 0, 1000);

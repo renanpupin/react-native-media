@@ -47,8 +47,8 @@ class RecorderManagerModule: NSObject, AVAudioRecorderDelegate {
     var recordingSession: AVAudioSession = AVAudioSession.sharedInstance()
     var audioTimer: Timer!
 
-    @objc func start(_ path: String, audioOutputFormat: String, timeLimit: Int, sampleRate: Int, channels: Int, resolver resolve: @escaping RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) -> Void {
-        
+    @objc func start(_ path: String, audioOutputFormat: String, sampleRate: Int, channels: Int, resolver resolve: @escaping RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) -> Void {
+
         if self.recorder != nil {
             resolve(Response.IS_RECORDING.rawValue);
             return;
@@ -83,7 +83,7 @@ class RecorderManagerModule: NSObject, AVAudioRecorderDelegate {
                             self.recorder.isMeteringEnabled = true
                             self.recorder.delegate = self
                             if self.recorder.prepareToRecord() {
-                                self.recorder.record(forDuration: TimeInterval(timeLimit / 1000))
+                                self.recorder.record()
                                 self.bridge.eventDispatcher().sendAppEvent(withName: Event.ON_STARTED.rawValue, body: nil)
 
                                 DispatchQueue.main.async(execute: {
