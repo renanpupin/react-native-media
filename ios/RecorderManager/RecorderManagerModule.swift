@@ -48,18 +48,17 @@ class RecorderManagerModule: NSObject, AVAudioRecorderDelegate {
     var audioTimer: Timer!
 
     @objc func start(_ path: String, audioOutputFormat: String, timeLimit: Int, sampleRate: Int, channels: Int, resolver resolve: @escaping RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) -> Void {
+        
+        if self.recorder != nil {
+            resolve(Response.IS_RECORDING.rawValue);
+            return;
+        }
 
         // verify the path
         if path == nil || path.isEmpty {
             print("AudioManagerModule: " + path + " is ivalid")
             resolve(Response.INVALID_AUDIO_PATH.rawValue)
             return;
-        }
-
-        // reset all objects
-        if self.recorder != nil {
-            sendEvent(eventName: Event.ON_ENDED.rawValue, response: nil)
-            self.destroy(nil, rejecter: nil)
         }
 
         do {

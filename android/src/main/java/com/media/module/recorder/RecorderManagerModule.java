@@ -53,17 +53,17 @@ public class RecorderManagerModule extends ReactContextBaseJavaModule
             int audioEncodingBitRate,
             Promise promise)
     {
+        // reset all objects
+        if ( this.recorder != null ){
+            promise.resolve(Response.IS_RECORDING);
+            return;
+        }
+
         // verify the path
         if ( path == null || path.isEmpty() ) {
             Log.d(getName(), path + " is invalid");
             promise.resolve(Response.INVALID_AUDIO_PATH);
             return;
-        }
-
-        // reset all objects
-        if ( this.recorder != null ){
-            sendEvent(Event.ON_ENDED, null);
-            destroy(null);
         }
 
         // configuring

@@ -96,6 +96,10 @@ See complete documentation [here](https://github.com/renanpupin/react-native-med
 
 ## Releases
 
+### 1.3.4 and 1.3.5
+
+The audio is not playing.
+
 ### 1.3.3
 |New Feature    | Android  | IOS
 | :------------ | :-----:  |-----:
