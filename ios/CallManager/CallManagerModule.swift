@@ -37,7 +37,7 @@ class CallManagerModule: NSObject {
     }
 
     @objc func requestPushKitToken(_ resolve: @escaping RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) -> Void {
-        print("CallManager: " + UserDefaults.standard.string(forKey: self.PUSH_DEVICE_TOKEN)!)
+        print("CallManager: requestPushKitToken: " + UserDefaults.standard.string(forKey: self.PUSH_DEVICE_TOKEN)!)
         resolve(UserDefaults.standard.string(forKey: self.PUSH_DEVICE_TOKEN))
     }
 

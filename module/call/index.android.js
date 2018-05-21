@@ -34,9 +34,10 @@ class CallManager extends BaseCallManager {
     constructor() {
         super();
 
-        this.requestAuthorization = this.requestAuthorization.bind(this);        
+        this.requestAuthorization = this.requestAuthorization.bind(this);
         this.requestCallStatus = this.requestCallStatus.bind(this);
         this.getCallData = this.getCallData.bind(this);
+        this.requestPushKitToken = this.requestPushKitToken.bind(this);
     }
 
     //==========================================================================
