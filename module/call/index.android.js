@@ -47,7 +47,7 @@ class CallManager extends BaseCallManager {
         console.log("Not implemented in Android, see OneSignal documentation.");
     }
 
-    async requestDeviceToken() {
+    async requestPushKitToken() {
         console.log("Not implemented in Android, see OneSignal documentation.");
     }
 

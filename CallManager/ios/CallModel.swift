@@ -10,11 +10,11 @@ import Foundation
 import UserNotifications
 
 class CallModel {
-    
+
   let callingStatus = "Chamando..."
   let canceledStatus = "Cahamada cancelado..."
   let lostStatus = "Chamada perdida..."
-  
+
   var alertTimerNotification: Timer!
   var name = ""
   var session = ""
@@ -24,6 +24,6 @@ class CallModel {
   var isCalling = false
   var callCounterNotification = 0
   var currentCallStatus = ""
-  
+
   var incomingCallData: NSDictionary? = nil
 }

@@ -69,8 +69,8 @@ class CallManager extends BaseCallManager {
      * @async
      * @returns {string} the device token in string. Return empty if do not exist.
      */
-    async requestDeviceToken(): string {
-        return await NativeModules.CallManagerModule.requestDeviceToken();
+    async requestPushKitToken(): string {
+        return await NativeModules.CallManagerModule.requestPushKitToken();
     }
 
     /**
@@ -101,7 +101,7 @@ class CallManager extends BaseCallManager {
         return await NativeModules.AudioManagerModule.playRingtone(path, audioOutputRoute, loop);
     }
 
-    async stopRingtone(name = "", audioOutputRoute = AudioManager.OutputRoute.DEFAULT_SPEAKER) : boolean {        
+    async stopRingtone(name = "", audioOutputRoute = AudioManager.OutputRoute.DEFAULT_SPEAKER) : boolean {
         if ( name === "" ) {
             return await AudioManager.stop();
         } else {

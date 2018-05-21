@@ -1,11 +1,12 @@
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.WindowManager;
 
 import com.facebook.react.ReactActivity;
-import com.facebook.react.ReactActivityDelegate;
 
+// CallManager
+import android.view.WindowManager;
 import javax.annotation.Nullable;
+import com.facebook.react.ReactActivityDelegate;
 
 /**
  * See https://cmichel.io/how-to-set-initial-props-in-react-native/ to know how to get the data from a receiving call.
@@ -41,15 +42,15 @@ public class MainActivity extends ReactActivity
         super.onCreate(savedInstanceState);
     }
 
-    @Override
-    protected ReactActivityDelegate createReactActivityDelegate()
-    {
-        return new CallActivityDelegate(this, getMainComponentName());
-    }
-
     // SEND EVENT ==================================================================================
 
     // CLASS =======================================================================================
+
+
+    @Override
+    protected ReactActivityDelegate createReactActivityDelegate() {
+        return new CallActivityDelegate(this, getMainComponentName());
+    }
 
     /**
      * MainActivity call delegator
@@ -60,7 +61,8 @@ public class MainActivity extends ReactActivity
         private Bundle bundle = null;
 
         // Main activity reference
-        private final @Nullable Activity activity;
+        private final @Nullable
+        Activity activity;
 
         // Main activity call delegator construcor
         public CallActivityDelegate(Activity activity, String mainComponentName)
@@ -73,6 +75,8 @@ public class MainActivity extends ReactActivity
         @Override
         protected void onCreate(Bundle savedInstanceState)
         {
+            super.onCreate(savedInstanceState);
+
             // bundle is where we put our alarmID with launchIntent.putExtra
             Bundle bundle = activity.getIntent().getExtras();
             if (bundle != null &&
@@ -94,12 +98,22 @@ public class MainActivity extends ReactActivity
                 this.bundle.putString(Call.IS_LEADER, bundle.getString(Call.IS_LEADER));
                 this.bundle.putString(Call.VIDEO_HOURS, bundle.getString(Call.VIDEO_HOURS));
             }
-            super.onCreate(savedInstanceState);
         }
 
         @Override
         protected Bundle getLaunchOptions() {
             return bundle;
+        }
+
+        public static final class Call
+        {
+            public static final String SESSION_ID = "sessionId";
+            public static final String ROOM_ID = "roomId";
+            public static final String USER_ID = "id_user";
+            public static final String NAME = "name";
+            public static final String PROFILE_IMAGE = "profile_img";
+            public static final String IS_LEADER = "isLeader";
+            public static final String VIDEO_HOURS = "videoHours";
         }
     }
 }
