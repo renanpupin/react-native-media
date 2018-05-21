@@ -28,6 +28,11 @@ class BaseCallManager {
     //==========================================================================
     // CONSTRUCTOR
 
+    constructor () {
+
+        this.requestPushKitToken = this.requestPushKitToken.bind(this);
+    }
+
     //==========================================================================
     // METHODS
 
