@@ -15,7 +15,8 @@
     "record",
     "voip",
     "incoming",
-    "call"
+    "call",
+    "incoming"
   ],
   "peerDependencies": {
     "react-native": "^0.51.2"
