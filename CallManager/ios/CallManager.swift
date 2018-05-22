@@ -45,14 +45,10 @@ extension Notification.Name {
 
   func requestAuthorization(_ application : UIApplication, appDelegate: AppDelegate) -> Void {
 
-    print("CallManager: On requestAuthorization:")
-
     if appDelegate == nil {
-      print("CallManager: AppDelegate nil")
       return
     }
     if application == nil {
-      print("CallManager: application nil")
       return
     }
     self.appDelegate = appDelegate
@@ -88,7 +84,7 @@ extension Notification.Name {
           }
         }
       } catch {
-        print("something went wrong with parsing json")
+        print("CallManager: something went wrong with parsing json")
       }
     }
   }
@@ -96,7 +92,6 @@ extension Notification.Name {
   @available(iOS 10.0, *)
   func didUpdatePushCredentials(_ deviceToken: Data) -> Void {
     let token = deviceToken.reduce("", {$0 + String(format: "%02X", $1)})
-    print("CallManager: tokenString: \(token)")
     UserDefaults.standard.set(token, forKey: self.PUSH_DEVICE_TOKEN)
   }
 

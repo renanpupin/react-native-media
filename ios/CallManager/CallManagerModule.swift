@@ -37,7 +37,7 @@ class CallManagerModule: NSObject {
     }
 
     @objc func requestPushKitToken(_ resolve: @escaping RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) -> Void {
-        print("CallManager: requestPushKitToken: " + UserDefaults.standard.string(forKey: self.PUSH_DEVICE_TOKEN)!)
+
         resolve(UserDefaults.standard.string(forKey: self.PUSH_DEVICE_TOKEN))
     }
 
@@ -52,11 +52,6 @@ class CallManagerModule: NSObject {
             if !value.isEmpty, type != -1 {
                 self.callData = value
             }
-
-//            print(callStatusDictionary)
-//            print(callStatusDictionary[self.data] as? String)
-//            print(callStatusDictionary[self.type] as? Int)
-
             resolve(type)
         } else {
             resolve(-1)
@@ -65,7 +60,6 @@ class CallManagerModule: NSObject {
 
     @objc func getCallData(_ resolve: @escaping RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) {
 
-        // reset
         UserDefaults.standard.setPersistentDomain(["": ""], forName: self.CALL_STATUS)
         UserDefaults.standard.set("", forKey: self.PUSH_DEVICE_TOKEN)
         UserDefaults.standard.set(-1, forKey: self.USER_NOTIFICATION_REQUEST_AUTHORIZATION)
@@ -73,11 +67,5 @@ class CallManagerModule: NSObject {
         let data = self.callData
         self.callData = ""
         resolve(data)
-
-//        if let data = NSJSONSerialization.dataWithJSONObject(dict, options: NSJSONWritingOptions.PrettyPrinted, error: &error) {
-//            if let json = NSString(data: data, encoding: NSUTF8StringEncoding) {
-//                print(json)
-//            }
-//        }
     }
 }

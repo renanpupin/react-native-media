@@ -74,6 +74,26 @@ class AudioManager extends BaseAudioManager {
     async setVolume(volume) : boolean {
         return false
     }
+
+    /**
+     * Stop the audio if it is playing or paused.
+     *
+     * @async
+     * @returns {boolean} true or false. true if was a sucess to stop the audio, else return false if not exist a audio playing or paused.
+     */
+    async stop() : boolean {
+        try {
+            try {
+                await this.setAudioOutputRoute(0);
+            } catch (e) {
+
+            }
+            return await NativeModules.AudioManagerModule.stop();
+        } catch (e) {
+            console.error(e);
+        }
+        return false;
+    }
 }
 
 //==========================================================================

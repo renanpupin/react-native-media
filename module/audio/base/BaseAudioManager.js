@@ -163,21 +163,6 @@ class BaseAudioManager {
     }
 
     /**
-     * Stop the audio if it is playing or paused.
-     *
-     * @async
-     * @returns {boolean} true or false. true if was a sucess to stop the audio, else return false if not exist a audio playing or paused.
-     */
-    async stop() : boolean {
-        try {
-            return await NativeModules.AudioManagerModule.stop();
-        } catch (e) {
-            console.error(e);
-        }
-        return false;
-    }
-
-    /**
      * Moves the audio to specific position time in mili-seconds.
      *
      * @async
