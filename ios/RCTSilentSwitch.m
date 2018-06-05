@@ -8,7 +8,7 @@
 
 -(id)init {
   if (self) {
-    self.detector = [SharkfoodMuteSwitchDetector shared];
+    // self.detector = [SharkfoodMuteSwitchDetector shared];
   }
   return self;
 }
@@ -16,9 +16,9 @@
 RCT_EXPORT_MODULE()
 
 RCT_EXPORT_METHOD(subscribe) {
-  self.detector.silentNotify = ^(BOOL silent) {
-    [self.bridge.eventDispatcher sendAppEventWithName:@"silentSwitchStateChange" body:@{@"status": silent?@"ON":@"OFF"}];
-  };
+  // self.detector.silentNotify = ^(BOOL silent) {
+  //   [self.bridge.eventDispatcher sendAppEventWithName:@"silentSwitchStateChange" body:@{@"status": silent?@"ON":@"OFF"}];
+  // };
 }
 
 @end
