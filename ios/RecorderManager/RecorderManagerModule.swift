@@ -56,7 +56,7 @@ class RecorderManagerModule: NSObject, AVAudioRecorderDelegate {
 
         // verify the path
         if path == nil || path.isEmpty {
-            print("AudioManagerModule: " + path + " is ivalid")
+            print("RecorderManagerModule: " + path + " is ivalid")
             resolve(Response.INVALID_AUDIO_PATH.rawValue)
             return;
         }
@@ -120,7 +120,8 @@ class RecorderManagerModule: NSObject, AVAudioRecorderDelegate {
     }
 
     @objc func stop(_ resolve: RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) -> Void {
-        print("AudioManagerModule: stop")
+
+        print("RecorderManagerModule: stop")
 
         if self.recorder == nil {
             resolve(Response.NOTHING_TO_STOP.rawValue)
@@ -132,7 +133,8 @@ class RecorderManagerModule: NSObject, AVAudioRecorderDelegate {
     }
 
     @objc func destroy(_ resolve: RCTPromiseResolveBlock?, rejecter reject: RCTPromiseRejectBlock?) -> Void {
-        print("AudioManagerModule: destroy")
+
+        print("RecorderManagerModule: destroy")
 
         // destroy
         if ( self.recorder != nil ) {
@@ -151,7 +153,8 @@ class RecorderManagerModule: NSObject, AVAudioRecorderDelegate {
     }
 
     func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
-        print("AudioManagerModule: audioRecorderDidFinishRecording")
+
+        print("RecorderManagerModule: audioRecorderDidFinishRecording")
 
         if flag {
             self.bridge.eventDispatcher().sendAppEvent(withName: Event.ON_ENDED.rawValue, body: nil)
@@ -160,6 +163,7 @@ class RecorderManagerModule: NSObject, AVAudioRecorderDelegate {
     }
 
     func getAudioOutputFormat(audioOutputFormat: String) -> Int {
+
         switch audioOutputFormat {
             case AudioOutputFormat.LinearPCM.rawValue:
                 return Int(kAudioFormatLinearPCM);
@@ -189,7 +193,7 @@ class RecorderManagerModule: NSObject, AVAudioRecorderDelegate {
     }
 
     func sendEvent(eventName: String, response: Any?) -> Void {
-        // print(eventName);
+
         self.bridge.eventDispatcher().sendAppEvent(withName: eventName, body: response)
     }
 }

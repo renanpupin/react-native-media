@@ -99,7 +99,7 @@ public class RecorderManagerModule extends ReactContextBaseJavaModule
                         sendEvent(Event.ON_TIME_CHANGED, 0);
                     } else {
                         int duration = (int)this.scheduledExecutionTime() - currentTimeInMs;
-                        sendEvent(Event.ON_TIME_CHANGED, duration);                        
+                        sendEvent(Event.ON_TIME_CHANGED, duration);
                     }
                 }
             }, 0, 1000);

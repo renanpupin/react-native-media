@@ -76,9 +76,9 @@ class DeviceManager extends BaseDeviceManager {
      * @callback
      * @param {string} status ON/OFF - ON = silent switch is on (sound enable). OFF = silent switch is off (sound enable).
      */
-    setOnSilentSwitchStateChanged(silentSwitchStateCallback : Callback) : void {
-        console.log("Not exist for Android.");
-    }
+    // setOnSilentSwitchStateChanged(silentSwitchStateCallback : Callback) : void {
+    //     console.log("Not exist for Android.");
+    // }
 }
 
 //==========================================================================

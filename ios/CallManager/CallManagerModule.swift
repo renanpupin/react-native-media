@@ -43,8 +43,6 @@ class CallManagerModule: NSObject {
 
     @objc func requestCallStatus(_ resolve: @escaping RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) -> Void {
 
-        let callStatusDictionary = UserDefaults.standard.persistentDomain(forName: self.CALL_STATUS)
-
         if let callStatusDictionary = UserDefaults.standard.persistentDomain(forName: self.CALL_STATUS),
             let value = callStatusDictionary[self.data] as? String,
             let type = callStatusDictionary[self.type] as? Int
@@ -64,8 +62,15 @@ class CallManagerModule: NSObject {
         UserDefaults.standard.set("", forKey: self.PUSH_DEVICE_TOKEN)
         UserDefaults.standard.set(-1, forKey: self.USER_NOTIFICATION_REQUEST_AUTHORIZATION)
 
-        let data = self.callData
+        var data = self.callData
         self.callData = ""
+
+        // data = getCallDataForTest()
+
         resolve(data)
+    }
+
+    func getCallDataForTest() -> String {
+        return "{ \"aps\": { \"device_id\": \"some device_id\", \"content\":\"some content\", \"isLeader\":\"true\", \"videoHours\": \"so much hours\", \"targetName\":\"some target name\", \"sessionId\":\"some-session\", \"name\":\"some-name\", \"profile_image\":\"https://www.gstatic.com/webp/gallery3/2_webp_ll.png\", \"timeStamp\":\"1527253731\", \"keepAlive\":\"99999\"}}"
     }
 }

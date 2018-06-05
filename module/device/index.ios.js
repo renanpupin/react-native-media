@@ -32,7 +32,7 @@ class DeviceManager extends BaseDeviceManager {
      * @callback
      * @param {string} status ON/OFF - ON = silent switch is on (sound enable). OFF = silent switch is off (sound enable).
      */
-    _silentSwitchStateCallback = null;
+    // _silentSwitchStateCallback = null;
 
     //==========================================================================
     // CONSTRUCTOR
@@ -44,13 +44,15 @@ class DeviceManager extends BaseDeviceManager {
         super();
 
         NativeModules.AudioManagerModule.addAppStateListener();
-        this.setOnSilentSwitchStateChanged = this.setOnSilentSwitchStateChanged.bind(this);
+        // this.setOnSilentSwitchStateChanged = this.setOnSilentSwitchStateChanged.bind(this);
 
-        DeviceEventEmitter.addListener('silentSwitchStateChange', (response) => {
-            if ( this._silentSwitchStateCallback != null ) {
-                this._silentSwitchStateCallback(response.status);
-            }
-        });
+        // DeviceEventEmitter.addListener('silentSwitchStateChange', (response) => {
+        //     if ( this._silentSwitchStateCallback != null ) {
+        //         this._silentSwitchStateCallback(response.status);
+        //     }
+        // });
+
+        //TODO: remove listeners
     }
 
     //==========================================================================
@@ -73,10 +75,10 @@ class DeviceManager extends BaseDeviceManager {
      * @callback
      * @param {string} status ON/OFF - ON = silent switch is on (sound enable). OFF = silent switch is off (sound enable).
      */
-    setOnSilentSwitchStateChanged(silentSwitchStateCallback : Callback) : void {
-        NativeModules.SilentSwitch.subscribe();
-        this._silentSwitchStateCallback = silentSwitchStateCallback;
-    }
+    // setOnSilentSwitchStateChanged(silentSwitchStateCallback : Callback) : void {
+    //     NativeModules.SilentSwitch.subscribe();
+    //     this._silentSwitchStateCallback = silentSwitchStateCallback;
+    // }
 }
 
 //==========================================================================
