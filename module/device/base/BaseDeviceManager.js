@@ -52,7 +52,7 @@ class BaseDeviceManager {
     constructor() {
 
         this.mute = this.mute.bind(this);
-        this.setOnSilentSwitchStateChanged = this.setOnSilentSwitchStateChanged.bind(this);
+        // this.setOnSilentSwitchStateChanged = this.setOnSilentSwitchStateChanged.bind(this);
 
         this.setIdleTimerEnable = this.setIdleTimerEnable.bind(this);
         this.setProximityEnable = this.setProximityEnable.bind(this);
