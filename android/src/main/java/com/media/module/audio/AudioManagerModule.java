@@ -393,8 +393,14 @@ public class AudioManagerModule extends ReactContextBaseJavaModule
 
     @ReactMethod
     private void timeChanged(int time) {
-        if ( mediaPlayer != null && mediaPlayer.isPlaying() ) {
-            reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("onTimeChanged", time);
+        if (mediaPlayer != null) {
+            try {
+                if (mediaPlayer.isPlaying()) {
+                    reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("onTimeChanged", time);
+                }
+            } catch (IllegalStateException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -422,15 +428,22 @@ public class AudioManagerModule extends ReactContextBaseJavaModule
                 return null;
             }
 
-            current = mediaPlayer.getCurrentPosition();
+            try {
+                current = mediaPlayer.getCurrentPosition();
+            } catch (IllegalStateException e) {
+                e.printStackTrace();
+            }
 
             while (current != duration) {
 
                 if ( mediaPlayer != null ) {
-                    current = mediaPlayer.getCurrentPosition();
+                    try {
+                        current = mediaPlayer.getCurrentPosition();
+                        timeChanged(current);
+                    } catch (IllegalStateException e) {
+                        e.printStackTrace();
+                    }
                 }
-                timeChanged(current);
-
                 try {
                     Thread.sleep(timeInterval);
                 } catch (InterruptedException e) {
