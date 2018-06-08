@@ -56,10 +56,11 @@ class RecorderManager extends BaseRecorderManager {
         audioEncoding =         this.AudioEncoder.AAC,          /* aac */
         audioEncodingBitRate =  this.DEFAULT_ENCODING_BIT_RATE  /* 32000 */
     ) : int {
+        
         return await NativeModules.RecorderManagerModule.start(
             path,
             audioOutputFormat,
-            audioEncoding,            
+            audioEncoding,
             sampleRate,
             channels,
             audioEncodingBitRate);

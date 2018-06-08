@@ -133,8 +133,7 @@ class AudioManagerModule: NSObject, AVAudioPlayerDelegate{
         if self.audioPlayer != nil && !self.paused {
             self.bridge.eventDispatcher().sendAppEvent(withName: "onTimeChanged", body: Int(self.audioPlayer.currentTime * 1000) )
         } else if ( self.paused ) {
-
-        } else {
+        } else if(self.audioTimer != nil) {
             self.audioTimer.invalidate()
         }
     }
@@ -233,10 +232,7 @@ class AudioManagerModule: NSObject, AVAudioPlayerDelegate{
         if type == self.EARSPEAKER {
             // ear = 1
             do {
-                //                if self.isRingtone {
-                //                } else {
                 try session.setCategory(AVAudioSessionCategoryPlayAndRecord)
-                //                }
                 try session.setActive(true)
                 resolve(true)
             } catch {

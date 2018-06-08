@@ -55,9 +55,10 @@ class RecorderManager extends BaseRecorderManager {
         audioEncoding,          /* In IOS, not exist */
         audioEncodingBitRate    /* In IOS, not exist */
     ) : int {
+        
         return await NativeModules.RecorderManagerModule.start(
             path,
-            audioOutputFormat,            
+            audioOutputFormat,
             sampleRate,
             channels);
     }

@@ -82,15 +82,23 @@ class RecorderManagerModule: NSObject, AVAudioRecorderDelegate {
                             self.recorder = try AVAudioRecorder(url: URL(string: path)!, settings: settings)
                             self.recorder.isMeteringEnabled = true
                             self.recorder.delegate = self
-                            if self.recorder.prepareToRecord() {
-                                self.recorder.record()
-                                self.bridge.eventDispatcher().sendAppEvent(withName: Event.ON_STARTED.rawValue, body: nil)
+                            if self.recorder != nil,  self.recorder.prepareToRecord(), self.recorder.record() {
 
+                                self.sendEvent(eventName: Event.ON_STARTED.rawValue, response: nil)
+
+                                if self.audioTimer != nil {
+                                    self.audioTimer.invalidate()
+                                    self.audioTimer = nil
+                                }
                                 DispatchQueue.main.async(execute: {
                                     self.audioTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.timeChanged), userInfo: nil, repeats: true)
                                 })
 
                                 resolve(Response.SUCCESS.rawValue)
+                            } else {
+                                self.destroy(nil, rejecter: nil)
+                                resolve(Response.FAILED.rawValue)
+                                return
                             }
                         } catch {
                             self.destroy(nil, rejecter: nil)
@@ -114,7 +122,7 @@ class RecorderManagerModule: NSObject, AVAudioRecorderDelegate {
 
         if recorder != nil {
             self.sendEvent(eventName: Event.ON_TIME_CHANGED.rawValue, response: recorder.currentTime * 1000)
-        } else {
+        } else if(audioTimer != nil) {
             audioTimer.invalidate()
         }
     }
@@ -127,9 +135,9 @@ class RecorderManagerModule: NSObject, AVAudioRecorderDelegate {
             resolve(Response.NOTHING_TO_STOP.rawValue)
         } else {
             self.bridge.eventDispatcher().sendAppEvent(withName: Event.ON_ENDED.rawValue, body: nil)
-            self.destroy(nil, rejecter: nil)
             resolve(Response.SUCCESS.rawValue)
         }
+        self.destroy(nil, rejecter: nil)
     }
 
     @objc func destroy(_ resolve: RCTPromiseResolveBlock?, rejecter reject: RCTPromiseRejectBlock?) -> Void {
@@ -194,6 +202,8 @@ class RecorderManagerModule: NSObject, AVAudioRecorderDelegate {
 
     func sendEvent(eventName: String, response: Any?) -> Void {
 
-        self.bridge.eventDispatcher().sendAppEvent(withName: eventName, body: response)
+        if self.bridge != nil, self.bridge.eventDispatcher() != nil {
+            self.bridge.eventDispatcher().sendAppEvent(withName: eventName, body: response)
+        }
     }
 }
