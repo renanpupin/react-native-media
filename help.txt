@@ -1,0 +1,36 @@
+https://websitebeaver.com/callkit-swift-tutorial-super-easy
+
+[Example] convert p12 to pem:
+openssl pkcs12 -in /Users/Teruya/Documents/react-native-development/repository/react-native-media-ios-certificates/voipservice.p12 -out /Users/Teruya/Documents/react-native-development/repository/react-native-media-ios-certificates/voipservice.pem
+openssl pkcs12 -in voipservice2.p12 -out /Users/Teruya/Documents/react-native-development/repository/react-native-media-ios-certificates/voipservice2.pem
+
+// 1
+curl -v -d '{"aps":{"token":"some-token", "session":"some-session", "name":"some-name", "imageUrl":"https://www.gstatic.com/webp/gallery3/2_webp_ll.png", "timeStamp":"1523561662", "keepAlive":"99999"}}' --http2 --cert voipservice.pem:Aa123698741 https://api.development.push.apple.com/3/device/6cb4d9c7d023e40e2c145425b09a69097588e5186ab7779e3a6bdbd49c02e36c
+curl -v -d '{"aps":{"token":"some-token", "session":"some-session", "name":"some-name", "imageUrl":"https://www.gstatic.com/webp/gallery3/2_webp_ll.png", "timeStamp":"1523449954", "keepAlive":"0"}}' --http2 --cert voipservice.pem:Aa123698741 https://api.development.push.apple.com/3/device/6cb4d9c7d023e40e2c145425b09a69097588e5186ab7779e3a6bdbd49c02e36c
+
+// 2
+curl -v -d '{"aps":{"token":"some-token", "session":"some-session", "name":"some-name", "imageUrl":"https://www.gstatic.com/webp/gallery3/2_webp_ll.png", "timeStamp":"1523561662", "keepAlive":"99999"}}' --http2 --cert voipservice.pem:Aa123698741 https://api.development.push.apple.com/3/device/040984ce63cb6f625dd0c5145a6a38aaac5c2bc2bb2f35aa355b599dfa4bf36d
+curl -v -d '{"aps":{"token":"some-token", "session":"some-session", "name":"some-name", "imageUrl":"https://www.gstatic.com/webp/gallery3/2_webp_ll.png", "timeStamp":"1523449954", "keepAlive":"0"}}' --http2 --cert voipservice.pem:Aa123698741 https://api.development.push.apple.com/3/device/040984ce63cb6f625dd0c5145a6a38aaac5c2bc2bb2f35aa355b599dfa4bf36d
+
+{
+    "sessionId": "data.sessionId",
+    "id_user": "data.id_user",
+    "name": "data.name",
+    "profile_img": "data.profile_image",
+    "isLeader": true,
+    "target": "data.target",
+    "videoHours": 400
+    "targetName": "data.targetName",
+    "timeStamp": 34839024829348,
+    "keepAlive": 500
+}
+
+FalaFreud - Renan device
+23.05.18
+curl -v -d '{"data":{"token":"some-token", "session":"some-session", "name":"some-name", "imageUrl":"https://www.gstatic.com/webp/gallery3/2_webp_ll.png", "timeStamp":"1527108492", "keepAlive":"99999"}}' --http2 --cert /Users/Teruya/Documents/react-native-development/apple/certificates/pushcert.pem:falafreud2018 https://api.development.push.apple.com/3/device/87153790BD60753823703AA643E8BE5D08ECBE58B363267A0C61C103B0FBB281
+
+curl -v -d '{"id_user":"58d9150afa5dcd00040a30b1","isLeader":true,"keepAlive":999999,"name":"data.name","sessionId":"2_MX40NjAwNjIzMn5-MTUyNzcwNzUyMjM5MH5maVJaVFcxUzZSQ3JyTUVVMmpzUW54TkF-fg","profile_image":"data.profile_image","target":"58d91531fa5dcd00040a30bb","targetName":"data.targetName","timeStamp":1527693776,"videoHours":99999}' --http2 --cert /Users/Teruya/Documents/react-native-development/apple/certificates/pushcert.pem:falafreud2018 https://api.development.push.apple.com/3/device/87153790BD60753823703AA643E8BE5D08ECBE58B363267A0C61C103B0FBB281
+
+
+
+curl -v -d '{"id_user":"58d9150afa5dcd00040a30b1","isLeader":true,"keepAlive":999999,"name":"data.name","sessionId":"1_MX40NjAwNjIzMn5-MTUyNzg3ODk4NjQwN345V3VWYTlvMFlpVEJmWmNxaHRreDdsRk1-fg","profile_image":"data.profile_image","target":"58d91531fa5dcd00040a30bb","targetName":"data.targetName","timeStamp":1527862305,"videoHours":9999}' --http2 --cert /Users/Teruya/Documents/react-native-development/apple/certificates/pushcert.pem:falafreud2018 https://api.development.push.apple.com/3/device/87153790BD60753823703AA643E8BE5D08ECBE58B363267A0C61C103B0FBB281

@@ -96,9 +96,33 @@ See complete documentation [here](https://github.com/renanpupin/react-native-med
 
 ## Releases
 
-### 1.3.4 and 1.3.5
+### 1.3.11
 
-The audio is not playing.
+For IOS, handle emit event and handle error response in load recorder.
+
+### 1.3.10
+
+For android, added an trycatch in background task of the audio player.
+
+### 1.3.9
+
+Removing the function binded relationed with the RCTSilentSwitch.
+
+### 1.3.8
+
+Removing the initializer of the silent switch change state listener.
+
+### 1.3.7
+
+Forcing to change the audio output route to default in IOS when stop the audio record process.
+
+### 1.3.6
+
+Removing feature from the RecorderManager that was possible to set a audio record time limit.
+
+### 1.3.4, 1.3.5
+
+The audio was not playing.
 
 ### 1.3.3
 |New Feature    | Android  | IOS
