@@ -1,19 +1,19 @@
 
 
-# react-native-media 1.3.3
+# react-native-media 1.3.11
 
 [![React Native Version](https://img.shields.io/badge/react--native-latest-blue.svg?style=flat-square)](http://facebook.github.io/react-native/releases)
 
 ![Logo](logo.png)
 
 A react-native library to:
-- play audio;
-- record audio;
-- get system directories;
-- handle device behavior:
-    - proximity events;
-    - keep awake;
-- handle voip incoming call;
+- play audio
+- record audio
+- get system directories
+- handle device behavior
+    - proximity events
+    - keep awake
+- handle voip incoming call
 
 ## Getting started
 ```bash
@@ -41,17 +41,11 @@ $ yarn add react-native-media
 1. Open up `android/app/src/main/java/[...]/MainActivity.java`
   - Add the following packages to the imports at the top of the file
 ```java
-import com.media.module.audio.AudioManagerPackage;
-import com.media.module.device.DeviceManagerPackage;
-import com.media.module.directory.DirectoryManagerPackage;
-import com.media.module.directory.RecorderManagerPackage;
+import com.media.module.MediaPackage;
 ```
   - Add the follow lines to the list returned by the `getPackages()` method
 ```java
-new AudioManagerPackage(),
-new DeviceManagerPackage(),
-new DirectoryManagerPackage(),
-new RecorderManagerPackage()
+new MediaPackage()
 ```
 2. Append the following lines to `android/settings.gradle`:
 ```groovy
@@ -78,20 +72,27 @@ compile project(':react-native-media')
 
 ### AudioManager
 
-The audio manager is a singleton to handle the audio files.
+Use to play audio, stop, pause, track time and others.
 See complete documentation [here](https://github.com/renanpupin/react-native-media/wiki/AudioManager)
+
+### DeviceManager
+
+Use to manage the device and OS resources.
+See complete documentation [here](https://github.com/renanpupin/react-native-media/wiki/DeviceManager)
+
+### DirectoryManager
+
+Use to get the available OS directories paths.
+See complete documentation [here](https://github.com/renanpupin/react-native-media/wiki/DirectoryManager)
 
 ### RecorderManager
 
-The recorder manager is a singleton to record external audio using the device microphone.
+Use to record external audio using the microphone.
 See complete documentation [here](https://github.com/renanpupin/react-native-media/wiki/RecorderManager)
 
 ### CallManager
 
-The call manager is a singleton to notify a specific device locked an incoming call.
-* In the **IOS**, the UI is already implemented in the native modules.
-* In the **Android**, the callbacks  and the UI must be implemented.
-
+Use to handle incoming call:
 See complete documentation [here](https://github.com/renanpupin/react-native-media/wiki/CallManager)
 
 ## Releases
