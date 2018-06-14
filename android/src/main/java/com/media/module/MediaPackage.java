@@ -7,6 +7,7 @@ import com.facebook.react.uimanager.ViewManager;
 import com.media.module.audio.AudioManagerModule;
 import com.media.module.device.DeviceManagerModule;
 import com.media.module.directory.DirectoryManagerModule;
+import com.media.module.permission.PermissionManagerModule;
 import com.media.module.recorder.RecorderManagerModule;
 
 import java.util.ArrayList;
@@ -23,6 +24,7 @@ public class MediaPackage implements ReactPackage
         modules.add(new DeviceManagerModule(reactContext));
         modules.add(new DirectoryManagerModule(reactContext));
         modules.add(new RecorderManagerModule(reactContext));
+        modules.add(new PermissionManagerModule(reactContext));
         return modules;
     }
 

@@ -12,7 +12,7 @@
  * @requires [BaseRecorderManager]{@link ./BaseRecorderManager}
  * @requires NativeModules from react-native
  */
-import BaseRecorderManager from './BaseRecorderManager';
+import BaseRecorderManager from './base/BaseRecorderManager';
 import { NativeModules } from 'react-native';
 
 //==========================================================================
