@@ -342,8 +342,7 @@ public class AudioManagerModule extends ReactContextBaseJavaModule
 
                 if (wasPlaying) {
                     play(isLoop, currentTime, null);
-                }
-                else {
+                } else {
                     try {
                         mediaPlayer.seekTo(currentTime);
                         new AudioPlayerAsync().execute();
@@ -393,14 +392,23 @@ public class AudioManagerModule extends ReactContextBaseJavaModule
 
     @ReactMethod
     private void timeChanged(int time) {
-        if (mediaPlayer != null) {
-            try {
-                if (mediaPlayer.isPlaying()) {
-                    reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("onTimeChanged", time);
+
+        try {
+            if (this.mediaPlayer != null && this.mediaPlayer.isPlaying()) {
+                Log.d(getName(), "timeChanged: mediaPlayer != null");
+                if (this.reactContext.hasActiveCatalystInstance()) {
+                    Log.d(getName(), "timeChanged: hasActiveCatalystInstance");
+                    this.reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("onTimeChanged", time);
+                } else {
+                    Log.d(getName(), "timeChanged: !hasActiveCatalystInstance");
                 }
-            } catch (IllegalStateException e) {
-                e.printStackTrace();
+            } else {
+                Log.d(getName(), "timeChanged: mediaPlayer == null");
             }
+        } catch (IllegalStateException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -431,6 +439,8 @@ public class AudioManagerModule extends ReactContextBaseJavaModule
             try {
                 current = mediaPlayer.getCurrentPosition();
             } catch (IllegalStateException e) {
+                e.printStackTrace();
+            } catch (Exception e) {
                 e.printStackTrace();
             }
 
