@@ -80,7 +80,7 @@ class RecorderManagerModule: NSObject, AVAudioRecorderDelegate {
                         // build recorder
                         do {
                             self.recorder = try AVAudioRecorder(url: URL(string: path)!, settings: settings)
-                            self.recorder.isMeteringEnabled = true
+                            // self.recorder.isMeteringEnabled = true
                             self.recorder.delegate = self
                             if self.recorder != nil,  self.recorder.prepareToRecord(), self.recorder.record() {
 

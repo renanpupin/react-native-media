@@ -50,9 +50,7 @@ class AudioManager extends BaseAudioManager {
             let resolve = await NativeModules.AudioManagerModule.load(path);
             if ( resolve != false ) {
                 this._duration = resolve;
-                if ( this._initialAudioOutputRoute != audioOutputRoute ) {
-                    resolve = await this.setAudioOutputRoute(audioOutputRoute);
-                }
+                await NativeModules.AudioManagerModule.setAudioOutputType(audioOutputRoute);
                 if ( resolve ) {
                     return true;
                 }

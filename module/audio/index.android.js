@@ -28,7 +28,7 @@ class AudioManager extends BaseAudioManager {
      * Creates a instance of AudioManager.
      */
     constructor() {
-        super();
+        super();        
     }
 
     //==========================================================================
