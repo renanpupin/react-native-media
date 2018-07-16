@@ -59,7 +59,7 @@ class CallManager extends BaseCallManager {
         console.log("Not implemented in Android, see OneSignal documentation.");
     }
 
-    async playRingtone(name : string, audioOutputRoute = 0, loop = false) : boolean {
+    async playRingtone(name : string, audioOutputRoute = 0, loop = false, vibrate = false) : boolean {
         return await NativeModules.AudioManagerModule.playRingtone(name, audioOutputRoute, loop);
     }
 

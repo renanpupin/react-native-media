@@ -26,6 +26,6 @@ RCT_EXTERN_METHOD(setAudioOutputType:  (int *)type resolver:(RCTPromiseResolveBl
 RCT_EXTERN_METHOD(getCurrentAudioName: (BOOL)fullPath resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 RCT_EXTERN_METHOD(hasWiredheadsetPlugged: (RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 RCT_EXTERN_METHOD(addAppStateListener)
-RCT_EXTERN_METHOD(playRingtone: (NSString *)path type:(int *)type loop:(BOOL)loop resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+RCT_EXTERN_METHOD(playRingtone: (NSString *)path type:(int *)type loop:(BOOL)loop vibrate:(BOOL)vibrate resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 
 @end

@@ -10,6 +10,7 @@ import Foundation
 import AVFoundation
 import MediaPlayer
 import AudioToolbox
+import AudioToolbox.AudioServices
 import CoreBluetooth
 
 @objc(AudioManagerModule)
@@ -20,9 +21,11 @@ class AudioManagerModule: NSObject, AVAudioPlayerDelegate{
     var bridge: RCTBridge!
     var audioPlayer: AVAudioPlayer!
     var audioTimer: Timer!
+    var vibrateTimer: Timer!
     var paused: Bool = false
     var isRingtone: Bool = false
     var timeInterval = 0.2
+    var VIBRATE_TIMER_INTERVAL = 1.9
 
     let DEFAULTSPEAKER: Int = 0
     let EARSPEAKER: Int = 1
@@ -92,7 +95,7 @@ class AudioManagerModule: NSObject, AVAudioPlayerDelegate{
         }
     }
 
-    @objc func playRingtone(_ path: String, type: Int, loop: Bool, resolver resolve: RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) -> Void {
+    @objc func playRingtone(_ path: String, type: Int, loop: Bool, vibrate: Bool, resolver resolve: RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) -> Void {
 
         if self.audioPlayer != nil {
             self.stop()
@@ -112,6 +115,14 @@ class AudioManagerModule: NSObject, AVAudioPlayerDelegate{
                     }
                     self.audioPlayer.delegate = self
                     self.audioPlayer.play()
+
+                    if vibrate {
+                        self.vibrate()
+                        DispatchQueue.main.async(execute: {
+                            self.audioTimer = Timer.scheduledTimer(timeInterval: self.VIBRATE_TIMER_INTERVAL, target: self, selector: #selector(self.vibrate), userInfo: nil, repeats: true)
+                        })
+                    }
+
                     self.setCategory(type)
 
                     resolve(true)
@@ -124,6 +135,10 @@ class AudioManagerModule: NSObject, AVAudioPlayerDelegate{
         } else {
             resolve(false)
         }
+    }
+
+    @objc func vibrate() -> Void {
+        AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
     }
 
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
@@ -193,6 +208,10 @@ class AudioManagerModule: NSObject, AVAudioPlayerDelegate{
             if self.audioTimer != nil {
                 self.audioTimer.invalidate()
                 self.audioTimer = nil
+            }
+            if self.vibrateTimer != nil {
+                self.vibrateTimer.invalidate()
+                self.vibrateTimer = nil
             }
             return true
         } else {

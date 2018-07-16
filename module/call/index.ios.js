@@ -96,9 +96,9 @@ class CallManager extends BaseCallManager {
         return await NativeModules.CallManagerModule.getCallData();
     }
 
-    async playRingtone(name : string, audioOutputRoute = AudioManager.OutputRoute.DEFAULT_SPEAKER, loop = false) : boolean {
+    async playRingtone(name : string, audioOutputRoute = AudioManager.OutputRoute.DEFAULT_SPEAKER, loop = false, vibrate = false) : boolean {
         let path = "file:///" + await DirectoryManager.getMainBundleDirectoryPath() + "/" + name + ".mp3";
-        return await NativeModules.AudioManagerModule.playRingtone(path, audioOutputRoute, loop);
+        return await NativeModules.AudioManagerModule.playRingtone(path, audioOutputRoute, loop, vibrate);
     }
 
     async stopRingtone(name = "", audioOutputRoute = AudioManager.OutputRoute.DEFAULT_SPEAKER) : boolean {
