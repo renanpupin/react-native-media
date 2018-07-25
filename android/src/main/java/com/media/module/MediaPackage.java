@@ -4,6 +4,7 @@ import com.facebook.react.ReactPackage;
 import com.facebook.react.bridge.NativeModule;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.uimanager.ViewManager;
+import com.media.module.appstate.AppStateNativeManagerModule;
 import com.media.module.audio.AudioManagerModule;
 import com.media.module.device.DeviceManagerModule;
 import com.media.module.directory.DirectoryManagerModule;
@@ -25,6 +26,7 @@ public class MediaPackage implements ReactPackage
         modules.add(new DirectoryManagerModule(reactContext));
         modules.add(new RecorderManagerModule(reactContext));
         modules.add(new PermissionManagerModule(reactContext));
+        modules.add(new AppStateNativeManagerModule(reactContext));
         return modules;
     }
 

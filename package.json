@@ -1,19 +1,17 @@
 {
   "name": "react-native-media",
-  "version": "1.5.14",
+  "version": "1.6.14",
   "description": "Native helpers for media control",
   "private": true,
   "main": "index.js",
   "author": ["FalaFreud Inc.", "Haroldo Teruya"],
   "scripts": {},
   "keywords": [
-    "react-native",
     "react-native-media",
     "audio",
     "directory",
     "utils",
     "record",
-    "voip",
     "incoming",
     "call",
     "incoming"
