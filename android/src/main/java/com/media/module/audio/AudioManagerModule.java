@@ -84,12 +84,15 @@ public class AudioManagerModule extends ReactContextBaseJavaModule
     public void load(String path, int type, final Promise promise) {
 
         try {
+            Log.d("AudioManager", "load: if file not exist, return");
             if ( !Util.fileExists(path) ) {
                 mediaPlayer = null;
                 promise.resolve(false);
             } else {
 
                 stopAudio();
+
+                Log.d("AudioManager", "load: new instance");
 
                 mediaPlayer = new MediaPlayer();
                 url = Uri.parse(path);
@@ -249,6 +252,9 @@ public class AudioManagerModule extends ReactContextBaseJavaModule
     }
 
     public boolean stopAudio() {
+
+        Log.d("AudioManager", "stopAudio: stop audio if needed");
+
         if ( this.mediaPlayer != null ) {
             this.path = "";
             this.isToCancel = true;
@@ -396,15 +402,9 @@ public class AudioManagerModule extends ReactContextBaseJavaModule
 
         try {
             if (this.mediaPlayer != null && this.mediaPlayer.isPlaying()) {
-                Log.d(getName(), "timeChanged: mediaPlayer != null");
                 if (this.reactContext.hasActiveCatalystInstance()) {
-                    Log.d(getName(), "timeChanged: hasActiveCatalystInstance");
                     this.reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("onTimeChanged", time);
-                } else {
-                    Log.d(getName(), "timeChanged: !hasActiveCatalystInstance");
                 }
-            } else {
-                Log.d(getName(), "timeChanged: mediaPlayer == null");
             }
         } catch (IllegalStateException e) {
             e.printStackTrace();
@@ -452,9 +452,6 @@ public class AudioManagerModule extends ReactContextBaseJavaModule
                         current = mediaPlayer.getCurrentPosition();
                         timeChanged(current);
                     } catch (IllegalStateException e) {
-                        e.printStackTrace();
-                        Thread.currentThread().interrupt();
-                    } catch (InterruptedException e) {
                         e.printStackTrace();
                         Thread.currentThread().interrupt();
                     }
