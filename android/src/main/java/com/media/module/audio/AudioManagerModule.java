@@ -255,6 +255,7 @@ public class AudioManagerModule extends ReactContextBaseJavaModule
             if ( mediaPlayer.isPlaying() ) {
                 mediaPlayer.stop();
             }
+            this.mediaPlayer.reset();
             this.mediaPlayer.release();
             this.mediaPlayer = null;
             return true;
@@ -452,12 +453,17 @@ public class AudioManagerModule extends ReactContextBaseJavaModule
                         timeChanged(current);
                     } catch (IllegalStateException e) {
                         e.printStackTrace();
+                        Thread.currentThread().interrupt();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                        Thread.currentThread().interrupt();
                     }
                 }
                 try {
                     Thread.sleep(timeInterval);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
+                    Thread.currentThread().interrupt();
                 }
                 if( current >= duration || isToCancel) {
                     break;

@@ -47,6 +47,9 @@ class AudioManagerModule: NSObject, AVAudioPlayerDelegate{
 
         self.isRingtone = false
         if let url = URL(string: path) {
+
+            NSLog("AudioManagerModule load")
+
             do {
                 self.audioPlayer = try AVAudioPlayer(contentsOf: url)
                 if self.audioPlayer.prepareToPlay() {
@@ -68,6 +71,8 @@ class AudioManagerModule: NSObject, AVAudioPlayerDelegate{
         if self.paused {
             resolve(false)
         } else if( self.audioPlayer != nil && !self.audioPlayer.isPlaying ){
+
+            NSLog("AudioManagerModule play")
 
             if loop {
                 self.audioPlayer.numberOfLoops = -1
@@ -100,7 +105,7 @@ class AudioManagerModule: NSObject, AVAudioPlayerDelegate{
         if self.audioPlayer != nil {
             self.stop()
         }
-        print("AudioManagerModule playRingtone")
+        NSLog("AudioManagerModule playRingtone")
         self.isRingtone = true
         if let url = URL(string: path) {
             do {
@@ -138,12 +143,14 @@ class AudioManagerModule: NSObject, AVAudioPlayerDelegate{
     }
 
     @objc func vibrate() -> Void {
+
+        NSLog("AudioManagerModule vibrate: %d", self.isRingtone)
         AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
     }
 
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
 
-        print("AudioManagerModule audioPlayerDidFinishPlaying: \(self.isRingtone)")
+        NSLog("AudioManagerModule audioPlayerDidFinishPlaying: %d", self.isRingtone)
         if ( self.isRingtone ) {
 
         } else {
@@ -154,6 +161,8 @@ class AudioManagerModule: NSObject, AVAudioPlayerDelegate{
 
     func timeChanged() {
 
+        NSLog("AudioManagerModule timeChanged")
+
         if self.audioPlayer != nil && !self.paused {
             self.bridge.eventDispatcher().sendAppEvent(withName: "onTimeChanged", body: Int(self.audioPlayer.currentTime * 1000) )
         } else if ( self.paused ) {
@@ -163,6 +172,8 @@ class AudioManagerModule: NSObject, AVAudioPlayerDelegate{
     }
 
     @objc func pause(_ resolve: RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) -> Void {
+
+        NSLog("AudioManagerModule pause")
 
         if( self.audioPlayer != nil && self.audioPlayer.isPlaying ){
             self.paused = true
@@ -175,6 +186,8 @@ class AudioManagerModule: NSObject, AVAudioPlayerDelegate{
 
     @objc func forcePause(sucess : Bool) {
 
+        NSLog("AudioManagerModule forcePause")
+
         if( self.audioPlayer != nil && self.audioPlayer.isPlaying ){
             self.paused = true
             self.audioPlayer.pause()
@@ -182,6 +195,8 @@ class AudioManagerModule: NSObject, AVAudioPlayerDelegate{
     }
 
     @objc func resume(_ resolve: RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) -> Void {
+
+        NSLog("AudioManagerModule resume")
 
         if( self.audioPlayer != nil && !self.audioPlayer.isPlaying && self.paused ){
             self.paused = false
@@ -198,28 +213,38 @@ class AudioManagerModule: NSObject, AVAudioPlayerDelegate{
 
     func stop() -> Bool {
 
-        print("AudioManagerModule stop")
-        if( self.audioPlayer != nil ){
-            self.path = ""
-            self.paused = false
-            self.audioPlayer.stop()
-            self.audioPlayer = nil
-            self.isRingtone = false
+        NSLog("AudioManagerModule stop")
+
+        do {
             if self.audioTimer != nil {
-                self.audioTimer.invalidate()
+                NSLog("AudioManagerModule audioTimer invalidate")
+                try self.audioTimer.invalidate()
                 self.audioTimer = nil
             }
             if self.vibrateTimer != nil {
-                self.vibrateTimer.invalidate()
+                NSLog("AudioManagerModule vibrateTimer invalidate")
+                try self.vibrateTimer.invalidate()
                 self.vibrateTimer = nil
             }
-            return true
-        } else {
-            return false
+            if( self.audioPlayer != nil ){
+                NSLog("AudioManagerModule audioPlayer destriy")
+                self.path = ""
+                self.paused = false
+                try self.audioPlayer.stop()
+                self.audioPlayer = nil
+                self.isRingtone = false
+                return true
+            } else {
+                return false
+            }
+        } catch let error {
+          NSLog("AudioManagerModule stop error %@", error.localizedDescription)
         }
     }
 
     @objc func seekTime(_ time: Double, resolver resolve: RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) -> Void {
+
+        NSLog("AudioManagerModule seekTime")
 
         var tempTime = time / 1000
 
@@ -233,6 +258,8 @@ class AudioManagerModule: NSObject, AVAudioPlayerDelegate{
 
     @objc func setTimeInterval(_ timeInterval: Double, resolver resolve: RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) -> Void {
 
+        NSLog("AudioManagerModule setTimeInterval")
+
         var tempTimeInterval = timeInterval / 1000
 
         if tempTimeInterval < 0.1 {
@@ -245,28 +272,31 @@ class AudioManagerModule: NSObject, AVAudioPlayerDelegate{
 
     @objc func getVolume(_ resolve: RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) -> Void {
 
+        NSLog("AudioManagerModule getVolume")
+
         let audioSession = AVAudioSession.sharedInstance()
         do {
             try audioSession.setActive(true)
             var sucess = audioSession.outputVolume
             try audioSession.setActive(false)
             resolve(sucess)
-        } catch {
-            print("AudioManagerModule getVolume \(error)")
+        } catch let error {
+            NSLog("AudioManagerModule getVolume %@", error.localizedDescription)
             resolve(false)
         }
     }
 
     func setCategory(_ type: Int) -> Bool {
 
-        print("AudioManagerModule setCategory")
+        NSLog("AudioManagerModule setCategory")
+
         let session = AVAudioSession.sharedInstance()
         if type == self.EARSPEAKER {
             // ear = 1
             do {
                 try session.setCategory(AVAudioSessionCategoryPlayAndRecord)
                 try session.setActive(true)
-                print("AudioManagerModule setCategory AVAudioSessionCategoryPlayAndRecord")
+                NSLog("AudioManagerModule setCategory AVAudioSessionCategoryPlayAndRecord")
                 return true
             } catch {
                 return false
@@ -276,11 +306,11 @@ class AudioManagerModule: NSObject, AVAudioPlayerDelegate{
             do {
                 if self.isRingtone {
                     try session.setCategory(AVAudioSessionCategorySoloAmbient, with: [AVAudioSessionCategoryOptions.allowBluetooth])
-                    print("AudioManagerModule setCategory AVAudioSessionCategorySoloAmbient")
+                    NSLog("AudioManagerModule setCategory AVAudioSessionCategorySoloAmbient")
                 } else {
                     try session.setCategory(AVAudioSessionCategoryPlayback, with: [AVAudioSessionCategoryOptions.allowBluetooth])
                     try session.setPreferredInput(session.preferredInput)
-                    print("AudioManagerModule setCategory AVAudioSessionCategoryPlayback")
+                    NSLog("AudioManagerModule setCategory AVAudioSessionCategoryPlayback")
                 }
                 try session.setActive(true)
                 return true
@@ -292,16 +322,24 @@ class AudioManagerModule: NSObject, AVAudioPlayerDelegate{
     }
 
     @objc func setAudioOutputRoute(_ type: Int, resolver resolve: RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) {
+
+        NSLog("AudioManagerModule setAudioOutputRoute")
+
         self.audioOutputType = type
         resolve(self.setCategory(type))
     }
 
     @objc func setAudioOutputType(_ type: Int, resolver resolve: RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) {
+
+        NSLog("AudioManagerModule setAudioOutputType")
+
         self.audioOutputType = type
         resolve(true)
     }
 
     @objc func getCurrentAudioName(_ fullPath: Bool, resolver resolve: RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) {
+
+        NSLog("AudioManagerModule getCurrentAudioName")
 
         if self.audioPlayer != nil {
             if !fullPath {
@@ -317,6 +355,8 @@ class AudioManagerModule: NSObject, AVAudioPlayerDelegate{
 
     @objc func hasWiredheadsetPlugged(_ resolve: RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) {
 
+        NSLog("AudioManagerModule hasWiredheadsetPlugged")
+
         if self.getDeviceConnected() == "" {
             resolve(false)
         } else {
@@ -330,19 +370,19 @@ class AudioManagerModule: NSObject, AVAudioPlayerDelegate{
         if currentRoute.outputs != nil {
             for description in currentRoute.outputs {
                 if description.portType == AVAudioSessionPortHeadphones {
-                    print("AudioManagerModule getDeviceConnected headphone plugged in")
+                    NSLog("AudioManagerModule getDeviceConnected headphone plugged in")
                     return description.portType
                 } else if description.portType == AVAudioSessionPortBluetoothA2DP {
-                    print("AudioManagerModule getDeviceConnected AVAudioSessionPortBluetoothA2DP connected")
+                    NSLog("AudioManagerModule getDeviceConnected AVAudioSessionPortBluetoothA2DP connected")
                     return description.portType
                 } else if description.portType == AVAudioSessionPortBluetoothHFP {
-                    print("AudioManagerModule getDeviceConnected AVAudioSessionPortBluetoothA2DP connected")
+                    NSLog("AudioManagerModule getDeviceConnected AVAudioSessionPortBluetoothA2DP connected")
                     return description.portType
                 } else if description.portType == AVAudioSessionPortBluetoothLE {
-                    print("AudioManagerModule getDeviceConnected AVAudioSessionPortBluetoothA2DP connected")
+                    NSLog("AudioManagerModule getDeviceConnected AVAudioSessionPortBluetoothA2DP connected")
                     return description.portType
                 } else {
-                    print("AudioManagerModule getDeviceConnected nothing")
+                    NSLog("AudioManagerModule getDeviceConnected nothing")
                     return ""
                 }
             }
@@ -370,14 +410,25 @@ class AudioManagerModule: NSObject, AVAudioPlayerDelegate{
     }
 
     @objc func appMovedToBackground() {
+
+        NSLog("AudioManagerModule appMovedToBackground")
+
         if self.audioPlayer != nil && self.audioPlayer.isPlaying {
             self.paused = true
             self.audioPlayer.pause()
         }
-        self.bridge.eventDispatcher().sendAppEvent( withName: "onProximityChanged", body: self.ONBACKGROUND)
+
+        if (self.bridge != nil) {
+            self.bridge.eventDispatcher().sendAppEvent( withName: "onProximityChanged", body: self.ONBACKGROUND)
+        }
     }
 
     @objc func appMovedToActive() {
-        self.bridge.eventDispatcher().sendAppEvent( withName: "onProximityChanged", body: self.ONACTIVE)
+
+        NSLog("AudioManagerModule appMovedToActive")
+
+        if (self.bridge != nil) {
+            self.bridge.eventDispatcher().sendAppEvent( withName: "onProximityChanged", body: self.ONACTIVE)
+        }
     }
 }
