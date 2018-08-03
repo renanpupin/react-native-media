@@ -7,11 +7,13 @@ import com.facebook.react.modules.core.DeviceEventManagerModule;
 
 public class AppStateNativeManagerModule extends ReactContextBaseJavaModule implements LifecycleEventListener {
 
+    // =============================================================================================
     // ATTRIBUTES ==================================================================================
 
     private ReactApplicationContext reactContext = null;
     private static final String TAG = "AppStateNative";
 
+    // =============================================================================================
     // CONSTRUCTOR =================================================================================
 
     public AppStateNativeManagerModule(ReactApplicationContext reactContext) {
@@ -21,6 +23,7 @@ public class AppStateNativeManagerModule extends ReactContextBaseJavaModule impl
         this.reactContext.addLifecycleEventListener(this);
     }
 
+    // =============================================================================================
     // METHODS =====================================================================================
 
     @Override
@@ -47,7 +50,8 @@ public class AppStateNativeManagerModule extends ReactContextBaseJavaModule impl
         this.emitEvent(Event.ON_DESTROY);
     }
 
-    // SEND EVENT ==================================================================================
+    // =============================================================================================
+    // EVENT =======================================================================================
 
     private void emitEvent(String eventName) {
 
@@ -56,6 +60,7 @@ public class AppStateNativeManagerModule extends ReactContextBaseJavaModule impl
         }
     }
 
+    // =============================================================================================
     // CLASS =======================================================================================
 
     private static final class Event {
