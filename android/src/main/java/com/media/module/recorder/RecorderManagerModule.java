@@ -1,6 +1,7 @@
 package com.media.module.recorder;
 
 import android.media.MediaRecorder;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.facebook.react.bridge.Promise;
@@ -12,33 +13,34 @@ import com.facebook.react.modules.core.DeviceEventManagerModule;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import javax.annotation.Nullable;
-
 /**
  * Created by Teruya on 09/01/2018.
- *
  */
 
-public class RecorderManagerModule extends ReactContextBaseJavaModule
-{
+public class RecorderManagerModule extends ReactContextBaseJavaModule {
+
+    // =============================================================================================
     // ATRIBUTES ===================================================================================
 
     private ReactApplicationContext reactContext = null;
     private MediaRecorder recorder = null;
     private Timer timer = null;
 
+    // =============================================================================================
     // CONSTRUCTOR =================================================================================
 
     public RecorderManagerModule(ReactApplicationContext reactContext) {
+
         super(reactContext);
         this.reactContext = reactContext;
     }
 
+    // =============================================================================================
     // METHODS =====================================================================================
 
     @Override
-    public String getName()
-    {
+    public String getName() {
+
         return "RecorderManagerModule";
     }
 
@@ -50,16 +52,16 @@ public class RecorderManagerModule extends ReactContextBaseJavaModule
             int sampleRate,
             int channels,
             int audioEncodingBitRate,
-            Promise promise)
-    {
+            Promise promise) {
         // reset all objects
-        if ( this.recorder != null ){
+
+        if (this.recorder != null) {
             promise.resolve(Response.IS_RECORDING);
             return;
         }
 
         // verify the path
-        if ( path == null || path.isEmpty() ) {
+        if (path == null || path.isEmpty()) {
             Log.d(getName(), path + " is invalid");
             promise.resolve(Response.INVALID_AUDIO_PATH);
             return;
@@ -75,8 +77,8 @@ public class RecorderManagerModule extends ReactContextBaseJavaModule
             recorder.setAudioChannels(channels);
             recorder.setAudioEncodingBitRate(audioEncodingBitRate);
             recorder.setOutputFile(path);
-        } catch(final Exception e) {
-            Log.d(getName(), "Make sure you've added RECORD_AUDIO permission to your AndroidManifest.xml file "+e.getMessage());
+        } catch (final Exception e) {
+            Log.d(getName(), "Make sure you've added RECORD_AUDIO permission to your AndroidManifest.xml file " + e.getMessage());
             promise.resolve(Response.NO_PERMISSION);
             return;
         }
@@ -84,7 +86,7 @@ public class RecorderManagerModule extends ReactContextBaseJavaModule
         try {
             recorder.prepare();
             recorder.start();
-            sendEvent(Event.ON_STARTED, null);
+            emitEvent(Event.ON_STARTED, null);
 
             // start timer
             timer = new Timer();
@@ -94,12 +96,13 @@ public class RecorderManagerModule extends ReactContextBaseJavaModule
 
                 @Override
                 public void run() {
-                    if ( currentTimeInMs == 0 ) {
-                        currentTimeInMs = (int)this.scheduledExecutionTime();
-                        sendEvent(Event.ON_TIME_CHANGED, 0);
+
+                    if (currentTimeInMs == 0) {
+                        currentTimeInMs = (int) this.scheduledExecutionTime();
+                        emitEvent(Event.ON_TIME_CHANGED, 0);
                     } else {
-                        int duration = (int)this.scheduledExecutionTime() - currentTimeInMs;
-                        sendEvent(Event.ON_TIME_CHANGED, duration);
+                        int duration = (int) this.scheduledExecutionTime() - currentTimeInMs;
+                        emitEvent(Event.ON_TIME_CHANGED, duration);
                     }
                 }
             }, 0, 1000);
@@ -116,10 +119,11 @@ public class RecorderManagerModule extends ReactContextBaseJavaModule
 
     @ReactMethod
     public void stop(Promise promise) {
-        if ( recorder == null ){
+
+        if (recorder == null) {
             promise.resolve(Response.NOTHING_TO_STOP);
         } else {
-            sendEvent(Event.ON_ENDED, null);
+            emitEvent(Event.ON_ENDED, null);
             destroy(promise);
         }
     }
@@ -127,50 +131,61 @@ public class RecorderManagerModule extends ReactContextBaseJavaModule
     @ReactMethod
     public void destroy(Promise promise) {
 
-        // destroying recorder
-        if (recorder != null) {
+        try {
+            // destroying recorder
+            if (recorder != null) {
 
-            try {
-                recorder.setOnErrorListener(null);
-                recorder.setOnInfoListener(null);
-                recorder.setPreviewDisplay(null);
-                recorder.stop();
-                recorder.release();
-            } catch (IllegalStateException e) {
-                Log.d(getName(), Log.getStackTraceString(e));
-            } catch (RuntimeException e) {
-                Log.d(getName(), Log.getStackTraceString(e));
-            } catch (Exception e) {
-                Log.d(getName(), Log.getStackTraceString(e));
-            } finally {
-                recorder = null;
+                try {
+                    recorder.setOnErrorListener(null);
+                    recorder.setOnInfoListener(null);
+                    recorder.setPreviewDisplay(null);
+                    recorder.stop();
+                    recorder.release();
+                } catch (IllegalStateException e) {
+                    Log.d(getName(), Log.getStackTraceString(e));
+                } catch (RuntimeException e) {
+                    Log.d(getName(), Log.getStackTraceString(e));
+                } catch (Exception e) {
+                    Log.d(getName(), Log.getStackTraceString(e));
+                } finally {
+                    recorder = null;
+                }
             }
-        }
 
-        // destroying timer
-        if (timer != null) {
-            timer.cancel();
-            timer.purge();
-            timer = null;
-        }
+            // destroying timer
+            if (timer != null) {
+                timer.cancel();
+                timer.purge();
+                timer = null;
+            }
 
-        if ( promise != null ) {
-            promise.resolve(Response.SUCCESS);
-        }
-    }
-
-    // SEND EVENT ==================================================================================
-
-    private void sendEvent(String eventName, Object response) {
-        Log.d(getName(), "Sending event: " + eventName);
-        if ( reactContext.hasActiveCatalystInstance() ) {
-            reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit(eventName, response);
+            if (promise != null) {
+                promise.resolve(Response.SUCCESS);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
+    // =============================================================================================
+    // EVENT =======================================================================================
+
+    private void emitEvent(String eventName, @Nullable Object data) {
+
+        try {
+            if (this.reactContext != null && this.reactContext.hasActiveCatalystInstance()) {
+                this.reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit(eventName, data);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    // =============================================================================================
     // CLASS =======================================================================================
 
     public static final class Response {
+
         static final int IS_RECORDING = 0;
         static final int SUCCESS = 1;
         static final int FAILED = 2;
@@ -181,12 +196,14 @@ public class RecorderManagerModule extends ReactContextBaseJavaModule
     }
 
     public static final class Event {
+
         static final String ON_STARTED = "ON_STARTED";
         static final String ON_TIME_CHANGED = "ON_TIME_CHANGED";
         static final String ON_ENDED = "ON_ENDED";
     }
 
     public static final class AudioEncoder {
+
         static final String AAC = "aac"; // default
         static final String AAC_ELD = "aac_eld";
         static final String AMR_NB = "amr_nb";
@@ -195,6 +212,7 @@ public class RecorderManagerModule extends ReactContextBaseJavaModule
         static final String VORBIS = "vorbis";
 
         static final int get(String outputFormat) {
+
             switch (outputFormat) {
                 case AAC:
                     return MediaRecorder.AudioEncoder.AAC;
@@ -215,6 +233,7 @@ public class RecorderManagerModule extends ReactContextBaseJavaModule
     }
 
     public static final class AudioOutputFormat {
+
         static final String MPEG_4 = "mpeg_4"; // default
         static final String AAC_ADTS = "aac_adts";
         static final String AMR_NB = "amr_nb";
@@ -223,6 +242,7 @@ public class RecorderManagerModule extends ReactContextBaseJavaModule
         static final String WEBM = "webm";
 
         static final int get(String outputFormat) {
+
             switch (outputFormat) {
                 case MPEG_4:
                     return MediaRecorder.OutputFormat.MPEG_4;

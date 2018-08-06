@@ -25,9 +25,8 @@ import static android.content.Context.AUDIO_SERVICE;
 
 /**
  * Created by Teruya on 09/01/2018.
- * <p>
+ *
  * This class is responsible to handle a single audio file with basic functions:
- * <p>
  * 1. Load by path.
  * 2. Play if loaded, passing if to loop or not.
  * 3. Resume if the audio is playing.
@@ -39,7 +38,9 @@ import static android.content.Context.AUDIO_SERVICE;
 
 public class AudioManagerModule extends ReactContextBaseJavaModule {
 
+    // =============================================================================================
     // ATRIBUTES ===================================================================================
+
     private static final String TAG = "AudioManager";
 
     private ReactApplicationContext reactContext = null;
@@ -56,6 +57,7 @@ public class AudioManagerModule extends ReactContextBaseJavaModule {
 
     private AudioPlayerAsync audioPlayerAsync = null;
 
+    // =============================================================================================
     // CONSTRUCTOR =================================================================================
 
     public AudioManagerModule(ReactApplicationContext reactContext) {
@@ -69,6 +71,7 @@ public class AudioManagerModule extends ReactContextBaseJavaModule {
         reactContext.registerReceiver(wiredHeadsetIntentReceiver, filter);
     }
 
+    // =============================================================================================
     // METHODS =====================================================================================
 
     @Override
@@ -527,7 +530,6 @@ public class AudioManagerModule extends ReactContextBaseJavaModule {
 
     private class WiredHeadsetIntentReceiver extends BroadcastReceiver {
 
-//        private int originalType = DEFAULTSPEAKER;
         private int originalType = OutputRoute.DEFAULT_SPEAKER;
 
         @Override
@@ -548,7 +550,7 @@ public class AudioManagerModule extends ReactContextBaseJavaModule {
                             setAudioOutputRoute(originalType, null);
                         }
                         emitEvent(Event.ON_WIREDHEADSET_PLUGGED, false);
-                        reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("onWiredHeadsetPlugged", false);
+//                        reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("onWiredHeadsetPlugged", false);
                         break;
 
                     case 1:
@@ -557,7 +559,8 @@ public class AudioManagerModule extends ReactContextBaseJavaModule {
                         if (type == OutputRoute.EAR_SPEAKER) {
                             setAudioOutputRoute(OutputRoute.DEFAULT_SPEAKER, null);
                         }
-                        reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("onWiredHeadsetPlugged", true);
+                        emitEvent(Event.ON_WIREDHEADSET_PLUGGED, true);
+//                        reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("onWiredHeadsetPlugged", true);
                         break;
 
                     default:

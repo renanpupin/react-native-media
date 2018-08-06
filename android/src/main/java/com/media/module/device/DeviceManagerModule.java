@@ -37,10 +37,6 @@ public class DeviceManagerModule extends ReactContextBaseJavaModule implements L
     private Boolean proximityEmitEnable = true;
     private Boolean proximityEmitInBackgroundEnable = false;
     private Boolean isProximity = false;
-//    private static final int PROXIMITYNEAR = 0;
-//    private static final int PROXIMITYFAR = 1;
-//    private static final int ONBACKGROUND = 2;
-//    private static final int ONACTIVE = 3;
 
     private ProximitySensorHandler proximitySensorHandler = null;
 
@@ -247,11 +243,6 @@ public class DeviceManagerModule extends ReactContextBaseJavaModule implements L
     public void onHostResume() {
 
         this.proximityEmitEnable = true;
-
-//        if (reactContext.hasActiveCatalystInstance() && !isProximity) {
-//            reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("onProximityChanged", DeviceManagerModule.ONACTIVE);
-//        }
-
         if (!isProximity) {
             this.emitEvent(Event.ON_PROXIMITY_CHANGED, Data.ON_ACTIVE);
         }
@@ -259,10 +250,6 @@ public class DeviceManagerModule extends ReactContextBaseJavaModule implements L
 
     @Override
     public void onHostPause() {
-
-//        if (reactContext.hasActiveCatalystInstance() && !isProximity) {
-//            reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("onProximityChanged", DeviceManagerModule.ONBACKGROUND);
-//        }
 
         if (!isProximity) {
             this.emitEvent(Event.ON_PROXIMITY_CHANGED, Data.ON_BACKGROUND);
