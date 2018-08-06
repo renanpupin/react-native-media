@@ -15,10 +15,6 @@ class DirectoryManagerModule: NSObject {
     resolve(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true))
   }
   
-//  @objc func getImageDirectoryPath(_ resolve: @escaping RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) -> Void {
-//    
-//  }
-  
   @objc func getMainBundleDirectoryPath(_ resolve: @escaping RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) -> Void {
     resolve(Bundle.main.bundlePath)
   }
@@ -30,12 +26,4 @@ class DirectoryManagerModule: NSObject {
   @objc func getLibraryDirectoryPath(_ resolve: @escaping RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) -> Void {
     resolve(NSSearchPathForDirectoriesInDomains(.libraryDirectory, .userDomainMask, true))
   }
-  
-//  @objc func getAudioDirectoryPath(_ resolve: @escaping RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) -> Void {
-//
-//  }
-//
-//  @objc func getDownloadDirectoryPath(_ resolve: @escaping RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) -> Void {
-//
-//  }
 }

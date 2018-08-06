@@ -76,21 +76,14 @@
 		58B511D21A9E6C8500147676 = {
 			isa = PBXGroup;
 			children = (
+				5CF583F32118FB4B00D2C580 /* RCTSilentSwitch */,
+				5CF583F22118FB1800D2C580 /* DirectoryManager */,
+				5CF583F12118FB0300D2C580 /* DeviceManager */,
+				5CF583F02118F8CE00D2C580 /* AudioManager */,
 				5CD76258208E522B00D93B18 /* CallManager */,
 				5C207B8F2088DF46009176D4 /* RecorderManager */,
-				F93F43D4202DE0A20079C98E /* AudioManagerBridge.m */,
-				F93F43D7202DE0A20079C98E /* AudioManagerModule.swift */,
-				F93F43D0202DE0A20079C98E /* DeviceManagerBridge.m */,
-				F93F43D8202DE0A20079C98E /* DeviceManagerModule.swift */,
-				F93F43DA202DE0A20079C98E /* DirectoryManagerBridge.m */,
-				F93F43D5202DE0A20079C98E /* DirectoryManagerModule.swift */,
-				F93F43D2202DE0A20079C98E /* mute.caf */,
-				F93F43D1202DE0A20079C98E /* RCTSilentSwitch.h */,
-				F93F43D9202DE0A20079C98E /* RCTSilentSwitch.m */,
 				F93F43D3202DE0A20079C98E /* RNReactNativeMedia-Bridging-Header.h */,
 				F93F43DB202DE0A20079C98E /* RNReactNativeMedia.xcworkspace */,
-				F93F43DC202DE0A20079C98E /* SharkfoodMuteSwitchDetector.h */,
-				F93F43D6202DE0A20079C98E /* SharkfoodMuteSwitchDetector.m */,
 				134814211AA4EA7D00B7C361 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -111,6 +104,45 @@
 				5CD7625A208E522B00D93B18 /* CallManagerBridge.m */,
 			);
 			path = CallManager;
+			sourceTree = "<group>";
+		};
+		5CF583F02118F8CE00D2C580 /* AudioManager */ = {
+			isa = PBXGroup;
+			children = (
+				F93F43D4202DE0A20079C98E /* AudioManagerBridge.m */,
+				F93F43D7202DE0A20079C98E /* AudioManagerModule.swift */,
+			);
+			path = AudioManager;
+			sourceTree = "<group>";
+		};
+		5CF583F12118FB0300D2C580 /* DeviceManager */ = {
+			isa = PBXGroup;
+			children = (
+				F93F43D0202DE0A20079C98E /* DeviceManagerBridge.m */,
+				F93F43D8202DE0A20079C98E /* DeviceManagerModule.swift */,
+			);
+			path = DeviceManager;
+			sourceTree = "<group>";
+		};
+		5CF583F22118FB1800D2C580 /* DirectoryManager */ = {
+			isa = PBXGroup;
+			children = (
+				F93F43DA202DE0A20079C98E /* DirectoryManagerBridge.m */,
+				F93F43D5202DE0A20079C98E /* DirectoryManagerModule.swift */,
+			);
+			path = DirectoryManager;
+			sourceTree = "<group>";
+		};
+		5CF583F32118FB4B00D2C580 /* RCTSilentSwitch */ = {
+			isa = PBXGroup;
+			children = (
+				F93F43D1202DE0A20079C98E /* RCTSilentSwitch.h */,
+				F93F43D9202DE0A20079C98E /* RCTSilentSwitch.m */,
+				F93F43DC202DE0A20079C98E /* SharkfoodMuteSwitchDetector.h */,
+				F93F43D6202DE0A20079C98E /* SharkfoodMuteSwitchDetector.m */,
+				F93F43D2202DE0A20079C98E /* mute.caf */,
+			);
+			path = RCTSilentSwitch;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
