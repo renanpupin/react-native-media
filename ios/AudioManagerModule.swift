@@ -213,32 +213,31 @@ class AudioManagerModule: NSObject, AVAudioPlayerDelegate{
 
     func stop() -> Bool {
 
-        NSLog("AudioManagerModule stop")
+        NSLog(self.TAG + " stop")
 
         do {
+            self.path = ""
+            self.paused = false
+            self.isRingtone = false
+            
             if self.audioTimer != nil {
-                NSLog("AudioManagerModule audioTimer invalidate")
+                NSLog(self.TAG + " audioTimer invalidate")
                 try self.audioTimer.invalidate()
                 self.audioTimer = nil
             }
             if self.vibrateTimer != nil {
-                NSLog("AudioManagerModule vibrateTimer invalidate")
+                NSLog(self.TAG + " vibrateTimer invalidate")
                 try self.vibrateTimer.invalidate()
                 self.vibrateTimer = nil
             }
             if( self.audioPlayer != nil ){
-                NSLog("AudioManagerModule audioPlayer destriy")
-                self.path = ""
-                self.paused = false
+                NSLog(self.TAG + " audioPlayer destriy")
                 try self.audioPlayer.stop()
                 self.audioPlayer = nil
-                self.isRingtone = false
-                return true
-            } else {
-                return false
+                
             }
         } catch let error {
-          NSLog("AudioManagerModule stop error %@", error.localizedDescription)
+          NSLog(self.TAG + " stop error " + error.localizedDescription)
         }
     }
 
