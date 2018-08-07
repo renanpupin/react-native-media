@@ -40,7 +40,7 @@ class DeviceManagerModule: NSObject {
         DispatchQueue.main.async(execute: {
             NSLog(self.TAG + " keepAwake: " + (enable ? "true" : "false"))
             UIApplication.shared.isIdleTimerDisabled = enable
-            resolve()
+            resolve(nil)
         })
     }
     
@@ -59,8 +59,12 @@ class DeviceManagerModule: NSObject {
     
     func proximityChanged(notification: NSNotification) {
         
-        if notification != nil, (notification.object as? UIDevice) != nil, UIDevice.current.isProximityMonitoringEnabled, bridge != nil, bridge.eventDispatcher() != nil {
-            bridge.eventDispatcher().sendAppEvent( withName: Event.ON_PROXIMITY_CHANGED, body: (UIDevice.current.proximityState ? Data.NEAR : Data.FAR))
+        if (notification.object as? UIDevice) != nil {
+            if UIDevice.current.isProximityMonitoringEnabled {
+                if bridge != nil, bridge.eventDispatcher() != nil {
+                    bridge.eventDispatcher().sendAppEvent( withName: Event.ON_PROXIMITY_CHANGED, body: (UIDevice.current.proximityState ? Data.NEAR : Data.FAR))
+                }
+            }
         }
     }
 }

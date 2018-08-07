@@ -16,13 +16,6 @@ import { DeviceEventEmitter, NativeModules } from 'react-native';
 
 //==========================================================================
 
-export const ProximityState = {
-    NEAR: 0,
-    FAR: 1,
-    ONBACKGROUND: 2,
-    ONACTIVE: 3
-}
-
 /**
  * @class
  * @classdesc This class is responsible to provide some functionalities to manage de device in IOS and Android.
@@ -32,44 +25,31 @@ class BaseDeviceManager {
     //==========================================================================
     // GLOBAL VARIABLES
 
-    /**
-     * Send true/false when a wired headset is plugged/unplugged.
-     * @callback
-     * @param {boolean} true/false - true for plugged. false to unplugged
-     */
-    _wiredHeadsetPluggedCallback = null;
-
-    _onProximityChangedCallback = null;
-
     //==========================================================================
     // CONSTRUCTOR
 
-    /**
-     * Creates a instance of BaseDeviceManager.
-     *
-     * - Add listener for event plugged/unplugged wired headset.
-     */
     constructor() {
 
+        this.TAG = "DeviceManager";
+        
+        this.Event = {
+            ON_WIREDHEADSET_PLUGGED: "onWiredHeadsetPlugged",
+            ON_PROXIMITY_CHANGED: "onProximityChanged"
+        }
+        Object.freeze(this.Event);
+
+        this.ProximityState = {
+            NEAR: 0,
+            FAR: 1,
+            ON_BACKGROUND: 2,
+            ON_ACTIVE: 3
+        }
+        Object.freeze(this.Event);
+
         this.mute = this.mute.bind(this);
-        // this.setOnSilentSwitchStateChanged = this.setOnSilentSwitchStateChanged.bind(this);
 
         this.keepAwake = this.keepAwake.bind(this);
         this.setProximityEnable = this.setProximityEnable.bind(this);
-        this.setWiredHeadsetPluggedCallback = this.setWiredHeadsetPluggedCallback.bind(this);
-        this.setProximityChangedCallback = this.setProximityChangedCallback.bind(this);
-
-        DeviceEventEmitter.addListener('onWiredHeadsetPlugged', (plugged) => {
-            if ( this._wiredHeadsetPluggedCallback != null ) {
-                this._wiredHeadsetPluggedCallback(plugged);
-            }
-        });
-
-        DeviceEventEmitter.addListener('onProximityChanged', (isNear) => {
-            if ( this._onProximityChangedCallback != null ) {
-                this._onProximityChangedCallback(isNear);
-            }
-        });
     }
 
     //==========================================================================
@@ -93,23 +73,6 @@ class BaseDeviceManager {
      */
     async setProximityEnable(enable : boolean) : boolean {
         return await NativeModules.DeviceManagerModule.setProximityEnable(enable);
-    }
-
-    //==========================================================================
-    // SETTERS & GETTERS
-
-    /**
-     * Set for callback.
-     * The callback receive true/false when a wired headset is plugged/unplugged.
-     * @callback
-     * @param {Callback} wiredHeadsetPluggedCallback - true for plugged. false to unplugged
-     */
-    setWiredHeadsetPluggedCallback(wiredHeadsetPluggedCallback : Callback) : void {
-        this._wiredHeadsetPluggedCallback = wiredHeadsetPluggedCallback;
-    }
-
-    setProximityChangedCallback(onProximityChangedCallback : Callback) : void {
-        this._onProximityChangedCallback = onProximityChangedCallback;
     }
 }
 
