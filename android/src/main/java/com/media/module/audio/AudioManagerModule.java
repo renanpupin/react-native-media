@@ -544,23 +544,21 @@ public class AudioManagerModule extends ReactContextBaseJavaModule {
                 int state = intent.getIntExtra("state", -1);
                 switch (state) {
 
-                    case 0:
+                    case OutputRoute.DEFAULT_SPEAKER:
                         // headset is unplugged
                         if (type != originalType) {
                             setAudioOutputRoute(originalType, null);
                         }
                         emitEvent(Event.ON_WIREDHEADSET_PLUGGED, false);
-//                        reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("onWiredHeadsetPlugged", false);
                         break;
 
-                    case 1:
+                    case OutputRoute.EAR_SPEAKER:
                         // headset is plugged
                         originalType = type;
                         if (type == OutputRoute.EAR_SPEAKER) {
                             setAudioOutputRoute(OutputRoute.DEFAULT_SPEAKER, null);
                         }
                         emitEvent(Event.ON_WIREDHEADSET_PLUGGED, true);
-//                        reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("onWiredHeadsetPlugged", true);
                         break;
 
                     default:

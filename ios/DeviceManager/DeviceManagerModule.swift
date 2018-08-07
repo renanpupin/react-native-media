@@ -15,6 +15,7 @@ class DeviceManagerModule: NSObject {
     // =============================================================================================
     // ATRIBUTES ===================================================================================
     
+    let TAG: String = "DeviceManager"
     var bridge: RCTBridge!
     
     struct Event {
@@ -34,11 +35,12 @@ class DeviceManagerModule: NSObject {
     // =============================================================================================
     // METHODS =====================================================================================
     
-    @objc func setIdleTimerEnable(_ enable: Bool, resolver resolve: @escaping RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) -> Void {
+    @objc func keepAwake(_ enable: Bool, resolver resolve: @escaping RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) -> Void {
         
         DispatchQueue.main.async(execute: {
-            UIApplication.shared.isIdleTimerDisabled = !enable
-            resolve(true)
+            NSLog(self.TAG + " keepAwake: " + (enable ? "true" : "false"))
+            UIApplication.shared.isIdleTimerDisabled = enable
+            resolve()
         })
     }
     
@@ -46,26 +48,19 @@ class DeviceManagerModule: NSObject {
         
         let device = UIDevice.current
         device.isProximityMonitoringEnabled = enable
+
         if device.isProximityMonitoringEnabled {
-            
             NotificationCenter.default.addObserver(self, selector: #selector(proximityChanged), name: .UIDeviceProximityStateDidChange, object: device)
         } else {
             NotificationCenter.default.removeObserver(self, name: .UIDeviceProximityStateDidChange, object: nil)
         }
-        
         resolve(true)
     }
     
     func proximityChanged(notification: NSNotification) {
         
-        if (notification.object as? UIDevice) != nil {
-            if UIDevice.current.isProximityMonitoringEnabled {
-                if UIDevice.current.proximityState {
-                    bridge.eventDispatcher().sendAppEvent( withName: Event.ON_PROXIMITY_CHANGED, body: Data.NEAR)
-                } else {
-                    bridge.eventDispatcher().sendAppEvent( withName: Event.ON_PROXIMITY_CHANGED, body: Data.FAR)
-                }
-            }
+        if notification != nil, (notification.object as? UIDevice) != nil, UIDevice.current.isProximityMonitoringEnabled, bridge != nil, bridge.eventDispatcher() != nil {
+            bridge.eventDispatcher().sendAppEvent( withName: Event.ON_PROXIMITY_CHANGED, body: (UIDevice.current.proximityState ? Data.NEAR : Data.FAR))
         }
     }
 }

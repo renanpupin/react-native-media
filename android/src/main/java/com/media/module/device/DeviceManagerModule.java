@@ -67,38 +67,32 @@ public class DeviceManagerModule extends ReactContextBaseJavaModule implements L
     }
 
     /**
-     * For default, the idle timer is on.
+     * For default keep awake is false.
+     * "true" to keep the screen on.
+     * "false" to let the screen dim.
      *
      * @param enable
      * @param promise
      */
     @ReactMethod
-    public void setIdleTimerEnable(boolean enable, final Promise promise) {
+    public void keepAwake(boolean enable, final Promise promise) {
 
         try {
-            if (enable) {
-                // enable = true
-                // turn on the sleep mode
+            if (!enable) {
+                // enable = false
                 if (wakeLock.isHeld()) {
                     wakeLock.release();
-                    promise.resolve(true);
-                } else {
-                    promise.resolve(false);
                 }
             } else {
-                // enable = false
-                // turn off the sleep mode
+                // enable = true
                 if (!wakeLock.isHeld()) {
                     wakeLock.acquire();
-                    promise.resolve(true);
-                } else {
-                    promise.resolve(false);
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
-            promise.resolve(false);
         }
+        promise.resolve(null);
     }
 
     /**
@@ -161,28 +155,12 @@ public class DeviceManagerModule extends ReactContextBaseJavaModule implements L
 
     private void enableProximitySensorHandler() {
 
-        this.proximitySensorHandler = null;
         this.proximitySensorHandler = new ProximitySensorHandler(reactContext, new ProximitySensorHandler.Delegate() {
             @Override
             public void onProximityChanged(Boolean isNear) {
 
-//                if (reactContext.hasActiveCatalystInstance() && proximityEmitEnable) {
-//                    if (isNear) {
-//                        reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("onProximityChanged", DeviceManagerModule.PROXIMITYNEAR);
-//                    } else {
-//                        reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("onProximityChanged", DeviceManagerModule.PROXIMITYFAR);
-//                    }
-//                    isProximity = isNear;
-//                }
-
                 if (proximityEmitEnable) {
-                    if (isNear) {
-//                        reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("onProximityChanged", DeviceManagerModule.PROXIMITYNEAR);
-                        emitEvent(Event.ON_PROXIMITY_CHANGED, Data.ON_PROXIMITY_NEAR);
-                    } else {
-//                        reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("onProximityChanged", DeviceManagerModule.PROXIMITYFAR);
-                        emitEvent(Event.ON_PROXIMITY_CHANGED, Data.ON_PROXIMITY_FAR);
-                    }
+                    emitEvent(Event.ON_PROXIMITY_CHANGED, (isNear ? Data.ON_PROXIMITY_NEAR : Data.ON_PROXIMITY_FAR));
                     isProximity = isNear;
                 }
             }

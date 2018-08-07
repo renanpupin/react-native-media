@@ -76,14 +76,12 @@ class BaseDeviceManager {
     // METHODS
 
     /**
-     * Turn on or turn off the screen sleep mode.
-     *
      * @async
-     * @param {boolean} enable - true to turn on and false to turn off.
-     * @returns {boolean} true or false. true if was a sucess, else return false.
+     * @param {boolean} enable - true to keep awake and false to not keet awake.
+     * @return      
      */
-    async setIdleTimerEnable(enable : boolean) : boolean {
-        return await NativeModules.DeviceManagerModule.setIdleTimerEnable(enable);
+    async keepAwake(enable : boolean) : void {
+        return await NativeModules.DeviceManagerModule.keepAwake(enable);
     }
 
     /**
