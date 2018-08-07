@@ -54,7 +54,7 @@ class BaseDeviceManager {
         this.mute = this.mute.bind(this);
         // this.setOnSilentSwitchStateChanged = this.setOnSilentSwitchStateChanged.bind(this);
 
-        this.setIdleTimerEnable = this.setIdleTimerEnable.bind(this);
+        this.keepAwake = this.keepAwake.bind(this);
         this.setProximityEnable = this.setProximityEnable.bind(this);
         this.setWiredHeadsetPluggedCallback = this.setWiredHeadsetPluggedCallback.bind(this);
         this.setProximityChangedCallback = this.setProximityChangedCallback.bind(this);
@@ -78,7 +78,7 @@ class BaseDeviceManager {
     /**
      * @async
      * @param {boolean} enable - true to keep awake and false to not keet awake.
-     * @return      
+     * @return
      */
     async keepAwake(enable : boolean) : void {
         return await NativeModules.DeviceManagerModule.keepAwake(enable);
