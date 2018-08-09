@@ -25,8 +25,11 @@ class DeviceManagerModule: NSObject {
 
     @objc func setIdleTimerEnable(_ enable: Bool, resolver resolve: @escaping RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) -> Void {
 
+        NSLog("DeviceManager setIdleTimerEnable")
+
         DispatchQueue.main.async(execute: {
             UIApplication.shared.isIdleTimerDisabled = !enable
+            NSLog("DeviceManager setIdleTimerEnable " + (UIApplication.shared.isIdleTimerDisabled ? "true" : "false"))
             resolve(true)
         })
     }
