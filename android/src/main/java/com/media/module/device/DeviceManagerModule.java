@@ -1,10 +1,9 @@
 package com.media.module.device;
 
-import android.graphics.Bitmap;
+import android.content.pm.PackageManager;
 import android.media.AudioManager;
 import android.os.PowerManager;
-import android.util.Base64;
-import android.content.pm.PackageManager;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.facebook.react.bridge.LifecycleEventListener;
@@ -13,21 +12,20 @@ import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
-import com.media.module.Util;
-
-import java.io.ByteArrayOutputStream;
 
 import static android.content.Context.AUDIO_SERVICE;
 import static android.content.Context.POWER_SERVICE;
 
 /**
  * Created by Teruya on 09/01/2018.
- *
  */
 
-public class DeviceManagerModule extends ReactContextBaseJavaModule implements LifecycleEventListener
-{
+public class DeviceManagerModule extends ReactContextBaseJavaModule implements LifecycleEventListener {
+
+    // =============================================================================================
     // ATRIBUTES ===================================================================================
+
+    private static final String TAG = "DeviceManager";
 
     private ReactApplicationContext reactContext = null;
 
@@ -39,16 +37,14 @@ public class DeviceManagerModule extends ReactContextBaseJavaModule implements L
     private Boolean proximityEmitEnable = true;
     private Boolean proximityEmitInBackgroundEnable = false;
     private Boolean isProximity = false;
-    private static final int PROXIMITYNEAR = 0;
-    private static final int PROXIMITYFAR = 1;
-    private static final int ONBACKGROUND = 2;
-    private static final int ONACTIVE = 3;
 
     private ProximitySensorHandler proximitySensorHandler = null;
 
+    // =============================================================================================
     // CONSTRUCTOR =================================================================================
 
     public DeviceManagerModule(final ReactApplicationContext reactContext) {
+
         super(reactContext);
         this.reactContext = reactContext;
 
@@ -61,43 +57,42 @@ public class DeviceManagerModule extends ReactContextBaseJavaModule implements L
         proximityWakeLock = powerManager.newWakeLock(PowerManager.PROXIMITY_SCREEN_OFF_WAKE_LOCK, getName());
     }
 
-
+    // =============================================================================================
     // METHODS =====================================================================================
 
     @Override
-    public String getName()
-    {
+    public String getName() {
+
         return "DeviceManagerModule";
     }
 
     /**
-     * For default, the idle timer is on.
+     * For default keep awake is false.
+     * "true" to keep the screen on.
+     * "false" to let the screen dim.
      *
      * @param enable
      * @param promise
      */
     @ReactMethod
-    public void setIdleTimerEnable(boolean enable, final Promise promise) {
+    public void keepAwake(boolean enable, final Promise promise) {
 
-        if( enable ) {
-            // enable = true
-            // turn on the sleep mode
-            if ( wakeLock.isHeld() ) {
-                wakeLock.release();
-                promise.resolve(true);
+        try {
+            if (!enable) {
+                // enable = false
+                if (wakeLock.isHeld()) {
+                    wakeLock.release();
+                }
             } else {
-                promise.resolve(false);
+                // enable = true
+                if (!wakeLock.isHeld()) {
+                    wakeLock.acquire();
+                }
             }
-        } else {
-            // enable = false
-            // turn off the sleep mode
-            if( !wakeLock.isHeld() ) {
-                wakeLock.acquire();
-                promise.resolve(true);
-            } else {
-                promise.resolve(false);
-            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        promise.resolve(null);
     }
 
     /**
@@ -108,62 +103,64 @@ public class DeviceManagerModule extends ReactContextBaseJavaModule implements L
      */
     @ReactMethod
     public void setProximityEnable(Boolean enable, final Promise promise) {
-        Log.d(getName(), "setProximityEnable " + enable);
 
-        if ( reactContext.getPackageManager() != null && reactContext.getPackageManager().hasSystemFeature(PackageManager.FEATURE_SENSOR_PROXIMITY) ) {
-            Log.d(getName(), "setProximityEnable exist sensor support");
-        } else {
-            Log.d(getName(), "setProximityEnable not exist sensor support");
+        try {
+            Log.d(TAG, getName() + " setProximityEnable: " + enable);
+            if (reactContext.getPackageManager() != null && reactContext.getPackageManager().hasSystemFeature(PackageManager.FEATURE_SENSOR_PROXIMITY)) {
+                Log.d(TAG, getName() + " setProximityEnable exist sensor support");
+            } else {
+                Log.d(TAG, getName() + " setProximityEnable not exist sensor support");
+                promise.resolve(false);
+                return;
+            }
+
+            if (enable) {
+                // enable = true
+                // turn off screen when proximity on
+                if (!this.proximityWakeLock.isHeld()) {
+                    this.proximityWakeLock.acquire();
+
+                    this.enableProximitySensorHandler();
+
+                    if (promise != null) {
+                        promise.resolve(true);
+                    }
+                } else {
+                    if (promise != null) {
+                        promise.resolve(false);
+                    }
+                }
+            } else {
+                // enable = false
+                // do nothing when proximity on
+                if (this.proximityWakeLock.isHeld()) {
+
+                    this.proximityWakeLock.release();
+                    this.proximitySensorHandler.unregister();
+                    this.proximitySensorHandler = null;
+                    if (promise != null) {
+                        promise.resolve(true);
+                    }
+                } else {
+                    if (promise != null) {
+                        promise.resolve(false);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
             promise.resolve(false);
-            return;
-        }
-
-        if( enable ) {
-            // enable = true
-            // turn off screen when proximity on
-            if( !proximityWakeLock.isHeld() ) {
-                proximityWakeLock.acquire();
-
-                this.enableProximitySensorHandler();
-
-                if ( promise != null ) {
-                    promise.resolve(true);
-                }
-            } else {
-                if ( promise != null ) promise.resolve(false);
-            }
-        } else {
-            // enable = false
-            // do nothing when proximity on
-            if ( proximityWakeLock.isHeld() ) {
-                proximityWakeLock.release();
-
-                this.proximitySensorHandler.unregister();
-                this.proximitySensorHandler = null;
-
-                if ( promise != null ) {
-                    promise.resolve(true);
-                }
-            } else {
-                if ( promise != null ) promise.resolve(false);
-            }
         }
     }
 
     private void enableProximitySensorHandler() {
 
-        this.proximitySensorHandler = null;
         this.proximitySensorHandler = new ProximitySensorHandler(reactContext, new ProximitySensorHandler.Delegate() {
             @Override
             public void onProximityChanged(Boolean isNear) {
 
-                if ( reactContext.hasActiveCatalystInstance() && proximityEmitEnable ) {
-                    if ( isNear ) {
-                        reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("onProximityChanged", DeviceManagerModule.PROXIMITYNEAR);
-                    } else {
-                        reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("onProximityChanged", DeviceManagerModule.PROXIMITYFAR);
-                    }
-
+                if (proximityEmitEnable) {
+                    emitEvent(Event.ON_PROXIMITY_CHANGED, (isNear ? Data.ON_PROXIMITY_NEAR : Data.ON_PROXIMITY_FAR));
                     isProximity = isNear;
                 }
             }
@@ -174,69 +171,88 @@ public class DeviceManagerModule extends ReactContextBaseJavaModule implements L
     public void mute(boolean enable, final Promise promise) {
 
         //an AudioManager object, to change the volume settings
-        AudioManager amanager = (AudioManager)reactContext.getSystemService(AUDIO_SERVICE);
-
-        if (enable) {
-            //turn ringer silent
-            amanager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
-            amanager.setStreamMute(AudioManager.STREAM_SYSTEM, true);
-            amanager.setStreamMute(AudioManager.STREAM_MUSIC, true);
-
-            promise.resolve(true);
-        } else {
-            amanager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
-            amanager.setStreamMute(AudioManager.STREAM_SYSTEM, false);
-            amanager.setStreamMute(AudioManager.STREAM_MUSIC, false);
-
-            promise.resolve(true);
+        try {
+            AudioManager audioManager = (AudioManager) reactContext.getSystemService(AUDIO_SERVICE);
+            if (enable) {
+                //turn ringer silent
+                audioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
+                audioManager.setStreamMute(AudioManager.STREAM_SYSTEM, true);
+                audioManager.setStreamMute(AudioManager.STREAM_MUSIC, true);
+                promise.resolve(true);
+            } else {
+                audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
+                audioManager.setStreamMute(AudioManager.STREAM_SYSTEM, false);
+                audioManager.setStreamMute(AudioManager.STREAM_MUSIC, false);
+                promise.resolve(true);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            promise.resolve(false);
         }
     }
 
     @ReactMethod
-    public void addBlur(Promise promise) {
-
-        Bitmap bitmap = Util.fastblur(Util.getScreenShot(getCurrentActivity()), 10);
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
-        String encoded = Base64.encodeToString(byteArrayOutputStream.toByteArray(), Base64.DEFAULT);
-        promise.resolve(encoded);
-    }
-
-    @ReactMethod
     public void setProximityEmitInBackgroundEnable(boolean enable) {
+
         this.proximityEmitInBackgroundEnable = enable;
     }
 
-    // SEND EVENT ==================================================================================
+    // =============================================================================================
+    // EVENT =======================================================================================
+
+    private void emitEvent(String eventName, @Nullable Object data) {
+
+        try {
+            if (this.reactContext != null && this.reactContext.hasActiveCatalystInstance()) {
+                this.reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit(eventName, data);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public void initialize() {
-        getReactApplicationContext().addLifecycleEventListener(this);
+
+        this.reactContext.addLifecycleEventListener(this);
     }
 
     @Override
     public void onHostResume() {
 
         this.proximityEmitEnable = true;
-
-        if ( reactContext.hasActiveCatalystInstance() && !isProximity ) {
-            reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("onProximityChanged", DeviceManagerModule.ONACTIVE);
+        if (!isProximity) {
+            this.emitEvent(Event.ON_PROXIMITY_CHANGED, Data.ON_ACTIVE);
         }
     }
 
     @Override
     public void onHostPause() {
 
-        if ( reactContext.hasActiveCatalystInstance() && !isProximity ) {
-            reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("onProximityChanged", DeviceManagerModule.ONBACKGROUND);
+        if (!isProximity) {
+            this.emitEvent(Event.ON_PROXIMITY_CHANGED, Data.ON_BACKGROUND);
         }
     }
 
     @Override
     public void onHostDestroy() {
-//         do not set state to destroyed, do not send an event. By the current implementation, the
-//         catalyst instance is going to be immediately dropped, and all JS calls with it.
+        // do not set state to destroyed, do not send an event. By the current implementation, the
+        // catalyst instance is going to be immediately dropped, and all JS calls with it.
     }
 
+    // =============================================================================================
     // CLASS =======================================================================================
+
+    private static final class Event {
+
+        private final static String ON_PROXIMITY_CHANGED = "onProximityChanged";
+    }
+
+    private static final class Data {
+
+        private static final int ON_PROXIMITY_NEAR = 0;
+        private static final int ON_PROXIMITY_FAR = 1;
+        private static final int ON_BACKGROUND = 2;
+        private static final int ON_ACTIVE = 3;
+    }
 }

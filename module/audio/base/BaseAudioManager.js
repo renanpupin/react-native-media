@@ -53,11 +53,11 @@ class BaseAudioManager {
      */
     constructor() {
 
+        this.TAG = "AudioManager";
         this.OutputRoute = {
             DEFAULT_SPEAKER: 0,
             EAR_SPEAKER: 1
         };
-        // cannot alter the object values of the AudioOutputRoute
         Object.freeze(this.OutputRoute);
 
         this._duration = 0;

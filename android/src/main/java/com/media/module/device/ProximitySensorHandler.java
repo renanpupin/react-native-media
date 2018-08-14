@@ -13,6 +13,11 @@ import static android.content.Context.SENSOR_SERVICE;
 
 public class ProximitySensorHandler implements SensorEventListener {
 
+    // =============================================================================================
+    // ATRIBUTES ===================================================================================
+
+    private static final String TAG = "ProximitySensor";
+
     public interface Delegate {
         void onProximityChanged(Boolean isNear);
     }
@@ -23,6 +28,9 @@ public class ProximitySensorHandler implements SensorEventListener {
     private boolean state = false;
     private boolean isFirstEmit = true;
 
+    // =============================================================================================
+    // CONSTRUCTOR =================================================================================
+
     public ProximitySensorHandler(final ReactContext context, final Delegate delegate)
     {
         if (context == null || delegate == null) {
@@ -30,7 +38,7 @@ public class ProximitySensorHandler implements SensorEventListener {
         }
 
         final Context appContext = context.getApplicationContext();
-        sensorManager = (SensorManager) appContext.getSystemService(SENSOR_SERVICE);
+        this.sensorManager = (SensorManager) appContext.getSystemService(SENSOR_SERVICE);
         this.delegate = delegate;
 
         sensor = sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
@@ -46,16 +54,19 @@ public class ProximitySensorHandler implements SensorEventListener {
         }
     }
 
-    private String getName() {
-        return "ProximitySensorHandler";
-    }
+    // =============================================================================================
+    // METHODS =====================================================================================
 
     public void unregister() {
 
-        Log.d(getName(), "Unregister sensor proximity");
-        sensorManager.unregisterListener(this);
-        sensor = null;
-        isFirstEmit = true;
+        Log.d(TAG, TAG + " unregister sensor proximity");
+        try {
+            sensorManager.unregisterListener(this);
+            sensor = null;
+            isFirstEmit = true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -67,7 +78,8 @@ public class ProximitySensorHandler implements SensorEventListener {
 
         try{
             boolean eventResult = event.values[0] < sensor.getMaximumRange();
-            Log.d(getName(), "Mudou o sensor = " + (eventResult ? "Near" : "Far"));
+            Log.d(TAG, TAG + " onSensorChanged: " + (eventResult ? "Near" : "Far"));
+            Log.d(TAG, TAG + " onSensorChanged, true = Near, false = Far");
 
             if (!isFirstEmit && state != eventResult) {
                 if (eventResult) {
@@ -82,8 +94,8 @@ public class ProximitySensorHandler implements SensorEventListener {
             }
 
             state = eventResult;
-        } catch(final Exception exc){
-            Log.e(getClass().getSimpleName(), "onSensorChanged exception", exc);
+        } catch(Exception e){
+            e.printStackTrace();
         }
     }
 

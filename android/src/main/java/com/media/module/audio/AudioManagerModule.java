@@ -10,6 +10,7 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.facebook.react.bridge.Promise;
@@ -20,15 +21,12 @@ import com.facebook.react.modules.core.DeviceEventManagerModule;
 import com.facebook.react.uimanager.IllegalViewOperationException;
 import com.media.module.Util;
 
-import java.io.IOException;
-
 import static android.content.Context.AUDIO_SERVICE;
 
 /**
  * Created by Teruya on 09/01/2018.
  *
  * This class is responsible to handle a single audio file with basic functions:
- *
  * 1. Load by path.
  * 2. Play if loaded, passing if to loop or not.
  * 3. Resume if the audio is playing.
@@ -38,11 +36,12 @@ import static android.content.Context.AUDIO_SERVICE;
  * 7. Time tracker, this class dispatch a event emitter passing the current time in mili-seconds of the audio that is playing.
  */
 
-public class AudioManagerModule extends ReactContextBaseJavaModule
-{
+public class AudioManagerModule extends ReactContextBaseJavaModule {
+
+    // =============================================================================================
     // ATRIBUTES ===================================================================================
-    public final static int DEFAULTSPEAKER = 0;
-    public final static int EARSPEAKER = 1;
+
+    private static final String TAG = "AudioManager";
 
     private ReactApplicationContext reactContext = null;
     private MediaPlayer mediaPlayer = null;
@@ -52,18 +51,17 @@ public class AudioManagerModule extends ReactContextBaseJavaModule
     private int timeInterval = 200;
     private boolean isToCancel = false;
 
-    // maybe do not need
-    private boolean isRingtone = false;
-
     private android.net.Uri url = null;
     private String path = "";
     private int type = 0;
 
     private AudioPlayerAsync audioPlayerAsync = null;
 
+    // =============================================================================================
     // CONSTRUCTOR =================================================================================
 
     public AudioManagerModule(ReactApplicationContext reactContext) {
+
         super(reactContext);
         this.reactContext = reactContext;
 
@@ -73,62 +71,68 @@ public class AudioManagerModule extends ReactContextBaseJavaModule
         reactContext.registerReceiver(wiredHeadsetIntentReceiver, filter);
     }
 
+    // =============================================================================================
     // METHODS =====================================================================================
 
     @Override
     public String getName() {
+
         return "AudioManagerModule";
     }
 
     @ReactMethod
-    public void load(String path, int type, final Promise promise) {
+    public void load(final String path, int type, final Promise promise) {
 
         try {
-            Log.d("AudioManager", "load: if file not exist, return");
-            if ( !Util.fileExists(path) ) {
-                mediaPlayer = null;
-                promise.resolve(false);
+            if (!Util.fileExists(path)) {
+                this.mediaPlayer = null;
+                if (promise != null) {
+                    promise.resolve(false);
+                }
             } else {
 
-                stopAudio();
+                this.stopAudio();
 
-                Log.d("AudioManager", "load: new instance");
+                Log.d(TAG, getName() + " load: new instance " + path);
 
-                mediaPlayer = new MediaPlayer();
-                url = Uri.parse(path);
+                this.mediaPlayer = new MediaPlayer();
+                this.url = Uri.parse(path);
                 this.path = path;
-                mediaPlayer.setDataSource(reactContext, url);
-
+                this.mediaPlayer.setDataSource(this.reactContext, this.url);
                 setAudioOutputRoute(type);
 
-                mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                this.mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                     @Override
                     public void onCompletion(MediaPlayer mp) {
+
                         audioFinished();
                     }
                 });
-
-                mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                this.mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                     public void onPrepared(MediaPlayer mp) {
-                        duration = mediaPlayer.getDuration();
-                        if ( promise != null ) {
-                            promise.resolve(duration);
+
+                        // this try catch is needed because the scope is from the OnPreparedListener instance.
+                        try {
+                            duration = mediaPlayer.getDuration();
+
+                            Log.d(TAG, getName() + " load: new instance " + path + ", duration: " + duration);
+                            if (promise != null) {
+                                promise.resolve(duration);
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            if (promise != null) {
+                                promise.resolve(false);
+                            }
                         }
                     }
                 });
 
-                try {
-                    mediaPlayer.prepare();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    if ( promise != null ) {
-                        promise.resolve(false);
-                    }
-                }
+                this.mediaPlayer.prepare();
             }
         } catch (Exception e) {
             e.printStackTrace();
-            if ( promise != null ) {
+            if (promise != null) {
                 promise.resolve(false);
             }
         }
@@ -138,9 +142,9 @@ public class AudioManagerModule extends ReactContextBaseJavaModule
     public void playRingtone(String path, final int type, final boolean isLoop, final Promise promise) {
 
         try {
-            if ( path.isEmpty() ) {
+            if (path.isEmpty()) {
                 this.mediaPlayer = null;
-                if ( promise != null ) {
+                if (promise != null) {
                     promise.resolve(false);
                 }
             } else {
@@ -151,69 +155,61 @@ public class AudioManagerModule extends ReactContextBaseJavaModule
                 this.path = path;
                 this.url = null;
 
-                Log.d(getName(), isLoop + " " + type + " " + path);
+                Log.d(TAG, getName() + ", is to loop: " + isLoop + ", audio output type: " + type + ", audio path: " + path);
 
-                Resources res = getReactApplicationContext().getResources();
-                AssetFileDescriptor afd = res.openRawResourceFd(resID);
+                Resources resources = getReactApplicationContext().getResources();
+                AssetFileDescriptor assetFileDescriptor = resources.openRawResourceFd(resID);
 
-                mediaPlayer = new MediaPlayer();
-                setAudioOutputRoute(type);
-                mediaPlayer.setLooping(isLoop);
-                mediaPlayer.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
-                mediaPlayer.prepare();
-                mediaPlayer.start();
+                this.mediaPlayer = new MediaPlayer();
+                this.setAudioOutputRoute(type);
+                this.mediaPlayer.setLooping(isLoop);
+                this.mediaPlayer.setDataSource(assetFileDescriptor.getFileDescriptor(), assetFileDescriptor.getStartOffset(), assetFileDescriptor.getLength());
+                this.mediaPlayer.prepare();
+                this.mediaPlayer.start();
+                promise.resolve(true);
             }
         } catch (Exception e) {
             e.printStackTrace();
-            if ( promise != null ) {
+            if (promise != null) {
                 promise.resolve(false);
             }
         }
     }
 
-    /**
-     *
-     *
-     * @param isLoop
-     * @param promise
-     */
     @ReactMethod
     public void play(boolean isLoop, int playFromTime, Promise promise) {
+
         try {
-            if ( mediaPlayer != null ) {
-                if ( mediaPlayer.isPlaying() ) {
-                    if ( promise != null ) {
+            if (this.mediaPlayer != null) {
+                if (this.mediaPlayer.isPlaying()) {
+                    if (promise != null) {
                         promise.resolve(false);
                         return;
                     }
                 } else {
-                    mediaPlayer.setLooping(isLoop);
-                    if( playFromTime > 0 ) {
-                        try {
-                            mediaPlayer.seekTo(playFromTime);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+                    this.mediaPlayer.setLooping(isLoop);
+                    if (playFromTime > 0) {
+                        this.mediaPlayer.seekTo(playFromTime);
                     }
-                    if ( audioPlayerAsync != null ) {
-                        isToCancel = true;
-                        audioPlayerAsync.cancel(true);
-                        audioPlayerAsync = null;
-                        isToCancel = false;
+                    if (this.audioPlayerAsync != null) {
+                        this.isToCancel = true;
+                        this.audioPlayerAsync.cancel(true);
+                        this.audioPlayerAsync = null;
+                        this.isToCancel = false;
                     }
-                    audioPlayerAsync = new AudioPlayerAsync();
-                    audioPlayerAsync.execute();
-                    mediaPlayer.start();
+                    this.audioPlayerAsync = new AudioPlayerAsync();
+                    this.audioPlayerAsync.execute();
+                    this.mediaPlayer.start();
                 }
-                if ( promise != null ) {
+                if (promise != null) {
                     promise.resolve(true);
                 }
-            } else if ( promise != null ) {
+            } else if (promise != null) {
                 promise.resolve(false);
             }
-        } catch (IllegalViewOperationException e) {
+        } catch (Exception e) {
             e.printStackTrace();
-            if ( promise != null ) {
+            if (promise != null) {
                 promise.resolve(false);
             }
         }
@@ -221,65 +217,75 @@ public class AudioManagerModule extends ReactContextBaseJavaModule
 
     @ReactMethod
     public void resume(Promise promise) {
-        if( mediaPlayer != null ) {
-            mediaPlayer.start();
-            promise.resolve(true);
+
+        if (this.mediaPlayer != null) {
+            try {
+                this.mediaPlayer.start();
+                promise.resolve(true);
+                return;
+            } catch (IllegalStateException e) {
+                e.printStackTrace();
+            }
         }
-        else {
-            promise.resolve(false);
-        }
+        promise.resolve(false);
     }
 
     @ReactMethod
     public void pause(Promise promise) {
-        if( mediaPlayer != null ) {
-            mediaPlayer.pause();
-            promise.resolve(true);
+
+        if (mediaPlayer != null) {
+            try {
+                mediaPlayer.pause();
+                promise.resolve(true);
+                return;
+            } catch (IllegalStateException e) {
+                e.printStackTrace();
+            }
         }
-        else {
-            promise.resolve(false);
-        }
+        promise.resolve(false);
     }
 
     @ReactMethod
     public void stop(Promise promise) {
-        try {
-            promise.resolve(this.stopAudio());
-        } catch (IllegalViewOperationException e) {
-            e.printStackTrace();
-            promise.resolve(false);
-        }
+
+        promise.resolve(this.stopAudio());
     }
 
     public boolean stopAudio() {
 
-        Log.d("AudioManager", "stopAudio: stop audio if needed");
+        Log.d(TAG, getName() + " stopAudio: stop audio if needed");
 
-        if ( this.mediaPlayer != null ) {
-            this.path = "";
-            this.isToCancel = true;
-            if ( mediaPlayer.isPlaying() ) {
-                mediaPlayer.stop();
+        try {
+            if (this.mediaPlayer != null) {
+                this.path = "";
+                this.isToCancel = true;
+                if (mediaPlayer.isPlaying()) {
+                    mediaPlayer.stop();
+                }
+                this.mediaPlayer.reset();
+                this.mediaPlayer.release();
+                this.mediaPlayer = null;
+                return true;
+            } else {
+                return false;
             }
-            this.mediaPlayer.reset();
-            this.mediaPlayer.release();
-            this.mediaPlayer = null;
-            return true;
-        } else {
+        } catch (Exception e) {
+            e.printStackTrace();
             return false;
         }
     }
 
     @ReactMethod
     public void seekTime(int milisec, Promise promise) {
+
         try {
-            if( mediaPlayer != null && milisec <= duration ) {
+            if (mediaPlayer != null && milisec <= duration) {
                 mediaPlayer.seekTo(milisec);
                 promise.resolve(true);
             } else {
                 promise.resolve(false);
             }
-        } catch (IllegalViewOperationException e) {
+        } catch (IllegalStateException e) {
             e.printStackTrace();
             promise.resolve(false);
         }
@@ -287,33 +293,46 @@ public class AudioManagerModule extends ReactContextBaseJavaModule
 
     @ReactMethod
     public void setTimeInterval(int milisec, Promise promise) {
+
         try {
-            if ( timeInterval >= 100 ) {
+            if (timeInterval >= 100) {
                 timeInterval = milisec;
                 promise.resolve(true);
             } else {
                 promise.resolve(false);
             }
-        } catch ( IllegalViewOperationException e ) {
+        } catch (Exception e) {
+            e.printStackTrace();
             promise.resolve(false);
         }
     }
 
     @ReactMethod
     public void getVolume(Promise promise) {
-        AudioManager audioManager = (AudioManager) reactContext.getSystemService(AUDIO_SERVICE);
-        int volume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
-//        Log.d(getName(), String.valueOf(audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC)));
-        promise.resolve(volume);
+
+        try {
+            AudioManager audioManager = (AudioManager) reactContext.getSystemService(AUDIO_SERVICE);
+            int volume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+            promise.resolve(volume);
+        } catch (Exception e) {
+            e.printStackTrace();
+            promise.resolve(false);
+        }
     }
 
     @ReactMethod
     public void setVolume(int volume, Promise promise) {
-        if ( mediaPlayer != null ) {
-            AudioManager audioManager = (AudioManager) reactContext.getSystemService(AUDIO_SERVICE);
-            audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, volume, AudioManager.FLAG_SHOW_UI);
-            promise.resolve(true);
-        } else {
+
+        try {
+            if (mediaPlayer != null) {
+                AudioManager audioManager = (AudioManager) reactContext.getSystemService(AUDIO_SERVICE);
+                audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, volume, AudioManager.FLAG_SHOW_UI);
+                promise.resolve(true);
+            } else {
+                promise.resolve(false);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
             promise.resolve(false);
         }
     }
@@ -321,90 +340,99 @@ public class AudioManagerModule extends ReactContextBaseJavaModule
     private void setAudioOutputRoute(int type) {
 
         this.type = type;
-        AudioManager audioManager = (AudioManager)reactContext.getSystemService(reactContext.AUDIO_SERVICE);
-        if( type == EARSPEAKER ){
-            mediaPlayer.setAudioStreamType(AudioManager.STREAM_VOICE_CALL);
-            audioManager.setMode(AudioManager.MODE_IN_COMMUNICATION);
-            audioManager.setSpeakerphoneOn(false);
-        } else {
-            mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-            audioManager.setMode(AudioManager.MODE_NORMAL);
-            audioManager.setSpeakerphoneOn(true);
+        try {
+            AudioManager audioManager = (AudioManager) reactContext.getSystemService(reactContext.AUDIO_SERVICE);
+            if (type == AudioManagerModule.OutputRoute.EAR_SPEAKER) {
+                mediaPlayer.setAudioStreamType(AudioManager.STREAM_VOICE_CALL);
+                audioManager.setMode(AudioManager.MODE_IN_COMMUNICATION);
+                audioManager.setSpeakerphoneOn(false);
+            } else {
+                mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                audioManager.setMode(AudioManager.MODE_NORMAL);
+                audioManager.setSpeakerphoneOn(true);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
     @ReactMethod
     public void setAudioOutputRoute(int type, Promise promise) {
 
-        if( this.type != type && this.mediaPlayer != null ) {
+        try {
+            if (this.type != type && this.mediaPlayer != null) {
 
-            int currentTime = this.mediaPlayer.getCurrentPosition();
-            boolean isLoop = this.mediaPlayer.isLooping();
-            boolean wasPlaying = this.mediaPlayer.isPlaying();
+                int currentTime = this.mediaPlayer.getCurrentPosition();
+                boolean isLoop = this.mediaPlayer.isLooping();
+                boolean wasPlaying = this.mediaPlayer.isPlaying();
 
-            if ( this.url != null ) {
-                // audio
-                this.stopAudio();
-                this.load(this.url.getPath(), type, null);
+                if (this.url != null) {
+                    // the audio is an user audio type
+                    this.stopAudio();
+                    this.load(this.url.getPath(), type, null);
 
-                if (wasPlaying) {
-                    play(isLoop, currentTime, null);
-                } else {
-                    try {
+                    if (wasPlaying) {
+                        play(isLoop, currentTime, null);
+                    } else {
                         mediaPlayer.seekTo(currentTime);
                         new AudioPlayerAsync().execute();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        if ( promise != null ) {
-                            promise.resolve(false);
-                        }
-                        return;
                     }
-                }
 
-                if ( promise != null ) {
-                    promise.resolve(true);
+                    if (promise != null) {
+                        promise.resolve(true);
+                    }
+                } else {
+                    // the audio is an ringtone
+                    this.playRingtone(path, type, isLoop, promise);
                 }
-            } else {
-                // ringtone
-                // this.setAudioOutputRoute(type);
-                this.playRingtone(path, type, isLoop, promise);
             }
+        } catch (Exception e) {
+            e.printStackTrace();
+            promise.resolve(false);
         }
     }
 
     @ReactMethod
     public void getCurrentAudioName(boolean fullPath, Promise promise) {
 
-        if ( mediaPlayer != null ) {
-            if( !fullPath ) {
-                String fileName = path.substring(path.lastIndexOf("/")+1);
-                promise.resolve(fileName);
+        try {
+            if (mediaPlayer != null) {
+                if (!fullPath) {
+                    String fileName = path.substring(path.lastIndexOf("/") + 1);
+                    promise.resolve(fileName);
+                } else {
+                    promise.resolve(path);
+                }
             } else {
-                promise.resolve(path);
+                promise.resolve("");
             }
-        } else {
-            promise.resolve("");
+        } catch (Exception e) {
+            e.printStackTrace();
+            promise.resolve(false);
         }
     }
 
     @ReactMethod
     public void hasWiredheadsetPlugged(Promise promise) {
 
-        AudioManager audioManager = (AudioManager) reactContext.getSystemService(AUDIO_SERVICE);
-        promise.resolve(audioManager.isWiredHeadsetOn());
+        try {
+            AudioManager audioManager = (AudioManager) this.reactContext.getSystemService(AUDIO_SERVICE);
+            promise.resolve(audioManager.isWiredHeadsetOn());
+        } catch (Exception e) {
+            e.printStackTrace();
+            promise.resolve(false);
+        }
     }
 
-    // SEND EVENT ==================================================================================
+    // =============================================================================================
+    // EVENT =======================================================================================
 
     @ReactMethod
     private void timeChanged(int time) {
 
         try {
             if (this.mediaPlayer != null && this.mediaPlayer.isPlaying()) {
-                if (this.reactContext.hasActiveCatalystInstance()) {
-                    this.reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("onTimeChanged", time);
-                }
+                this.emitEvent(Event.ON_TIME_CHANGED, time);
             }
         } catch (IllegalStateException e) {
             e.printStackTrace();
@@ -413,19 +441,49 @@ public class AudioManagerModule extends ReactContextBaseJavaModule
         }
     }
 
-    @ReactMethod
     private void audioFinished() {
-        reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("onAudioFinished", null);
 
-        stopAudio();
+        this.emitEvent(Event.ON_AUDIO_FINISHED, null);
+
+        try {
+            stopAudio();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
+    private void emitEvent(String eventName, @Nullable Object data) {
+
+        try {
+            if (this.reactContext != null && this.reactContext.hasActiveCatalystInstance()) {
+                this.reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit(eventName, data);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    // =============================================================================================
     // CLASS =======================================================================================
+
+    private static final class Event {
+
+        private static final String ON_TIME_CHANGED = "onTimeChanged";
+        private static final String ON_AUDIO_FINISHED = "onAudioFinished";
+        private static final String ON_WIREDHEADSET_PLUGGED = "onWiredHeadsetPlugged";
+    }
+
+    private static final class OutputRoute {
+
+        private static final int DEFAULT_SPEAKER = 0;
+        private static final int EAR_SPEAKER = 1;
+    }
 
     private class AudioPlayerAsync extends AsyncTask<Void, Integer, Void> {
 
         @Override
         protected void onPreExecute() {
+
             super.onPreExecute();
             isToCancel = false;
         }
@@ -433,7 +491,7 @@ public class AudioManagerModule extends ReactContextBaseJavaModule
         @Override
         protected Void doInBackground(Void... params) {
 
-            if ( mediaPlayer == null ) {
+            if (mediaPlayer == null) {
                 return null;
             }
 
@@ -447,7 +505,7 @@ public class AudioManagerModule extends ReactContextBaseJavaModule
 
             while (current != duration) {
 
-                if ( mediaPlayer != null ) {
+                if (mediaPlayer != null) {
                     try {
                         current = mediaPlayer.getCurrentPosition();
                         timeChanged(current);
@@ -462,7 +520,7 @@ public class AudioManagerModule extends ReactContextBaseJavaModule
                     e.printStackTrace();
                     Thread.currentThread().interrupt();
                 }
-                if( current >= duration || isToCancel) {
+                if (current >= duration || isToCancel) {
                     break;
                 }
             }
@@ -472,34 +530,39 @@ public class AudioManagerModule extends ReactContextBaseJavaModule
 
     private class WiredHeadsetIntentReceiver extends BroadcastReceiver {
 
-        private int originalType = DEFAULTSPEAKER;
+        private int originalType = OutputRoute.DEFAULT_SPEAKER;
 
-        @Override public void onReceive(Context context, Intent intent) {
+        @Override
+        public void onReceive(Context context, Intent intent) {
 
-            if ( reactContext.hasActiveCatalystInstance() && intent.getAction().equals(Intent.ACTION_HEADSET_PLUG) ) {
+            if (
+                intent != null &&
+                intent.getAction() != null &&
+                intent.getAction().equals(Intent.ACTION_HEADSET_PLUG) &&
+                intent.hasExtra("state")) {
+
                 int state = intent.getIntExtra("state", -1);
                 switch (state) {
 
-                    case 0:
+                    case OutputRoute.DEFAULT_SPEAKER:
                         // headset is unplugged
-                        if ( type != originalType ) {
+                        if (type != originalType) {
                             setAudioOutputRoute(originalType, null);
                         }
-
-                        reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("onWiredHeadsetPlugged", false);
+                        emitEvent(Event.ON_WIREDHEADSET_PLUGGED, false);
                         break;
 
-                    case 1:
+                    case OutputRoute.EAR_SPEAKER:
                         // headset is plugged
                         originalType = type;
-                        if ( type == EARSPEAKER ) {
-                            setAudioOutputRoute(DEFAULTSPEAKER, null);
+                        if (type == OutputRoute.EAR_SPEAKER) {
+                            setAudioOutputRoute(OutputRoute.DEFAULT_SPEAKER, null);
                         }
-
-                        reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("onWiredHeadsetPlugged", true);
+                        emitEvent(Event.ON_WIREDHEADSET_PLUGGED, true);
                         break;
 
-                    default: break; // undefined state
+                    default:
+                        break; // undefined state
                 }
             }
         }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5CC246F8212308BE006FF3CC /* AppStateNativeManagerModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CC246F7212308BE006FF3CC /* AppStateNativeManagerModule.swift */; };
 		5CD7625B208E522B00D93B18 /* CallManagerModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CD76259208E522B00D93B18 /* CallManagerModule.swift */; };
 		5CD7625C208E522B00D93B18 /* CallManagerBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CD7625A208E522B00D93B18 /* CallManagerBridge.m */; };
 		5CF8CA6B20876BEA0049C8F7 /* RecorderManagerModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF8CA6A20876BEA0049C8F7 /* RecorderManagerModule.swift */; };
@@ -35,6 +36,8 @@
 
 /* Begin PBXFileReference section */
 		134814201AA4EA6300B7C361 /* libRNReactNativeMedia.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRNReactNativeMedia.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		5CC246F6212308BE006FF3CC /* AppStateNativeManagerModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppStateNativeManagerModule.h; sourceTree = "<group>"; };
+		5CC246F7212308BE006FF3CC /* AppStateNativeManagerModule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppStateNativeManagerModule.swift; sourceTree = "<group>"; };
 		5CD76259208E522B00D93B18 /* CallManagerModule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallManagerModule.swift; sourceTree = "<group>"; };
 		5CD7625A208E522B00D93B18 /* CallManagerBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CallManagerBridge.m; sourceTree = "<group>"; };
 		5CF8CA6A20876BEA0049C8F7 /* RecorderManagerModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecorderManagerModule.swift; sourceTree = "<group>"; };
@@ -76,21 +79,15 @@
 		58B511D21A9E6C8500147676 = {
 			isa = PBXGroup;
 			children = (
+				5CC246F5212308BE006FF3CC /* AppStateNativeManager */,
+				5CF583F32118FB4B00D2C580 /* RCTSilentSwitch */,
+				5CF583F22118FB1800D2C580 /* DirectoryManager */,
+				5CF583F12118FB0300D2C580 /* DeviceManager */,
+				5CF583F02118F8CE00D2C580 /* AudioManager */,
 				5CD76258208E522B00D93B18 /* CallManager */,
 				5C207B8F2088DF46009176D4 /* RecorderManager */,
-				F93F43D4202DE0A20079C98E /* AudioManagerBridge.m */,
-				F93F43D7202DE0A20079C98E /* AudioManagerModule.swift */,
-				F93F43D0202DE0A20079C98E /* DeviceManagerBridge.m */,
-				F93F43D8202DE0A20079C98E /* DeviceManagerModule.swift */,
-				F93F43DA202DE0A20079C98E /* DirectoryManagerBridge.m */,
-				F93F43D5202DE0A20079C98E /* DirectoryManagerModule.swift */,
-				F93F43D2202DE0A20079C98E /* mute.caf */,
-				F93F43D1202DE0A20079C98E /* RCTSilentSwitch.h */,
-				F93F43D9202DE0A20079C98E /* RCTSilentSwitch.m */,
 				F93F43D3202DE0A20079C98E /* RNReactNativeMedia-Bridging-Header.h */,
 				F93F43DB202DE0A20079C98E /* RNReactNativeMedia.xcworkspace */,
-				F93F43DC202DE0A20079C98E /* SharkfoodMuteSwitchDetector.h */,
-				F93F43D6202DE0A20079C98E /* SharkfoodMuteSwitchDetector.m */,
 				134814211AA4EA7D00B7C361 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -104,6 +101,15 @@
 			path = RecorderManager;
 			sourceTree = "<group>";
 		};
+		5CC246F5212308BE006FF3CC /* AppStateNativeManager */ = {
+			isa = PBXGroup;
+			children = (
+				5CC246F6212308BE006FF3CC /* AppStateNativeManagerModule.h */,
+				5CC246F7212308BE006FF3CC /* AppStateNativeManagerModule.swift */,
+			);
+			path = AppStateNativeManager;
+			sourceTree = "<group>";
+		};
 		5CD76258208E522B00D93B18 /* CallManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -111,6 +117,45 @@
 				5CD7625A208E522B00D93B18 /* CallManagerBridge.m */,
 			);
 			path = CallManager;
+			sourceTree = "<group>";
+		};
+		5CF583F02118F8CE00D2C580 /* AudioManager */ = {
+			isa = PBXGroup;
+			children = (
+				F93F43D4202DE0A20079C98E /* AudioManagerBridge.m */,
+				F93F43D7202DE0A20079C98E /* AudioManagerModule.swift */,
+			);
+			path = AudioManager;
+			sourceTree = "<group>";
+		};
+		5CF583F12118FB0300D2C580 /* DeviceManager */ = {
+			isa = PBXGroup;
+			children = (
+				F93F43D0202DE0A20079C98E /* DeviceManagerBridge.m */,
+				F93F43D8202DE0A20079C98E /* DeviceManagerModule.swift */,
+			);
+			path = DeviceManager;
+			sourceTree = "<group>";
+		};
+		5CF583F22118FB1800D2C580 /* DirectoryManager */ = {
+			isa = PBXGroup;
+			children = (
+				F93F43DA202DE0A20079C98E /* DirectoryManagerBridge.m */,
+				F93F43D5202DE0A20079C98E /* DirectoryManagerModule.swift */,
+			);
+			path = DirectoryManager;
+			sourceTree = "<group>";
+		};
+		5CF583F32118FB4B00D2C580 /* RCTSilentSwitch */ = {
+			isa = PBXGroup;
+			children = (
+				F93F43D1202DE0A20079C98E /* RCTSilentSwitch.h */,
+				F93F43D9202DE0A20079C98E /* RCTSilentSwitch.m */,
+				F93F43DC202DE0A20079C98E /* SharkfoodMuteSwitchDetector.h */,
+				F93F43D6202DE0A20079C98E /* SharkfoodMuteSwitchDetector.m */,
+				F93F43D2202DE0A20079C98E /* mute.caf */,
+			);
+			path = RCTSilentSwitch;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -170,6 +215,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5CC246F8212308BE006FF3CC /* AppStateNativeManagerModule.swift in Sources */,
 				5CF8CA6B20876BEA0049C8F7 /* RecorderManagerModule.swift in Sources */,
 				F93F43DF202DE0A20079C98E /* AudioManagerBridge.m in Sources */,
 				F93F43E0202DE0A20079C98E /* DirectoryManagerModule.swift in Sources */,

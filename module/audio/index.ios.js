@@ -80,7 +80,8 @@ class AudioManager extends BaseAudioManager {
      * @returns {boolean} true or false. true if was a sucess to stop the audio, else return false if not exist a audio playing or paused.
      */
     async stop() : boolean {
-        try {                     
+
+        try {
             return await NativeModules.AudioManagerModule.stop();
         } catch (e) {
             console.error(e);
