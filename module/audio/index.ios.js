@@ -81,11 +81,6 @@ class AudioManager extends BaseAudioManager {
      */
     async stop() : boolean {
         try {
-            try {
-                await this.setAudioOutputRoute(0);
-            } catch (e) {
-
-            }
             return await NativeModules.AudioManagerModule.stop();
         } catch (e) {
             console.error(e);

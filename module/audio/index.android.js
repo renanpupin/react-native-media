@@ -10,11 +10,10 @@
  * This class requires:
  * @class
  * @requires [BaseAudioManager]{@link ./base/BaseAudioManager}
- * @requires DeviceEventEmitter from react-native
  * @requires NativeModules from react-native
  */
 import BaseAudioManager from './base/BaseAudioManager';
-import { DeviceEventEmitter, NativeModules } from 'react-native';
+import { NativeModules } from 'react-native';
 
 //==========================================================================
 /**
