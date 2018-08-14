@@ -509,16 +509,16 @@ public class AudioManagerModule extends ReactContextBaseJavaModule {
                     try {
                         current = mediaPlayer.getCurrentPosition();
                         timeChanged(current);
-                    } catch (IllegalStateException e) {
+                    } catch (Exception e) {
                         e.printStackTrace();
-                        Thread.currentThread().interrupt();
+                        // Thread.currentThread().interrupt();
                     }
                 }
                 try {
                     Thread.sleep(timeInterval);
-                } catch (InterruptedException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
-                    Thread.currentThread().interrupt();
+                    // Thread.currentThread().interrupt();
                 }
                 if (current >= duration || isToCancel) {
                     break;
