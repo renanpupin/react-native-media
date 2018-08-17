@@ -97,17 +97,20 @@ class CallManager extends BaseCallManager {
     }
 
     async playRingtone(name : string, audioOutputRoute = AudioManager.OutputRoute.DEFAULT_SPEAKER, loop = false, vibrate = false) : boolean {
-        let path = "file:///" + await DirectoryManager.getMainBundleDirectoryPath() + "/" + name + ".mp3";
+        let path = 'file:///' + await DirectoryManager.getMainBundleDirectoryPath() + '/' + name + '.mp3';
         return await NativeModules.AudioManagerModule.playRingtone(path, audioOutputRoute, loop, vibrate);
     }
 
-    async stopRingtone(name = "", audioOutputRoute = AudioManager.OutputRoute.DEFAULT_SPEAKER) : boolean {
-        if ( name === "" ) {
-            return await AudioManager.stop();
+    async stopRingtone(name = '', audioOutputRoute = AudioManager.OutputRoute.DEFAULT_SPEAKER) : boolean {
+
+        let response = false;
+        if ( name === '' ) {
+            response = await AudioManager.stop();
         } else {
-            let path = "file:///" + await DirectoryManager.getMainBundleDirectoryPath() + "/" + name + ".mp3";
-            return await NativeModules.AudioManagerModule.playRingtone(path, audioOutputRoute, false);
+            response = await NativeModules.AudioManagerModule.playRingtone(await DirectoryManager.getMainBundleDirectoryPath() + "/" + name, audioOutputRoute, false);
         }
+        console.log('VideoCallIntro', 'stopRingTone', 'tone: ', name, 'response:', response);
+        return response;
     }
 }
 

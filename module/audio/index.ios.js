@@ -85,7 +85,7 @@ class AudioManager extends BaseAudioManager {
             return await NativeModules.AudioManagerModule.stop();
         } catch (e) {
             console.error(e);
-        }
+        }        
         return false;
     }
 }
