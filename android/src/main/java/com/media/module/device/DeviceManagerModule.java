@@ -67,15 +67,10 @@ public class DeviceManagerModule extends ReactContextBaseJavaModule implements L
     }
 
     /**
-     * For default keep awake is false.
-     * "true" to keep the screen on.
-     * "false" to let the screen dim.
-     *
      * @param enable
-     * @param promise
      */
     @ReactMethod
-    public void keepAwake(boolean enable, final Promise promise) {
+    public void keepAwake(boolean enable) {
 
         try {
             if (!enable) {
@@ -91,8 +86,7 @@ public class DeviceManagerModule extends ReactContextBaseJavaModule implements L
             }
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        promise.resolve(null);
+        }        
     }
 
     /**

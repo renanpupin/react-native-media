@@ -70,15 +70,6 @@ class DeviceManager extends BaseDeviceManager {
     async mute(enable : boolean) : boolean {
         return await NativeModules.DeviceManagerModule.mute(enable);
     }
-
-    /**
-     * Just exist for IOS.
-     * @callback
-     * @param {string} status ON/OFF - ON = silent switch is on (sound enable). OFF = silent switch is off (sound enable).
-     */
-    // setOnSilentSwitchStateChanged(silentSwitchStateCallback : Callback) : void {
-    //     console.log("Not exist for Android.");
-    // }
 }
 
 //==========================================================================
