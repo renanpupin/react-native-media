@@ -9,7 +9,7 @@ module.exports = {
     AudioManager,
     DeviceManager,
     DirectoryManager,
-    CallManager,    
+    CallManager,
     RecorderManager,
     AppStateNativeManager,
 }

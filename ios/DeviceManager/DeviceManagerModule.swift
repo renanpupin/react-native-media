@@ -35,12 +35,11 @@ class DeviceManagerModule: NSObject {
     // =============================================================================================
     // METHODS =====================================================================================
     
-    @objc func keepAwake(_ enable: Bool, resolver resolve: @escaping RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) -> Void {
+    @objc func keepAwake(_ enable: Bool) -> Void {
         
         DispatchQueue.main.async(execute: {
             NSLog(self.TAG + " keepAwake: " + (enable ? "true" : "false"))
-            UIApplication.shared.isIdleTimerDisabled = enable
-            resolve(nil)
+            UIApplication.shared.isIdleTimerDisabled = enable            
         })
     }
     

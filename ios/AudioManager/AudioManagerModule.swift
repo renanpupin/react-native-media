@@ -395,8 +395,7 @@ class AudioManagerModule: NSObject, AVAudioPlayerDelegate{
     
     @objc func addAppStateListener() {
         NotificationCenter.default.addObserver(self, selector: #selector(self.audioRouteChangeListener), name: .AVAudioSessionRouteChange, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.appMovedToBackground), name: .UIApplicationWillResignActive, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.appMovedToActive), name: .UIApplicationDidBecomeActive, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.appMovedToBackground), name: .UIApplicationWillResignActive, object: nil)                
     }
     
     @objc func appMovedToBackground() {
@@ -407,13 +406,6 @@ class AudioManagerModule: NSObject, AVAudioPlayerDelegate{
             self.paused = true
             self.audioPlayer.pause()
         }
-        self.emitEvent(eventName: Event.ON_PROXIMITY_CHANGED, data: Data.ON_BACKGROUND)
-    }
-    
-    @objc func appMovedToActive() {
-        
-        NSLog(self.TAG + " appMovedToActive")
-        self.emitEvent(eventName: Event.ON_PROXIMITY_CHANGED, data: Data.ON_ACTIVE)
     }
     
     func emitEvent(eventName: String, data: Any?) -> Void {

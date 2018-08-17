@@ -13,29 +13,25 @@ import AVFoundation
 class AppStateNativeManagerModule: NSObject {
 
     let TAG: String = "AppStateNative"
-    
+
     // =============================================================================================
     // ATRIBUTES ===================================================================================
-    
+
     struct Event {
         static let ON_RESUME = "onResume";
         static let ON_PAUSE = "onPause";
         static let ON_DESTROY = "onDestroy";
     }
-    
+
     var bridge: RCTBridge!
 
     // =============================================================================================
     // CONSTRUCTOR =================================================================================
-    
-    static func requiresMainQueueSetup() -> Bool {
-        return true
-    }
-    
+
     // =============================================================================================
     // METHODS =====================================================================================
-    
-    @objc func startApplicationListener() {
+
+    @objc func addAllListener() {
 
         NotificationCenter.default.addObserver(
             self,
@@ -55,34 +51,37 @@ class AppStateNativeManagerModule: NSObject {
             name: .UIApplicationWillTerminate,
             object: nil)
     }
-    
+
+    @objc func removeAllListener() {
+
+        NotificationCenter.default.removeObserver(self)
+    }
+
     @objc func onHostPause() {
-        
+
         self.emitEvent(
             eventName: Event.ON_PAUSE,
             data: nil)
     }
-    
+
     @objc func onHostResume() {
-        
+
         self.emitEvent(
             eventName: Event.ON_RESUME,
             data: nil)
     }
-    
+
     @objc func onHostDestroy() {
-        
+
         self.emitEvent(
             eventName: Event.ON_DESTROY,
             data: nil)
     }
-    
+
     func emitEvent(eventName: String, data: Any?) -> Void {
-        
+
         if self.bridge != nil, self.bridge.eventDispatcher() != nil {
             self.bridge.eventDispatcher().sendAppEvent(withName: eventName, body: data)
-        } else {
-            NSLog(self.TAG + " fail to emitEvent: " + eventName);
         }
     }
 }

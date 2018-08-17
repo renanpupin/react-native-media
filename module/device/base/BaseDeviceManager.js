@@ -60,8 +60,8 @@ class BaseDeviceManager {
      * @param {boolean} enable - true to keep awake and false to not keet awake.
      * @return
      */
-    async keepAwake(enable : boolean) : void {
-        return await NativeModules.DeviceManagerModule.keepAwake(enable);
+    keepAwake(enable : boolean) : void {
+        NativeModules.DeviceManagerModule.keepAwake(enable);
     }
 
     /**
