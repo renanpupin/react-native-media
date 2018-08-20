@@ -60,6 +60,9 @@ class DeviceManager extends BaseDeviceManager {
     mute(enable : boolean) : boolean {
         return false;
     }
+
+    resetKeyboard(reactTagToReset) {
+    }
 }
 
 //==========================================================================

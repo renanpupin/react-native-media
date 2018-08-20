@@ -70,6 +70,10 @@ class DeviceManager extends BaseDeviceManager {
     async mute(enable : boolean) : boolean {
         return await NativeModules.DeviceManagerModule.mute(enable);
     }
+
+    resetKeyboard(reactTagToReset) {
+        NativeModules.DeviceManagerModule.resetKeyboard(reactTagToReset);
+    }
 }
 
 //==========================================================================

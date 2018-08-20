@@ -1,10 +1,14 @@
 package com.media.module.device;
 
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.media.AudioManager;
 import android.os.PowerManager;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.TextView;
 
 import com.facebook.react.bridge.LifecycleEventListener;
 import com.facebook.react.bridge.Promise;
@@ -12,6 +16,10 @@ import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
+import com.facebook.react.uimanager.NativeViewHierarchyManager;
+import com.facebook.react.uimanager.UIBlock;
+import com.facebook.react.uimanager.UIManagerModule;
+
 
 import static android.content.Context.AUDIO_SERVICE;
 import static android.content.Context.POWER_SERVICE;
@@ -86,7 +94,7 @@ public class DeviceManagerModule extends ReactContextBaseJavaModule implements L
             }
         } catch (Exception e) {
             e.printStackTrace();
-        }        
+        }
     }
 
     /**
@@ -189,6 +197,38 @@ public class DeviceManagerModule extends ReactContextBaseJavaModule implements L
     public void setProximityEmitInBackgroundEnable(boolean enable) {
 
         this.proximityEmitInBackgroundEnable = enable;
+    }
+
+    @ReactMethod
+    public void resetKeyboard(final int reactTagToReset) {
+
+        UIManagerModule uiManager = null;
+        try {
+            uiManager = this.reactContext.getNativeModule(UIManagerModule.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return;
+        }
+
+        if (uiManager != null) {
+            uiManager.addUIBlock(new UIBlock() {
+                @Override
+                public void execute(NativeViewHierarchyManager nativeViewHierarchyManager) {
+
+                    try {
+                        InputMethodManager inputMethodManager = (InputMethodManager) getReactApplicationContext().getBaseContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                        if (inputMethodManager != null) {
+                            View viewToReset = nativeViewHierarchyManager.resolveView(reactTagToReset);
+                            inputMethodManager.restartInput(viewToReset);
+                            TextView textView = (TextView) viewToReset;
+                            textView.setText("");
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+        }
     }
 
     // =============================================================================================
