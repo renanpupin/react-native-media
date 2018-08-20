@@ -225,6 +225,7 @@ public class DeviceManagerModule extends ReactContextBaseJavaModule implements L
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
+                        return;
                     }
                 }
             });
