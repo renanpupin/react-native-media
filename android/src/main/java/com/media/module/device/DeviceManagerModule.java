@@ -2,7 +2,6 @@ package com.media.module.device;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
-import android.media.AudioManager;
 import android.os.PowerManager;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -19,9 +18,6 @@ import com.facebook.react.modules.core.DeviceEventManagerModule;
 import com.facebook.react.uimanager.NativeViewHierarchyManager;
 import com.facebook.react.uimanager.UIBlock;
 import com.facebook.react.uimanager.UIManagerModule;
-
-
-import static android.content.Context.AUDIO_SERVICE;
 import static android.content.Context.POWER_SERVICE;
 
 /**
@@ -42,9 +38,7 @@ public class DeviceManagerModule extends ReactContextBaseJavaModule implements L
 
     // for proximity management
     private PowerManager.WakeLock proximityWakeLock;
-    private Boolean proximityEmitEnable = true;
-    private Boolean proximityEmitInBackgroundEnable = false;
-    private Boolean isProximity = false;
+    private boolean lastProximityState = false;
 
     private ProximitySensorHandler proximitySensorHandler = null;
 
@@ -70,7 +64,6 @@ public class DeviceManagerModule extends ReactContextBaseJavaModule implements L
 
     @Override
     public String getName() {
-
         return "DeviceManagerModule";
     }
 
@@ -136,7 +129,6 @@ public class DeviceManagerModule extends ReactContextBaseJavaModule implements L
                 // enable = false
                 // do nothing when proximity on
                 if (this.proximityWakeLock.isHeld()) {
-
                     this.proximityWakeLock.release();
                     this.proximitySensorHandler.unregister();
                     this.proximitySensorHandler = null;
@@ -157,46 +149,22 @@ public class DeviceManagerModule extends ReactContextBaseJavaModule implements L
 
     private void enableProximitySensorHandler() {
 
-        this.proximitySensorHandler = new ProximitySensorHandler(reactContext, new ProximitySensorHandler.Delegate() {
-            @Override
-            public void onProximityChanged(Boolean isNear) {
-
-                if (proximityEmitEnable) {
-                    emitEvent(Event.ON_PROXIMITY_CHANGED, (isNear ? Data.ON_PROXIMITY_NEAR : Data.ON_PROXIMITY_FAR));
-                    isProximity = isNear;
-                }
-            }
-        });
-    }
-
-    @ReactMethod
-    public void mute(boolean enable, final Promise promise) {
-
-        //an AudioManager object, to change the volume settings
         try {
-            AudioManager audioManager = (AudioManager) reactContext.getSystemService(AUDIO_SERVICE);
-            if (enable) {
-                //turn ringer silent
-                audioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
-                audioManager.setStreamMute(AudioManager.STREAM_SYSTEM, true);
-                audioManager.setStreamMute(AudioManager.STREAM_MUSIC, true);
-                promise.resolve(true);
-            } else {
-                audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
-                audioManager.setStreamMute(AudioManager.STREAM_SYSTEM, false);
-                audioManager.setStreamMute(AudioManager.STREAM_MUSIC, false);
-                promise.resolve(true);
-            }
+            this.proximitySensorHandler = null;
+            this.proximitySensorHandler = new ProximitySensorHandler(reactContext, new ProximitySensorHandler.Delegate() {
+
+                @Override
+                public void onProximityChanged(Boolean isNear) {
+
+                    Log.d(ProximitySensorHandler.TAG, "onProximityChanged: " + (isNear ? "near" : "far"));
+                    emitEvent(Event.ON_PROXIMITY_CHANGED, (isNear ? Data.ON_PROXIMITY_NEAR : Data.ON_PROXIMITY_FAR));
+                    lastProximityState = isNear;
+                }
+            });
+            this.proximitySensorHandler.lastState = lastProximityState;
         } catch (Exception e) {
             e.printStackTrace();
-            promise.resolve(false);
         }
-    }
-
-    @ReactMethod
-    public void setProximityEmitInBackgroundEnable(boolean enable) {
-
-        this.proximityEmitInBackgroundEnable = enable;
     }
 
     @ReactMethod
@@ -254,19 +222,10 @@ public class DeviceManagerModule extends ReactContextBaseJavaModule implements L
 
     @Override
     public void onHostResume() {
-
-        this.proximityEmitEnable = true;
-        if (!isProximity) {
-            this.emitEvent(Event.ON_PROXIMITY_CHANGED, Data.ON_ACTIVE);
-        }
     }
 
     @Override
     public void onHostPause() {
-
-        if (!isProximity) {
-            this.emitEvent(Event.ON_PROXIMITY_CHANGED, Data.ON_BACKGROUND);
-        }
     }
 
     @Override
@@ -287,7 +246,5 @@ public class DeviceManagerModule extends ReactContextBaseJavaModule implements L
 
         private static final int ON_PROXIMITY_NEAR = 0;
         private static final int ON_PROXIMITY_FAR = 1;
-        private static final int ON_BACKGROUND = 2;
-        private static final int ON_ACTIVE = 3;
     }
 }

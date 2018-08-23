@@ -16,7 +16,8 @@ public class ProximitySensorHandler implements SensorEventListener {
     // =============================================================================================
     // ATRIBUTES ===================================================================================
 
-    private static final String TAG = "ProximitySensor";
+    public static final String TAG = "ProximitySensor";
+    public boolean lastState;
 
     public interface Delegate {
         void onProximityChanged(Boolean isNear);
@@ -49,7 +50,6 @@ public class ProximitySensorHandler implements SensorEventListener {
             for (Sensor sensor : sensorManager.getSensorList(Sensor.TYPE_ALL)) {
                 sensorList.append(sensor.getName()).append(",");
             }
-
             throw new UnsupportedOperationException("Proximity sensor is not supported on this device! Sensors available: " + sensorList);
         }
     }
@@ -77,11 +77,9 @@ public class ProximitySensorHandler implements SensorEventListener {
     public void onSensorChanged(final SensorEvent event) {
 
         try{
+            Log.d(TAG, "onSensorChanged: " + isFirstEmit);
             boolean eventResult = event.values[0] < sensor.getMaximumRange();
-            Log.d(TAG, TAG + " onSensorChanged: " + (eventResult ? "Near" : "Far"));
-            Log.d(TAG, TAG + " onSensorChanged, true = Near, false = Far");
-
-            if (!isFirstEmit && state != eventResult) {
+            if (!isFirstEmit && state != eventResult && !lastState) {
                 if (eventResult) {
                     //near
                     delegate.onProximityChanged(true);
@@ -91,8 +89,8 @@ public class ProximitySensorHandler implements SensorEventListener {
                 }
             } else {
                 isFirstEmit = false;
+                lastState = false;
             }
-
             state = eventResult;
         } catch(Exception e){
             e.printStackTrace();

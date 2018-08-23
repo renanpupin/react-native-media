@@ -1,26 +1,20 @@
 package com.media.module.appstate;
 
-import com.facebook.react.bridge.LifecycleEventListener;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
-import com.facebook.react.modules.core.DeviceEventManagerModule;
 
-public class AppStateNativeManagerModule extends ReactContextBaseJavaModule implements LifecycleEventListener {
+public class AppStateNativeManagerModule extends ReactContextBaseJavaModule {
 
     // =============================================================================================
     // ATTRIBUTES ==================================================================================
 
-    private ReactApplicationContext reactContext = null;
     private static final String TAG = "AppStateNative";
 
     // =============================================================================================
     // CONSTRUCTOR =================================================================================
 
     public AppStateNativeManagerModule(ReactApplicationContext reactContext) {
-
         super(reactContext);
-        this.reactContext = reactContext;
-        this.reactContext.addLifecycleEventListener(this);
     }
 
     // =============================================================================================
@@ -28,45 +22,26 @@ public class AppStateNativeManagerModule extends ReactContextBaseJavaModule impl
 
     @Override
     public String getName() {
-
         return "AppStateNativeManagerModule";
-    }
-
-    @Override
-    public void onHostResume() {
-
-        this.emitEvent(Event.ON_RESUME);
-    }
-
-    @Override
-    public void onHostPause() {
-
-        this.emitEvent(Event.ON_PAUSE);
-    }
-
-    @Override
-    public void onHostDestroy() {
-
-        this.emitEvent(Event.ON_DESTROY);
     }
 
     // =============================================================================================
     // EVENT =======================================================================================
 
-    private void emitEvent(String eventName) {
-
-        if (this.reactContext != null && this.reactContext.hasActiveCatalystInstance()) {
-            this.reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit(eventName, null);
-        }
-    }
-
     // =============================================================================================
     // CLASS =======================================================================================
 
-    private static final class Event {
+    public static final class Event {
+        public static final String ON_RESUME = "onResume";
+        public static final String ON_PAUSE = "onPause";
+        public static final String ON_DESTROY = "onDestroy";
+        public static final String ON_LOST_FOCUS = "onLostFocus";
+    }
 
-        private static final String ON_RESUME = "onResume";
-        private static final String ON_PAUSE = "onPause";
-        private static final String ON_DESTROY = "onDestroy";
+    public static final class State {
+        public static final int RESUME = 0;
+        public static final int LOSTED_FOCUS = 1;
+        public static final int PAUSE = 2;
+        public static final int ACTIVE = 3;
     }
 }

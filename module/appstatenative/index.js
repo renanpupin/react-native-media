@@ -31,7 +31,8 @@ class AppStateNativeManager {
         this.Event = {
             ON_RESUME: 'onResume',
             ON_PAUSE: 'onPause',
-            ON_DESTROY: 'onDestroy'
+            ON_DESTROY: 'onDestroy',
+            ON_LOST_FOCUS: 'onLostFocus'
         };
         Object.freeze(this.Event);
     }
@@ -39,7 +40,7 @@ class AppStateNativeManager {
     //==========================================================================
     // METHODS
 
-    addAllListener(): void {        
+    addAllListener(): void {
         (Platform.OS === 'ios') && NativeModules.AppStateNativeManagerModule.addAllListener();
     }
 
