@@ -29,6 +29,7 @@ class AppStateNativeManager {
     constructor() {
 
         this.Event = {
+            ON_ACTIVE: 'onActive',
             ON_RESUME: 'onResume',
             ON_PAUSE: 'onPause',
             ON_DESTROY: 'onDestroy',

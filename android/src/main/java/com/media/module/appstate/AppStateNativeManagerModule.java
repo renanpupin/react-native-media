@@ -33,15 +33,17 @@ public class AppStateNativeManagerModule extends ReactContextBaseJavaModule {
 
     public static final class Event {
         public static final String ON_RESUME = "onResume";
+        public static final String ON_ACTIVE = "onActive";
+        public static final String ON_LOST_FOCUS = "onLostFocus";
         public static final String ON_PAUSE = "onPause";
         public static final String ON_DESTROY = "onDestroy";
-        public static final String ON_LOST_FOCUS = "onLostFocus";
     }
 
     public static final class State {
         public static final int RESUME = 0;
-        public static final int LOSTED_FOCUS = 1;
-        public static final int PAUSE = 2;
-        public static final int ACTIVE = 3;
+        public static final int ACTIVE = 1;
+        public static final int LOST_FOCUS = 2;
+        public static final int PAUSE = 3;
+        public static final int STOP = 4;
     }
 }
