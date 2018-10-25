@@ -8,69 +8,83 @@
 
 import Foundation
 
-extension Notification.Name {
-    static let notify = Notification.Name("notify")
-}
-
 @objc(CallManagerModule)
 class CallManagerModule: NSObject {
 
-//    var bridge: RCTBridge!
-    var callData = ""
-
-    // used forKey to ready push token and the result of the authorization request
-    let USER_NOTIFICATION_REQUEST_AUTHORIZATION = "USER_NOTIFICATION_REQUEST_AUTHORIZATION"
-    let PUSH_DEVICE_TOKEN = "PUSH_DEVICE_TOKEN"
-    let CALL_STATUS = "CALL_STATUS"
-
-    // For ready dictionary. Metadata of the notification center
-    let type = "status"
-    let data = "data"
-
-    // types of the status.
-    let INCOMING_CALL_TYPE = 0
-    let LOST_CALL_TYPE = 1
-
-    @objc func requestAuthorization(_ resolve: @escaping RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) -> Void {
-
-        resolve(UserDefaults.standard.bool(forKey: self.USER_NOTIFICATION_REQUEST_AUTHORIZATION))
-    }
-
-    @objc func requestPushKitToken(_ resolve: @escaping RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) -> Void {
-
-        resolve(UserDefaults.standard.string(forKey: self.PUSH_DEVICE_TOKEN))
-    }
-
-    @objc func requestCallStatus(_ resolve: @escaping RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) -> Void {
-
-        if let callStatusDictionary = UserDefaults.standard.persistentDomain(forName: self.CALL_STATUS),
-            let value = callStatusDictionary[self.data] as? String,
-            let type = callStatusDictionary[self.type] as? Int
-        {
-            if !value.isEmpty, type != -1 {
-                self.callData = value
-            }
-            resolve(type)
-        } else {
-            resolve(-1)
+    struct CallModel {
+        struct Field {
+            static let SESSION_ID = "sessionId"
+            static let ID_USER = "id_user"
+            static let NAME = "name"
+            static let PROFILE_IMAGE = "profile_image"
+            static let IS_LEADER = "isLeader"
+            static let TARGET = "target"
+            static let VIDEO_HOURS = "videoHours"
+            static let TARGET_NAME = "targetName"
+            static let TIME_STAMP = "timeStamp"
+            static let KEEP_ALIVE = "keepAlive"
+            static let DEVICE_CALL_ID = "deviceCallId"
+            static let TYPE_CALL = "typeCall"
         }
     }
 
     @objc func getCallData(_ resolve: @escaping RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) {
+        if let userDefaults = UserDefaults(suiteName: "group.com.falafreud.falafreud.calldata") {
+            NSLog("CallManager - CallManagerModule - checking if exist a call...")
+            if
+                let sessionId = userDefaults.string(forKey: CallModel.Field.SESSION_ID),
+                let idUser = userDefaults.string(forKey: CallModel.Field.ID_USER),
+                let name = userDefaults.string(forKey: CallModel.Field.NAME),
+                let profileImage = userDefaults.string(forKey: CallModel.Field.PROFILE_IMAGE),
+                let isLeader = userDefaults.string(forKey: CallModel.Field.IS_LEADER),
+                let target = userDefaults.string(forKey: CallModel.Field.TARGET),
+                let videoHours = userDefaults.string(forKey: CallModel.Field.VIDEO_HOURS),
+                let targetName = userDefaults.string(forKey: CallModel.Field.TARGET_NAME),
+                let timeStamp = userDefaults.string(forKey: CallModel.Field.TIME_STAMP),
+                let keepAlive = userDefaults.string(forKey: CallModel.Field.KEEP_ALIVE),
+                let deviceCallId = userDefaults.string(forKey: CallModel.Field.DEVICE_CALL_ID),
+                let typeCall = userDefaults.string(forKey: CallModel.Field.TYPE_CALL)
+            {
+                NSLog("CallManager - CallManagerModule - \(sessionId)")
+                NSLog("CallManager - CallManagerModule - \(isLeader)")
+                NSLog("CallManager - CallManagerModule - \(videoHours)")
+                NSLog("CallManager - CallManagerModule - \(targetName)")
+                NSLog("CallManager - CallManagerModule - \(name)")
+                NSLog("CallManager - CallManagerModule - \(profileImage)")
+                NSLog("CallManager - CallManagerModule - \(timeStamp)")
+                NSLog("CallManager - CallManagerModule - \(keepAlive)")
+                NSLog("CallManager - CallManagerModule - \(idUser)")
+                NSLog("CallManager - CallManagerModule - \(target)")
+                NSLog("CallManager - CallManagerModule - \(deviceCallId)")
+                NSLog("CallManager - CallManagerModule - \(typeCall)")
 
-        UserDefaults.standard.setPersistentDomain(["": ""], forName: self.CALL_STATUS)
-        UserDefaults.standard.set("", forKey: self.PUSH_DEVICE_TOKEN)
-        UserDefaults.standard.set(-1, forKey: self.USER_NOTIFICATION_REQUEST_AUTHORIZATION)
+                let json = "{ \"device_id\":\"" + sessionId + "\", \"isLeader\":" + isLeader + ", \"videoHours\":" + videoHours + ", \"targetName\":\"" + targetName + "\", \"sessionId\":\"" + sessionId + "\", \"name\":\"" + name + "\", \"profile_image\":\"" + profileImage + "\", \"timeStamp\":" + timeStamp + ", \"keepAlive\":" + keepAlive + ", \"id_user\":\"" + idUser + "\", \"deviceCallId\":" + deviceCallId + ", \"target\":\"" + target + "\", \"typeCall\":\"" + typeCall + "\"}"
 
-        var data = self.callData
-        self.callData = ""
+                NSLog("CallManager - CallManagerModule, JSON: \(json)")
+                self.cleanCallData()
+                resolve(json)
+                return
+            }
+        }
 
-        // data = getCallDataForTest()
-
-        resolve(data)
+        NSLog("CallManager - CallManagerModule - not exist a call!")
+        resolve(nil)
     }
 
-    func getCallDataForTest() -> String {
-        return "{ \"aps\": { \"device_id\": \"some device_id\", \"content\":\"some content\", \"isLeader\":\"true\", \"videoHours\": \"so much hours\", \"targetName\":\"some target name\", \"sessionId\":\"some-session\", \"name\":\"some-name\", \"profile_image\":\"https://www.gstatic.com/webp/gallery3/2_webp_ll.png\", \"timeStamp\":\"1527253731\", \"keepAlive\":\"99999\"}}"
+    func cleanCallData() -> Void {
+        if let userDefaults = UserDefaults(suiteName: "group.com.falafreud.falafreud.calldata") {
+            userDefaults.set(nil, forKey: CallModel.Field.SESSION_ID)
+            userDefaults.set(nil, forKey: CallModel.Field.ID_USER)
+            userDefaults.set(nil, forKey: CallModel.Field.NAME)
+            userDefaults.set(nil, forKey: CallModel.Field.PROFILE_IMAGE)
+            userDefaults.set(nil, forKey: CallModel.Field.IS_LEADER)
+            userDefaults.set(nil, forKey: CallModel.Field.TARGET)
+            userDefaults.set(nil, forKey: CallModel.Field.VIDEO_HOURS)
+            userDefaults.set(nil, forKey: CallModel.Field.TARGET_NAME)
+            userDefaults.set(nil, forKey: CallModel.Field.TIME_STAMP)
+            userDefaults.set(nil, forKey: CallModel.Field.KEEP_ALIVE)
+            userDefaults.set(nil, forKey: CallModel.Field.DEVICE_CALL_ID)
+            userDefaults.set(nil, forKey: CallModel.Field.TYPE_CALL)
+        }
     }
 }

@@ -28,8 +28,44 @@ class BaseCallManager {
     //==========================================================================
     // CONSTRUCTOR
 
+    constructor() {
+        this.TAG = 'Call';
+        this.MAP = [
+            'timeStamp',
+            'typeCall',
+            'profile_image',
+            'targetName',
+            'keepAlive',
+            'isLeader',
+            'name',
+            'id_user',
+            'sessionId',
+            'deviceCallId',
+            'target',
+            'videoHours'
+        ];
+
+        this.isIncomingCall = this.isIncomingCall.bind(this);
+    }
+
     //==========================================================================
     // METHODS
+
+    isIncomingCall(payload) {
+        if (!payload) {
+            return false;
+        }
+
+        let isIncomingCall = true;
+
+        this.MAP.forEach(attribute => {
+            if (!(attribute in payload)) {
+                return false;
+            }
+        });
+
+        return isIncomingCall;
+    }
 
     //==========================================================================
     // SETTERS & GETTERS

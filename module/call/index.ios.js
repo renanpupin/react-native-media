@@ -44,47 +44,13 @@ class CallManager extends BaseCallManager {
         }
         Object.freeze(this.Response);
 
-        this.requestAuthorization = this.requestAuthorization.bind(this);
-        this.requestCallStatus = this.requestCallStatus.bind(this);
         this.getCallData = this.getCallData.bind(this);
-        this.requestPushKitToken = this.requestPushKitToken.bind(this);
+        this.playRingtone = this.playRingtone.bind(this);
+        this.stopRingtone = this.stopRingtone.bind(this);
     }
 
     //==========================================================================
     // METHODS
-
-    /**
-     * This function request to registry and request authorization.
-     *
-     * @async
-     * @returns {boolean} true or false. true if was a sucess, else return false.
-     */
-    async requestAuthorization(): boolean {
-        return await NativeModules.CallManagerModule.requestAuthorization();
-    }
-
-    /**
-     * This function request the device token.
-     *
-     * @async
-     * @returns {string} the device token in string. Return empty if do not exist.
-     */
-    async requestPushKitToken(): string {
-        return await NativeModules.CallManagerModule.requestPushKitToken();
-    }
-
-    /**
-     * This function request the call status:
-     * NONE: -1
-     * INCOMING_CALL: 0
-     * LOST_CALL: 1
-     *
-     * @async
-     * @returns {int} see Response to get the call status.
-     */
-    async requestCallStatus(): int {
-        return await NativeModules.CallManagerModule.requestCallStatus();
-    }
 
     /**
      * If exist some call status, get your current data.
@@ -92,25 +58,40 @@ class CallManager extends BaseCallManager {
      * @async
      * @returns {string} return the call data if Response is INCOMING_CALL or a LOST_CALL.
      */
-    async getCallData(): string {
+    async getCallData() {
         return await NativeModules.CallManagerModule.getCallData();
     }
 
-    async playRingtone(name : string, audioOutputRoute = AudioManager.OutputRoute.DEFAULT_SPEAKER, loop = false, vibrate = false) : boolean {
-        // let path = 'file:///' + await DirectoryManager.getMainBundleDirectoryPath() + '/' + name + '.mp3';
+    async playRingtone(
+        name: string,
+        audioOutputRoute = AudioManager.OutputRoute.DEFAULT_SPEAKER,
+        loop = false,
+        vibrate = false
+    ) {
         let path = await DirectoryManager.getMainBundleDirectoryPath() + '/' + name;
-        return await NativeModules.AudioManagerModule.playRingtone(path, audioOutputRoute, loop, vibrate);
+        return await NativeModules.AudioManagerModule.playRingtone(
+            path,
+            audioOutputRoute,
+            loop,
+            vibrate
+        );
     }
 
-    async stopRingtone(name = '', audioOutputRoute = AudioManager.OutputRoute.DEFAULT_SPEAKER) : boolean {
-
+    async stopRingtone(
+        name = '',
+        audioOutputRoute = AudioManager.OutputRoute.DEFAULT_SPEAKER
+    ) {
         let response = false;
-        if ( name === '' ) {
+        if (name === '') {
             response = await AudioManager.stop();
         } else {
-            response = await NativeModules.AudioManagerModule.playRingtone(await DirectoryManager.getMainBundleDirectoryPath() + "/" + name, audioOutputRoute, false);
+            response = await NativeModules.AudioManagerModule.playRingtone(
+                await DirectoryManager.getMainBundleDirectoryPath() + "/" + name,
+                audioOutputRoute,
+                false,
+                false
+            );
         }
-        console.log('VideoCallIntro', 'stopRingTone', 'tone: ', name, 'response:', response);
         return response;
     }
 }

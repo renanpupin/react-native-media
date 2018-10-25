@@ -34,26 +34,13 @@ class CallManager extends BaseCallManager {
     constructor() {
         super();
 
-        this.requestAuthorization = this.requestAuthorization.bind(this);
-        this.requestCallStatus = this.requestCallStatus.bind(this);
         this.getCallData = this.getCallData.bind(this);
-        this.requestPushKitToken = this.requestPushKitToken.bind(this);
+        this.playRingtone = this.playRingtone.bind(this);
+        this.stopRingtone = this.stopRingtone.bind(this);
     }
 
     //==========================================================================
     // METHODS
-
-    async requestAuthorization() {
-        console.log("Not implemented in Android, see OneSignal documentation.");
-    }
-
-    async requestPushKitToken() {
-        console.log("Not implemented in Android, see OneSignal documentation.");
-    }
-
-    async requestCallStatus() {
-        console.log("Not implemented in Android, see OneSignal documentation.");
-    }
 
     async getCallData() {
         console.log("Not implemented in Android, see OneSignal documentation.");

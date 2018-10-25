@@ -1,6 +1,6 @@
 
 
-# react-native-media 1.3.11
+# react-native-media 2.3.6
 
 [![React Native Version](https://img.shields.io/badge/react--native-latest-blue.svg?style=flat-square)](http://facebook.github.io/react-native/releases)
 
@@ -94,63 +94,3 @@ See complete documentation [here](https://github.com/renanpupin/react-native-med
 
 Use to handle incoming call:
 See complete documentation [here](https://github.com/renanpupin/react-native-media/wiki/CallManager)
-
-## Releases
-
-### 1.3.11
-
-For IOS, handle emit event and handle error response in load recorder.
-
-### 1.3.10
-
-For android, added an trycatch in background task of the audio player.
-
-### 1.3.9
-
-Removing the function binded relationed with the RCTSilentSwitch.
-
-### 1.3.8
-
-Removing the initializer of the silent switch change state listener.
-
-### 1.3.7
-
-Forcing to change the audio output route to default in IOS when stop the audio record process.
-
-### 1.3.6
-
-Removing feature from the RecorderManager that was possible to set a audio record time limit.
-
-### 1.3.4, 1.3.5
-
-The audio was not playing.
-
-### 1.3.3
-|New Feature    | Android  | IOS
-| :------------ | :-----:  |-----:
-| playRingtone  |   ✓      |  ✓
-| stopRingtone  |   ✓      |  ✓
-
-<br/>
-
-### 1.2.3
-|New Feature    | Android  | IOS
-| :------------ | :-----:  |-----:
-| Bluetooth audio output   |   ✓      |  ✓
-
-<br/>
-
-### 1.2.2
-| Bluetooth audio output| Target  | Play any audio with the device connected | Expected
-|:--------:              |:----:|:-------------:|:-------:|
-| Bluetooth audio output| IOS  | Play any audio with the device connected with a bluetooth headset | Listen the audio in the headset by bluetooth
-
-<br/>
-
-### 1.2.2
-
-|New Feature    | Android  | IOS
-| :------------ | :-----:  |-----:
-| CallManager |   ✓      |  ✓
-
-See the [complete documentation here](https://github.com/renanpupin/react-native-media/wiki/CallManager).
