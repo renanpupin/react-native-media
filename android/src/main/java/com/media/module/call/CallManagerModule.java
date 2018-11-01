@@ -36,7 +36,8 @@ public class CallManagerModule extends ReactContextBaseJavaModule {
     private static final int INCALL_WINDOW_FLAG =
         WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED |
         WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD |
-        WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON;
+        WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON |
+        WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON;
 
     public static final String INCALL_PREFERENCE = "com.falafreud.falafreud.callmanager.incallwindowflag";
     public static final String USER_ID_PREFERENCE = "com.falafreud.falafreud.callmanager.userid";
