@@ -1,6 +1,6 @@
 /**
  * @author Haroldo Shigueaki Teruya <haroldo.s.teruya@gmail.com>
- * @version 1.1.1
+ * @version 1.1.2
  */
 
 //==========================================================================
@@ -47,6 +47,8 @@ class CallManager extends BaseCallManager {
         this.getCallData = this.getCallData.bind(this);
         this.playRingtone = this.playRingtone.bind(this);
         this.stopRingtone = this.stopRingtone.bind(this);
+        this.allowDeactivateIncallWindow = this.allowDeactivateIncallWindow.bind(this);
+        this.storeUserId = this.storeUserId.bind(this);
     }
 
     //==========================================================================
@@ -94,6 +96,10 @@ class CallManager extends BaseCallManager {
         }
         return response;
     }
+
+    async allowDeactivateIncallWindow() {}
+
+    async storeUserId(userId) {}
 }
 
 //==========================================================================

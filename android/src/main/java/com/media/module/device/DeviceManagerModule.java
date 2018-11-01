@@ -6,6 +6,7 @@ import android.os.PowerManager;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
@@ -197,6 +198,24 @@ public class DeviceManagerModule extends ReactContextBaseJavaModule implements L
                     }
                 }
             });
+        }
+    }
+
+    @ReactMethod
+    public void deactivateIncallWIndowFlags() {
+        try {
+            if (
+                getCurrentActivity() != null &&
+                getCurrentActivity().getWindow() != null
+            ) {
+                getCurrentActivity().getWindow().clearFlags(
+                    WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED |
+                    WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD |
+                    WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON
+                );
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

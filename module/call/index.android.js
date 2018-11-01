@@ -1,6 +1,6 @@
 /**
 * @author Haroldo Shigueaki Teruya <haroldo.s.teruya@gmail.com>
-* @version 1.1.0
+* @version 1.1.2
 */
 
 //==========================================================================
@@ -37,14 +37,14 @@ class CallManager extends BaseCallManager {
         this.getCallData = this.getCallData.bind(this);
         this.playRingtone = this.playRingtone.bind(this);
         this.stopRingtone = this.stopRingtone.bind(this);
+        this.allowDeactivateIncallWindow = this.allowDeactivateIncallWindow.bind(this);
+        this.storeUserId = this.storeUserId.bind(this);
     }
 
     //==========================================================================
     // METHODS
 
-    async getCallData() {
-        console.log("Not implemented in Android, see OneSignal documentation.");
-    }
+    async getCallData() {}
 
     async playRingtone(name : string, audioOutputRoute = 0, loop = false, vibrate = false) : boolean {
         return await NativeModules.AudioManagerModule.playRingtone(name, audioOutputRoute, loop);
@@ -56,6 +56,14 @@ class CallManager extends BaseCallManager {
         } else {
             return await NativeModules.AudioManagerModule.playRingtone(name, audioOutputRoute, false);
         }
+    }
+
+    allowDeactivateIncallWindow() {
+        NativeModules.CallManagerModule.allowDeactivateIncallWindow();
+    }
+
+    async storeUserId(userId) {
+        await NativeModules.CallManagerModule.storeUserId(userId);
     }
 }
 

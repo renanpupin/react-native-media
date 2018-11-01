@@ -10,6 +10,7 @@ import com.media.module.device.DeviceManagerModule;
 import com.media.module.directory.DirectoryManagerModule;
 import com.media.module.permission.PermissionManagerModule;
 import com.media.module.recorder.RecorderManagerModule;
+import com.media.module.call.CallManagerModule;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -27,6 +28,7 @@ public class MediaPackage implements ReactPackage
         modules.add(new RecorderManagerModule(reactContext));
         modules.add(new PermissionManagerModule(reactContext));
         modules.add(new AppStateNativeManagerModule(reactContext));
+        modules.add(new CallManagerModule(reactContext));
         return modules;
     }
 
