@@ -33,7 +33,7 @@ public class CallManagerModule extends ReactContextBaseJavaModule {
 
     private static final String TAG = "CallManager";
     private ReactApplicationContext reactContext = null;
-    private static final int INCALL_WINDOW_FLAG =
+    public static final int INCALL_WINDOW_FLAG =
         WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED |
         WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD |
         WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON |
