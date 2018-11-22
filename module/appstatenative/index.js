@@ -29,9 +29,10 @@ class AppStateNativeManager {
     constructor() {
 
         this.Event = {
-            ON_ACTIVE: 'onActive',
+            ON_ACTIVE: 'onActive',       // ios
             ON_RESUME: 'onResume',
-            ON_PAUSE: 'onPause',
+            ON_PAUSE: 'onPause',         // ios
+            ON_STOP: 'onStop',           // ios
             ON_DESTROY: 'onDestroy',
             ON_LOST_FOCUS: 'onLostFocus'
         };

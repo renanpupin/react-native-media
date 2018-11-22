@@ -13,13 +13,15 @@ import AVFoundation
 class AppStateNativeManagerModule: NSObject {
 
     let TAG: String = "AppStateNative"
+    var isListening = false
 
     // =============================================================================================
     // ATRIBUTES ===================================================================================
 
     struct Event {
-        static let ON_RESUME = "onResume";
+        static let ON_ACTIVE = "onActive";
         static let ON_PAUSE = "onPause";
+        static let ON_STOP = "onStop";
         static let ON_DESTROY = "onDestroy";
     }
 
@@ -33,53 +35,58 @@ class AppStateNativeManagerModule: NSObject {
 
     @objc func addAllListener() {
 
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(self.onHostPause),
-            name: .UIApplicationWillResignActive,
-            object: nil)
+        if !isListening {
+            NotificationCenter.default.addObserver(
+                self,
+                selector: #selector(self.onHostPause),
+                name: .UIApplicationWillResignActive,
+                object: nil)
 
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(self.onHostResume),
-            name: .UIApplicationDidBecomeActive,
-            object: nil)
+            NotificationCenter.default.addObserver(
+                self,
+                selector: #selector(self.onHostActive),
+                name: .UIApplicationDidBecomeActive,
+                object: nil)
 
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(self.onHostDestroy),
-            name: .UIApplicationWillTerminate,
-            object: nil)
+            NotificationCenter.default.addObserver(
+                self,
+                selector: #selector(self.onHostStop),
+                name: .UIApplicationDidEnterBackground,
+                object: nil)
+
+            NotificationCenter.default.addObserver(
+                self,
+                selector: #selector(self.onHostDestroy),
+                name: .UIApplicationWillTerminate,
+                object: nil)
+
+            isListening = true
+        }
     }
 
     @objc func removeAllListener() {
-
+        isListening = false
         NotificationCenter.default.removeObserver(self)
     }
 
     @objc func onHostPause() {
-
-        self.emitEvent(
-            eventName: Event.ON_PAUSE,
-            data: nil)
+        self.emitEvent(eventName: Event.ON_PAUSE, data: nil)
     }
 
-    @objc func onHostResume() {
+    @objc func onHostActive() {
+        self.emitEvent(eventName: Event.ON_ACTIVE, data: nil)
+    }
 
-        self.emitEvent(
-            eventName: Event.ON_RESUME,
-            data: nil)
+    @objc func onHostStop() {
+        self.emitEvent(eventName: Event.ON_STOP, data: nil)
     }
 
     @objc func onHostDestroy() {
-
-        self.emitEvent(
-            eventName: Event.ON_DESTROY,
-            data: nil)
+        self.emitEvent(eventName: Event.ON_DESTROY, data: nil)
     }
 
     func emitEvent(eventName: String, data: Any?) -> Void {
-
+        NSLog("AppDelegate AppState emitEvent \(eventName)")
         if self.bridge != nil, self.bridge.eventDispatcher() != nil {
             self.bridge.eventDispatcher().sendAppEvent(withName: eventName, body: data)
         }

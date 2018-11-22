@@ -37,6 +37,7 @@ public class AppStateNativeManagerModule extends ReactContextBaseJavaModule {
         public static final String ON_LOST_FOCUS = "onLostFocus";
         public static final String ON_PAUSE = "onPause";
         public static final String ON_DESTROY = "onDestroy";
+        public static final String ON_STOP = "onStop";
     }
 
     public static final class State {
