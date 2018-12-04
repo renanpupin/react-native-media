@@ -64,11 +64,6 @@ class AppStateNativeManagerModule: NSObject {
         }
     }
 
-    @objc func removeAllListener() {
-        isListening = false
-        NotificationCenter.default.removeObserver(self)
-    }
-
     @objc func onHostPause() {
         self.emitEvent(eventName: Event.ON_PAUSE, data: nil)
     }

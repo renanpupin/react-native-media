@@ -45,11 +45,6 @@ class AppStateNativeManager {
     addAllListener(): void {
         (Platform.OS === 'ios') && NativeModules.AppStateNativeManagerModule.addAllListener();
     }
-
-    removeAllListener(): void {
-        (Platform.OS === 'ios') && NativeModules.AppStateNativeManagerModule.removeAllListener();
-    }
-
 }
 
 //==========================================================================

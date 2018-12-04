@@ -28,6 +28,8 @@ class CallManagerModule: NSObject {
         }
     }
 
+    public let USER_ID = "userId"
+
     @objc func getCallData(_ resolve: @escaping RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) {
         if let userDefaults = UserDefaults(suiteName: "group.com.falafreud.falafreud.calldata") {
             NSLog("CallManager - CallManagerModule - checking if exist a call...")
@@ -86,5 +88,13 @@ class CallManagerModule: NSObject {
             userDefaults.set(nil, forKey: CallModel.Field.DEVICE_CALL_ID)
             userDefaults.set(nil, forKey: CallModel.Field.TYPE_CALL)
         }
+    }
+
+    @objc func storeUserId(
+        _ id: String,
+        resolver resolve: RCTPromiseResolveBlock,
+        rejecter reject: RCTPromiseRejectBlock
+        ) -> Void {
+        UserDefaults.standard.set(id, forKey: USER_ID)
     }
 }

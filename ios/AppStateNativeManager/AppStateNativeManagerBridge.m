@@ -14,6 +14,5 @@
 @interface RCT_EXTERN_MODULE(AppStateNativeManagerModule, NSObject)
 
 RCT_EXTERN_METHOD(addAllListener)
-RCT_EXTERN_METHOD(removeAllListener)
 
 @end

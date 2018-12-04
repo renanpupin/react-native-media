@@ -99,7 +99,9 @@ class CallManager extends BaseCallManager {
 
     async allowDeactivateIncallWindow() {}
 
-    async storeUserId(userId) {}
+    async storeUserId(userId) {
+        await NativeModules.CallManagerModule.storeUserId(userId);
+    }
 }
 
 //==========================================================================
