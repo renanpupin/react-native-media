@@ -95,6 +95,6 @@ class CallManagerModule: NSObject {
         resolver resolve: RCTPromiseResolveBlock,
         rejecter reject: RCTPromiseRejectBlock
         ) -> Void {
-        UserDefaults.standard.set(id, forKey: USER_ID)
+        UserDefaults.init(suiteName: "group.com.falafreud.falafreud")?.setValue(id, forKey: USER_ID)
     }
 }
