@@ -42,7 +42,9 @@ class BaseCallManager {
             'sessionId',
             'deviceCallId',
             'target',
-            'videoHours'
+            'videoHours',
+            'agoraIoSupport',
+            'agoraIoSupportReturn',
         ];
 
         this.isIncomingCall = this.isIncomingCall.bind(this);

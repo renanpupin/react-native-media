@@ -25,6 +25,8 @@ class CallManagerModule: NSObject {
             static let KEEP_ALIVE = "keepAlive"
             static let DEVICE_CALL_ID = "deviceCallId"
             static let TYPE_CALL = "typeCall"
+            static let AGORAIO_SUPPORT = "agoraIoSupport"
+            static let AGORAIO_SUPPORT_RETURN = "agoraIoSupportReturn"
         }
     }
 
@@ -45,7 +47,9 @@ class CallManagerModule: NSObject {
                 let timeStamp = userDefaults.string(forKey: CallModel.Field.TIME_STAMP),
                 let keepAlive = userDefaults.string(forKey: CallModel.Field.KEEP_ALIVE),
                 let deviceCallId = userDefaults.string(forKey: CallModel.Field.DEVICE_CALL_ID),
-                let typeCall = userDefaults.string(forKey: CallModel.Field.TYPE_CALL)
+                let typeCall = userDefaults.string(forKey: CallModel.Field.TYPE_CALL),
+                let agoraIoSupport = userDefaults.string(forKey: CallModel.Field.AGORAIO_SUPPORT),
+                let agoraIoSupportReturn = userDefaults.string(forKey: CallModel.Field.AGORAIO_SUPPORT_RETURN)
             {
                 NSLog("CallManager - CallManagerModule - \(sessionId)")
                 NSLog("CallManager - CallManagerModule - \(isLeader)")
@@ -59,8 +63,10 @@ class CallManagerModule: NSObject {
                 NSLog("CallManager - CallManagerModule - \(target)")
                 NSLog("CallManager - CallManagerModule - \(deviceCallId)")
                 NSLog("CallManager - CallManagerModule - \(typeCall)")
+                NSLog("CallManager - CallManagerModule - \(agoraIoSupport)")
+                NSLog("CallManager - CallManagerModule - \(agoraIoSupportReturn)")
 
-                let json = "{ \"device_id\":\"" + sessionId + "\", \"isLeader\":" + isLeader + ", \"videoHours\":" + videoHours + ", \"targetName\":\"" + targetName + "\", \"sessionId\":\"" + sessionId + "\", \"name\":\"" + name + "\", \"profile_image\":\"" + profileImage + "\", \"timeStamp\":" + timeStamp + ", \"keepAlive\":" + keepAlive + ", \"id_user\":\"" + idUser + "\", \"deviceCallId\":" + deviceCallId + ", \"target\":\"" + target + "\", \"typeCall\":\"" + typeCall + "\"}"
+                let json = "{ \"device_id\":\"" + sessionId + "\", \"isLeader\":" + isLeader + ", \"videoHours\":" + videoHours + ", \"targetName\":\"" + targetName + "\", \"sessionId\":\"" + sessionId + "\", \"name\":\"" + name + "\", \"profile_image\":\"" + profileImage + "\", \"timeStamp\":" + timeStamp + "\", \"agoraIoSupport\":" + agoraIoSupport + "\", \"agoraIoSupportReturn\":" + agoraIoSupportReturn + ", \"keepAlive\":" + keepAlive + ", \"id_user\":\"" + idUser + "\", \"deviceCallId\":" + deviceCallId + ", \"target\":\"" + target + "\", \"typeCall\":\"" + typeCall + "\"}"
 
                 NSLog("CallManager - CallManagerModule, JSON: \(json)")
                 self.cleanCallData()
@@ -87,6 +93,8 @@ class CallManagerModule: NSObject {
             userDefaults.set(nil, forKey: CallModel.Field.KEEP_ALIVE)
             userDefaults.set(nil, forKey: CallModel.Field.DEVICE_CALL_ID)
             userDefaults.set(nil, forKey: CallModel.Field.TYPE_CALL)
+            userDefaults.set(nil, forKey: CallModel.Field.AGORAIO_SUPPORT)
+            userDefaults.set(nil, forKey: CallModel.Field.AGORAIO_SUPPORT_RETURN)
         }
     }
 
