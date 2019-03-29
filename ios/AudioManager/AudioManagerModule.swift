@@ -417,7 +417,7 @@ class AudioManagerModule: NSObject, AVAudioPlayerDelegate{
             self, selector:
             #selector(self.audioRouteChangeListener),
 //            name: .AVAudioSessionRouteChange,
-            name: AVAudioSession.RouteChangeReason,
+            name: AVAudioSession.routeChangeNotification,
             object: nil)
 
         NotificationCenter.default.addObserver(
