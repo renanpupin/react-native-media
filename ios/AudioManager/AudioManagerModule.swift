@@ -402,9 +402,9 @@ class AudioManagerModule: NSObject, AVAudioPlayerDelegate{
     @objc dynamic private func audioRouteChangeListener(notification:NSNotification) {
         let audioRouteChangeReason = notification.userInfo![AVAudioSessionRouteChangeReasonKey] as! UInt
         switch audioRouteChangeReason {
-            case AVAudioSession.routeChangeNotification.newDeviceAvailable.rawValue:
+            case AVAudioSession.RouteChangeReason.newDeviceAvailable.rawValue:
                 emitEvent(eventName: Event.ON_WIREDHEADSET_PLUGGED, data: true)
-            case AVAudioSession.routeChangeNotification.oldDeviceUnavailable.rawValue:
+            case AVAudioSession.RouteChangeReason.oldDeviceUnavailable.rawValue:
                 emitEvent(eventName: Event.ON_WIREDHEADSET_PLUGGED, data: false)
             default:
                 break
@@ -417,7 +417,7 @@ class AudioManagerModule: NSObject, AVAudioPlayerDelegate{
             self, selector:
             #selector(self.audioRouteChangeListener),
 //            name: .AVAudioSessionRouteChange,
-            name: AVAudioSession.routeChangeNotification,
+            name: AVAudioSession.RouteChangeReason,
             object: nil)
 
         NotificationCenter.default.addObserver(

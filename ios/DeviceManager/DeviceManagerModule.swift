@@ -58,7 +58,7 @@ class DeviceManagerModule: NSObject {
         resolve(true)
     }
     
-    func proximityChanged(notification: NSNotification) {
+    @objc func proximityChanged(notification: NSNotification) {
         
         if (notification.object as? UIDevice) != nil {
             if UIDevice.current.isProximityMonitoringEnabled {
