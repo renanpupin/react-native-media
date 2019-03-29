@@ -87,7 +87,8 @@ class RecorderManagerModule: NSObject, AVAudioRecorderDelegate {
         self.destroy(nil, rejecter: nil)
         
         do {
-            try recordingSession.setCategory(AVAudioSessionCategoryPlayAndRecord)
+//            try recordingSession.setCategory(AVAudioSessionCategoryPlayAndRecord)
+            try recordingSession.setCategory(.playAndRecord, mode: .default, options: .defaultToSpeaker)
             try recordingSession.setActive(true)
             recordingSession.requestRecordPermission() {
                 

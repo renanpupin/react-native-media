@@ -192,7 +192,7 @@ class AudioManagerModule: NSObject, AVAudioPlayerDelegate{
         self.stop()
     }
 
-    func timeChanged() {
+    @objc func timeChanged() {
 
         if self.audioPlayer != nil, !self.paused {
             self.emitEvent(eventName: Event.ON_TIME_CHANGED, data: Int(self.audioPlayer.currentTime * 1000))
@@ -380,16 +380,16 @@ class AudioManagerModule: NSObject, AVAudioPlayerDelegate{
             for description in currentRoute.outputs {
                 if description.portType == .headphones {
                     NSLog(self.TAG + " getDeviceConnected headphone plugged in")
-                    return description.portType
+                    return description.portType.rawValue
                 } else if description.portType == .bluetoothA2DP {
                     NSLog(self.TAG + " getDeviceConnected AVAudioSessionPortBluetoothA2DP connected")
-                    return description.portType
+                    return description.portType.rawValue
                 } else if description.portType == .bluetoothHFP {
                     NSLog(self.TAG + " getDeviceConnected AVAudioSessionPortBluetoothHFP connected")
-                    return description.portType
+                    return description.portType.rawValue
                 } else if description.portType == .bluetoothLE {
                     NSLog(self.TAG + " getDeviceConnected AVAudioSessionPortBluetoothLE connected")
-                    return description.portType
+                    return description.portType.rawValue
                 } else {
                     NSLog(self.TAG + " getDeviceConnected nothing")
                     return ""
@@ -399,12 +399,12 @@ class AudioManagerModule: NSObject, AVAudioPlayerDelegate{
         return ""
     }
 
-    dynamic private func audioRouteChangeListener(notification:NSNotification) {
+    @objc dynamic private func audioRouteChangeListener(notification:NSNotification) {
         let audioRouteChangeReason = notification.userInfo![AVAudioSessionRouteChangeReasonKey] as! UInt
         switch audioRouteChangeReason {
-            case AVAudioSessionRouteChangeReason.newDeviceAvailable.rawValue:
+            case AVAudioSession.routeChangeNotification.newDeviceAvailable.rawValue:
                 emitEvent(eventName: Event.ON_WIREDHEADSET_PLUGGED, data: true)
-            case AVAudioSessionRouteChangeReason.oldDeviceUnavailable.rawValue:
+            case AVAudioSession.routeChangeNotification.oldDeviceUnavailable.rawValue:
                 emitEvent(eventName: Event.ON_WIREDHEADSET_PLUGGED, data: false)
             default:
                 break
