@@ -39,25 +39,25 @@ class AppStateNativeManagerModule: NSObject {
             NotificationCenter.default.addObserver(
                 self,
                 selector: #selector(self.onHostPause),
-                name: .UIApplicationWillResignActive,
+                name: UIApplication.willResignActiveNotification,
                 object: nil)
 
             NotificationCenter.default.addObserver(
                 self,
                 selector: #selector(self.onHostActive),
-                name: .UIApplicationDidBecomeActive,
+                name: UIApplication.didBecomeActiveNotification,
                 object: nil)
 
             NotificationCenter.default.addObserver(
                 self,
                 selector: #selector(self.onHostStop),
-                name: .UIApplicationDidEnterBackground,
+                name: UIApplication.didEnterBackgroundNotification,
                 object: nil)
 
             NotificationCenter.default.addObserver(
                 self,
                 selector: #selector(self.onHostDestroy),
-                name: .UIApplicationWillTerminate,
+                name: UIApplication.willTerminateNotification,
                 object: nil)
 
             isListening = true

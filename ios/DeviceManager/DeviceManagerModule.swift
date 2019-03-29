@@ -49,9 +49,11 @@ class DeviceManagerModule: NSObject {
         device.isProximityMonitoringEnabled = enable
 
         if device.isProximityMonitoringEnabled {
-            NotificationCenter.default.addObserver(self, selector: #selector(proximityChanged), name: .UIDeviceProximityStateDidChange, object: device)
+//            NotificationCenter.default.addObserver(self, selector: #selector(proximityChanged), name: .UIDeviceProximityStateDidChange, object: device)
+            NotificationCenter.default.addObserver(self, selector: #selector(proximityChanged), name: UIDevice.proximityStateDidChangeNotification, object: device)
         } else {
-            NotificationCenter.default.removeObserver(self, name: .UIDeviceProximityStateDidChange, object: nil)
+//            NotificationCenter.default.removeObserver(self, name: .UIDeviceProximityStateDidChange, object: nil)
+            NotificationCenter.default.removeObserver(self, name: UIDevice.proximityStateDidChangeNotification, object: nil)
         }
         resolve(true)
     }
