@@ -18,5 +18,10 @@
   ],
   "peerDependencies": {
     "react-native": "^0.51.2"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/renanpupin/react-native-media"
   }
 }
