@@ -21,4 +21,8 @@ RCT_EXPORT_METHOD(subscribe) {
   // };
 }
 
++(BOOL) requiresMainQueueSetup {
+  return YES;
+}
+
 @end

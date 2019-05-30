@@ -446,4 +446,8 @@ class AudioManagerModule: NSObject, AVAudioPlayerDelegate{
             NSLog(self.TAG + " fail to emitEvent: " + eventName);
         }
     }
+
+    @objc static func requiresMainQueueSetup() -> Bool {
+        return true
+    }
 }

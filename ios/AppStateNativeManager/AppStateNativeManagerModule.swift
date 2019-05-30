@@ -29,7 +29,7 @@ class AppStateNativeManagerModule: NSObject {
 
     // =============================================================================================
     // CONSTRUCTOR =================================================================================
-
+    
     // =============================================================================================
     // METHODS =====================================================================================
 
@@ -85,5 +85,9 @@ class AppStateNativeManagerModule: NSObject {
         if self.bridge != nil, self.bridge.eventDispatcher() != nil {
             self.bridge.eventDispatcher().sendAppEvent(withName: eventName, body: data)
         }
+    }
+
+    @objc static func requiresMainQueueSetup() -> Bool {
+        return true
     }
 }

@@ -236,4 +236,8 @@ class RecorderManagerModule: NSObject, AVAudioRecorderDelegate {
             NSLog(self.TAG + " fail to emitEvent: " + eventName);
         }
     }
+
+    @objc static func requiresMainQueueSetup() -> Bool {
+        return true
+    }
 }
