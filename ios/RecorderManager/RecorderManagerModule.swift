@@ -229,12 +229,17 @@ class RecorderManagerModule: NSObject, AVAudioRecorderDelegate {
     }
     
     func emitEvent(eventName: String, data: Any?) -> Void {
-        
-        if self.bridge != nil, self.bridge.eventDispatcher() != nil {
-            self.bridge.eventDispatcher().sendAppEvent(withName: eventName, body: data)
-        } else {
-            NSLog(self.TAG + " fail to emitEvent: " + eventName);
+        print("RecorderManager - emitEvent: \(eventName) data: \(data)")
+        if data != nil {
+            EventEmitter.sendEvent(withName: eventName, withBody: ["data" : data!])
+        }else{
+            EventEmitter.sendEvent(withName: eventName, withBody: ["data": ""])
         }
+//        if self.bridge != nil, self.bridge.eventDispatcher() != nil {
+//            self.bridge.eventDispatcher().sendAppEvent(withName: eventName, body: data)
+//        } else {
+//            NSLog(self.TAG + " fail to emitEvent: " + eventName);
+//        }
     }
 
     @objc static func requiresMainQueueSetup() -> Bool {

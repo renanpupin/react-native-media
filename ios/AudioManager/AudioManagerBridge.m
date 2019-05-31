@@ -10,6 +10,7 @@
 
 // AudioManagerBridge.m
 #import "React/RCTBridgeModule.h"
+#import "EventEmitter.h"
 
 @interface RCT_EXTERN_MODULE(AudioManagerModule, NSObject)
 

@@ -62,9 +62,10 @@ class DeviceManagerModule: NSObject {
         
         if (notification.object as? UIDevice) != nil {
             if UIDevice.current.isProximityMonitoringEnabled {
-                if bridge != nil, bridge.eventDispatcher() != nil {
-                    bridge.eventDispatcher().sendAppEvent( withName: Event.ON_PROXIMITY_CHANGED, body: (UIDevice.current.proximityState ? Data.NEAR : Data.FAR))
-                }
+//                if bridge != nil, bridge.eventDispatcher() != nil {
+//                    bridge.eventDispatcher().sendAppEvent( withName: Event.ON_PROXIMITY_CHANGED, body: (UIDevice.current.proximityState ? Data.NEAR : Data.FAR))
+//                }
+                EventEmitter.sendEvent(withName: Event.ON_PROXIMITY_CHANGED, withBody: ["data" : (UIDevice.current.proximityState ? Data.NEAR : Data.FAR)])
             }
         }
     }

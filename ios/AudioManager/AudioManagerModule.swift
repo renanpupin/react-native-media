@@ -51,7 +51,7 @@ class AudioManagerModule: NSObject, AVAudioPlayerDelegate{
     var VIBRATE_TIMER_INTERVAL = 1.9
     var path : String = ""
     var audioOutputType: Int = 0
-
+    
     // =============================================================================================
     // CONSTRUCTOR =================================================================================
 
@@ -439,12 +439,26 @@ class AudioManagerModule: NSObject, AVAudioPlayerDelegate{
     }
 
     func emitEvent(eventName: String, data: Any?) -> Void {
-
-        if self.bridge != nil, self.bridge.eventDispatcher() != nil {
-            self.bridge.eventDispatcher().sendAppEvent(withName: eventName, body: data)
-        } else {
-            NSLog(self.TAG + " fail to emitEvent: " + eventName);
+        
+        print("emitEvent - name: \(eventName) Data: \(data)")
+        if data != nil {
+            EventEmitter.sendEvent(withName: eventName, withBody: ["data" : data!])
+        }else{
+            EventEmitter.sendEvent(withName: eventName, withBody: ["data": ""])
         }
+        
+//        if self.bridge != nil, self.bridge.eventDispatcher() != nil {
+//            self.bridge.eventDispatcher().sendAppEvent(withName: eventName, body: data)
+//        } else {
+//            var str:String = self.TAG + " fail to emitEvent: " + eventName
+//            if (self.bridge == nil) {
+//                str += " Bridge: nil EventDispatcher: OU"
+//            }else{
+//                str += " Bridge: true EventDispatcher: nil"
+//            }
+//
+//            print(str)
+//        }
     }
 
     @objc static func requiresMainQueueSetup() -> Bool {

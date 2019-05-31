@@ -82,8 +82,13 @@ class AppStateNativeManagerModule: NSObject {
 
     func emitEvent(eventName: String, data: Any?) -> Void {
         NSLog("AppDelegate AppState emitEvent \(eventName)")
-        if self.bridge != nil, self.bridge.eventDispatcher() != nil {
-            self.bridge.eventDispatcher().sendAppEvent(withName: eventName, body: data)
+//        if self.bridge != nil, self.bridge.eventDispatcher() != nil {
+//            self.bridge.eventDispatcher().sendAppEvent(withName: eventName, body: data)
+//        }
+        if data != nil {
+            EventEmitter.sendEvent(withName: eventName, withBody: ["data" : data!])
+        }else{
+            EventEmitter.sendEvent(withName: eventName, withBody: ["data": ""])
         }
     }
 
