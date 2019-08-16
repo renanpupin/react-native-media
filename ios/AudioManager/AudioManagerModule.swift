@@ -101,7 +101,7 @@ class AudioManagerModule: NSObject, AVAudioPlayerDelegate{
 
             if (self.audioPlayer.play()) {
                 self.setCategory(self.audioOutputType)
-                emitEvent(eventName: Event.ON_AUDIO_STARTED, data: Int(audioPlayer.currentTime * 1000))
+                // emitEvent(eventName: Event.ON_AUDIO_STARTED, data: Int(audioPlayer.currentTime * 1000))
                 DispatchQueue.main.async(execute: {
                     self.audioTimer = Timer.scheduledTimer(
                         timeInterval: self.timeInterval,
