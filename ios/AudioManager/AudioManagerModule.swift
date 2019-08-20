@@ -153,7 +153,7 @@ class AudioManagerModule: NSObject, AVAudioPlayerDelegate{
                     }
 
                     self.setCategory(type)
-                    self.emitEvent(eventName: Event.ON_AUDIO_STARTED, data: nil)
+                    // self.emitEvent(eventName: Event.ON_AUDIO_STARTED, data: nil)
 
                     NSLog(self.TAG + " playRingtone success")
                     resolve(true)
