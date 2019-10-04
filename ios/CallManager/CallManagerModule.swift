@@ -105,4 +105,8 @@ class CallManagerModule: NSObject {
         ) -> Void {
         UserDefaults.init(suiteName: "group.com.falafreud.falafreud")?.setValue(id, forKey: USER_ID)
     }
+
+    @objc static func requiresMainQueueSetup() -> Bool {
+        return true
+    }
 }

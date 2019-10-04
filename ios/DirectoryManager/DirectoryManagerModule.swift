@@ -26,4 +26,8 @@ class DirectoryManagerModule: NSObject {
   @objc func getLibraryDirectoryPath(_ resolve: @escaping RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) -> Void {
     resolve(NSSearchPathForDirectoriesInDomains(.libraryDirectory, .userDomainMask, true))
   }
+
+  @objc static func requiresMainQueueSetup() -> Bool {
+    return true
+  }
 }

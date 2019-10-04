@@ -51,7 +51,7 @@ class AudioManagerModule: NSObject, AVAudioPlayerDelegate{
     var VIBRATE_TIMER_INTERVAL = 1.9
     var path : String = ""
     var audioOutputType: Int = 0
-
+    
     // =============================================================================================
     // CONSTRUCTOR =================================================================================
 
@@ -85,9 +85,6 @@ class AudioManagerModule: NSObject, AVAudioPlayerDelegate{
             resolve(false)
             return
         }
-
-        resolve(false)
-        return
     }
 
     @objc func play(_ loop: Bool, playFromTime: Int, resolver resolve: RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) -> Void {
@@ -104,7 +101,7 @@ class AudioManagerModule: NSObject, AVAudioPlayerDelegate{
 
             if (self.audioPlayer.play()) {
                 self.setCategory(self.audioOutputType)
-                emitEvent(eventName: Event.ON_AUDIO_STARTED, data: Int(audioPlayer.currentTime * 1000))
+                // emitEvent(eventName: Event.ON_AUDIO_STARTED, data: Int(audioPlayer.currentTime * 1000))
                 DispatchQueue.main.async(execute: {
                     self.audioTimer = Timer.scheduledTimer(
                         timeInterval: self.timeInterval,
@@ -127,8 +124,6 @@ class AudioManagerModule: NSObject, AVAudioPlayerDelegate{
             resolve(false);
             return
         }
-        resolve(false)
-        return
     }
 
     @objc func playRingtone(_ path: String, type: Int, loop: Bool, vibrate: Bool, resolver resolve: RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) -> Void {
@@ -158,7 +153,7 @@ class AudioManagerModule: NSObject, AVAudioPlayerDelegate{
                     }
 
                     self.setCategory(type)
-                    self.emitEvent(eventName: Event.ON_AUDIO_STARTED, data: nil)
+                    // self.emitEvent(eventName: Event.ON_AUDIO_STARTED, data: nil)
 
                     NSLog(self.TAG + " playRingtone success")
                     resolve(true)
@@ -181,8 +176,6 @@ class AudioManagerModule: NSObject, AVAudioPlayerDelegate{
             resolve(false)
             return
         }
-        resolve(false)
-        return
     }
 
     @objc func vibrate() -> Void {
@@ -199,7 +192,7 @@ class AudioManagerModule: NSObject, AVAudioPlayerDelegate{
         self.stop()
     }
 
-    func timeChanged() {
+    @objc func timeChanged() {
 
         if self.audioPlayer != nil, !self.paused {
             self.emitEvent(eventName: Event.ON_TIME_CHANGED, data: Int(self.audioPlayer.currentTime * 1000))
@@ -274,7 +267,7 @@ class AudioManagerModule: NSObject, AVAudioPlayerDelegate{
 
     @objc func seekTime(_ time: Double, resolver resolve: RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) -> Void {
 
-        var tempTime = time / 1000
+        let tempTime = time / 1000
         if (self.audioPlayer != nil) {
             self.audioPlayer.currentTime = TimeInterval(Double(tempTime))
             resolve(true)
@@ -315,7 +308,8 @@ class AudioManagerModule: NSObject, AVAudioPlayerDelegate{
         if type == OutputRoute.EAR_SPEAKER {
             // ear = 1
             do {
-                try session.setCategory(AVAudioSessionCategoryPlayAndRecord)
+//                try session.setCategory(AVAudioSessionCategoryPlayAndRecord)
+                try session.setCategory(.playAndRecord)
                 try session.setActive(true)
                 NSLog(self.TAG + " setCategory AVAudioSessionCategoryPlayAndRecord")
                 return true
@@ -326,10 +320,12 @@ class AudioManagerModule: NSObject, AVAudioPlayerDelegate{
             // default = 0
             do {
                 if self.isRingtone {
-                    try session.setCategory(AVAudioSessionCategorySoloAmbient, with: [AVAudioSessionCategoryOptions.allowBluetooth])
+//                    try session.setCategory(AVAudioSessionCategorySoloAmbient, with: [AVAudioSessionCategoryOptions.allowBluetooth])
+                    try session.setCategory(.soloAmbient, mode: .default, options: .allowBluetooth)
                     NSLog(self.TAG + " setCategory AVAudioSessionCategoryPlayAndRecord")
                 } else {
-                    try session.setCategory(AVAudioSessionCategoryPlayback, with: [AVAudioSessionCategoryOptions.allowBluetooth])
+//                    try session.setCategory(AVAudioSessionCategoryPlayback, with: [AVAudioSessionCategoryOptions.allowBluetooth])
+                    try session.setCategory(.playback, mode: .default, options: .allowBluetooth)
                     try session.setPreferredInput(session.preferredInput)
                     NSLog(self.TAG + " setCategory AVAudioSessionCategoryPlayAndRecord")
                 }
@@ -380,20 +376,20 @@ class AudioManagerModule: NSObject, AVAudioPlayerDelegate{
     func getDeviceConnected() -> String {
 
         let currentRoute = AVAudioSession.sharedInstance().currentRoute
-        if currentRoute.outputs != nil {
+        if currentRoute.outputs.count > 0 {
             for description in currentRoute.outputs {
-                if description.portType == AVAudioSessionPortHeadphones {
+                if description.portType == .headphones {
                     NSLog(self.TAG + " getDeviceConnected headphone plugged in")
-                    return description.portType
-                } else if description.portType == AVAudioSessionPortBluetoothA2DP {
+                    return description.portType.rawValue
+                } else if description.portType == .bluetoothA2DP {
                     NSLog(self.TAG + " getDeviceConnected AVAudioSessionPortBluetoothA2DP connected")
-                    return description.portType
-                } else if description.portType == AVAudioSessionPortBluetoothHFP {
-                    NSLog(self.TAG + " getDeviceConnected AVAudioSessionPortBluetoothA2DP connected")
-                    return description.portType
-                } else if description.portType == AVAudioSessionPortBluetoothLE {
-                    NSLog(self.TAG + " getDeviceConnected AVAudioSessionPortBluetoothA2DP connected")
-                    return description.portType
+                    return description.portType.rawValue
+                } else if description.portType == .bluetoothHFP {
+                    NSLog(self.TAG + " getDeviceConnected AVAudioSessionPortBluetoothHFP connected")
+                    return description.portType.rawValue
+                } else if description.portType == .bluetoothLE {
+                    NSLog(self.TAG + " getDeviceConnected AVAudioSessionPortBluetoothLE connected")
+                    return description.portType.rawValue
                 } else {
                     NSLog(self.TAG + " getDeviceConnected nothing")
                     return ""
@@ -403,12 +399,12 @@ class AudioManagerModule: NSObject, AVAudioPlayerDelegate{
         return ""
     }
 
-    dynamic private func audioRouteChangeListener(notification:NSNotification) {
+    @objc dynamic private func audioRouteChangeListener(notification:NSNotification) {
         let audioRouteChangeReason = notification.userInfo![AVAudioSessionRouteChangeReasonKey] as! UInt
         switch audioRouteChangeReason {
-            case AVAudioSessionRouteChangeReason.newDeviceAvailable.rawValue:
+            case AVAudioSession.RouteChangeReason.newDeviceAvailable.rawValue:
                 emitEvent(eventName: Event.ON_WIREDHEADSET_PLUGGED, data: true)
-            case AVAudioSessionRouteChangeReason.oldDeviceUnavailable.rawValue:
+            case AVAudioSession.RouteChangeReason.oldDeviceUnavailable.rawValue:
                 emitEvent(eventName: Event.ON_WIREDHEADSET_PLUGGED, data: false)
             default:
                 break
@@ -420,13 +416,15 @@ class AudioManagerModule: NSObject, AVAudioPlayerDelegate{
         NotificationCenter.default.addObserver(
             self, selector:
             #selector(self.audioRouteChangeListener),
-            name: .AVAudioSessionRouteChange,
+//            name: .AVAudioSessionRouteChange,
+            name: AVAudioSession.routeChangeNotification,
             object: nil)
 
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(self.appMovedToBackground),
-            name: .UIApplicationWillResignActive,
+//            name: .UIApplicationWillResignActive,
+            name: UIApplication.willResignActiveNotification,
             object: nil)
     }
 
@@ -441,11 +439,29 @@ class AudioManagerModule: NSObject, AVAudioPlayerDelegate{
     }
 
     func emitEvent(eventName: String, data: Any?) -> Void {
-
-        if self.bridge != nil, self.bridge.eventDispatcher() != nil {
-            self.bridge.eventDispatcher().sendAppEvent(withName: eventName, body: data)
-        } else {
-            NSLog(self.TAG + " fail to emitEvent: " + eventName);
+        
+        print("emitEvent - name: \(eventName) Data: \(data)")
+        if data != nil {
+            EventEmitter.sendEvent(withName: eventName, withBody: ["data" : data!])
+        }else{
+            EventEmitter.sendEvent(withName: eventName, withBody: ["data": ""])
         }
+        
+//        if self.bridge != nil, self.bridge.eventDispatcher() != nil {
+//            self.bridge.eventDispatcher().sendAppEvent(withName: eventName, body: data)
+//        } else {
+//            var str:String = self.TAG + " fail to emitEvent: " + eventName
+//            if (self.bridge == nil) {
+//                str += " Bridge: nil EventDispatcher: OU"
+//            }else{
+//                str += " Bridge: true EventDispatcher: nil"
+//            }
+//
+//            print(str)
+//        }
+    }
+
+    @objc static func requiresMainQueueSetup() -> Bool {
+        return true
     }
 }

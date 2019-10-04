@@ -49,21 +49,28 @@ class DeviceManagerModule: NSObject {
         device.isProximityMonitoringEnabled = enable
 
         if device.isProximityMonitoringEnabled {
-            NotificationCenter.default.addObserver(self, selector: #selector(proximityChanged), name: .UIDeviceProximityStateDidChange, object: device)
+//            NotificationCenter.default.addObserver(self, selector: #selector(proximityChanged), name: .UIDeviceProximityStateDidChange, object: device)
+            NotificationCenter.default.addObserver(self, selector: #selector(proximityChanged), name: UIDevice.proximityStateDidChangeNotification, object: device)
         } else {
-            NotificationCenter.default.removeObserver(self, name: .UIDeviceProximityStateDidChange, object: nil)
+//            NotificationCenter.default.removeObserver(self, name: .UIDeviceProximityStateDidChange, object: nil)
+            NotificationCenter.default.removeObserver(self, name: UIDevice.proximityStateDidChangeNotification, object: nil)
         }
         resolve(true)
     }
     
-    func proximityChanged(notification: NSNotification) {
+    @objc func proximityChanged(notification: NSNotification) {
         
         if (notification.object as? UIDevice) != nil {
             if UIDevice.current.isProximityMonitoringEnabled {
-                if bridge != nil, bridge.eventDispatcher() != nil {
-                    bridge.eventDispatcher().sendAppEvent( withName: Event.ON_PROXIMITY_CHANGED, body: (UIDevice.current.proximityState ? Data.NEAR : Data.FAR))
-                }
+//                if bridge != nil, bridge.eventDispatcher() != nil {
+//                    bridge.eventDispatcher().sendAppEvent( withName: Event.ON_PROXIMITY_CHANGED, body: (UIDevice.current.proximityState ? Data.NEAR : Data.FAR))
+//                }
+                EventEmitter.sendEvent(withName: Event.ON_PROXIMITY_CHANGED, withBody: ["data" : (UIDevice.current.proximityState ? Data.NEAR : Data.FAR)])
             }
         }
+    }
+
+    @objc static func requiresMainQueueSetup() -> Bool {
+        return true
     }
 }
