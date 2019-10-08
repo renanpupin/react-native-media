@@ -2,10 +2,10 @@
  * @author Haroldo Shigueaki Teruya <haroldo.s.teruya@gmail.com>
  * @version 1.0.0
  */
-
+​
 //==========================================================================
 // IMPORTS
-
+​
 /**
  * This class requires:
  * @class
@@ -14,13 +14,14 @@
  */
 import {
   DeviceEventEmitter,
+  NativeEventEmitter,
   NativeModules,
-  NativeEventEmitter
+  Platform
 } from "react-native";
+​
 const { EventEmitter } = NativeModules;
-
 //==========================================================================
-
+​
 /**
  * @class
  * @classdesc This class is responsible to provide the basic functionalities to manage an audio file in the IOS and Android.
@@ -30,25 +31,25 @@ const { EventEmitter } = NativeModules;
 class BaseAudioManager {
   //==========================================================================
   // GLOBAL VARIABLES
-
+​
   OutputRoute = {};
-
+​
   /**
    * Send the current time position of the audio.
    * @callback
    * @param {int} - current time position in mili-seconds
    */
   _timeTrackerCallback = null;
-
+​
   /**
    * Send signal that the audio finished.
    * @callback
    */
   _audioFinishedCallback = null;
-
+​
   //==========================================================================
   // CONSTRUCTOR
-
+​
   /**
    * Creates a instance of BaseAudioManager.
    *
@@ -62,16 +63,17 @@ class BaseAudioManager {
       EAR_SPEAKER: 1
     };
     Object.freeze(this.OutputRoute);
-
+​
     this._duration = 0;
-
+    this.eventEmitter = new NativeEventEmitter(EventEmitter);
+​
     this.load = this.load.bind(this);
     this.play = this.play.bind(this);
     this.getDuration = this.getDuration.bind(this);
     this.setTimeTrackerCallback = this.setTimeTrackerCallback.bind(this);
     this.setAudioFinishedCallback = this.setAudioFinishedCallback.bind(this);
     this.hasWiredheadsetPlugged = this.hasWiredheadsetPlugged.bind(this);
-
+​
     this.loadPlay = this.loadPlay.bind(this);
     this.pause = this.pause.bind(this);
     this.resume = this.resume.bind(this);
@@ -82,22 +84,45 @@ class BaseAudioManager {
     this.setAudioOutputRoute = this.setAudioOutputRoute.bind(this);
     this.getCurrentAudioName = this.getCurrentAudioName.bind(this);
     this.getDuration = this.getDuration.bind(this);
-
-    this.eventEmitter = new NativeEventEmitter(EventEmitter);
-
-    DeviceEventEmitter.addListener("onTimeChanged", time => {
-      if (this._timeTrackerCallback != null) {
-        this._timeTrackerCallback(time);
-      }
-    });
-
-    DeviceEventEmitter.addListener("onAudioFinished", () => {
-      if (this._audioFinishedCallback != null) {
-        this._audioFinishedCallback();
-      }
-    });
+​
+    this.startEvents();
   }
-
+​
+  //==========================================================================
+  // METHODS
+​
+  startEvents() {
+    if (Platform.OS === "ios") {
+      this.eventEmitter.addListener("onTimeChanged", time => {
+        // console.log("onTimeChanged", time);
+        if (this._timeTrackerCallback !== null) {
+          this._timeTrackerCallback(time);
+        }
+      });
+​
+      this.eventEmitter.addListener("onAudioFinished", () => {
+        // console.log("onAudioFinished");
+        if (this._audioFinishedCallback !== null) {
+          this._audioFinishedCallback();
+        }
+      });
+    } else if (Platform.OS === "android") {
+      DeviceEventEmitter.addListener("onTimeChanged", time => {
+        // console.log("onTimeChanged", time);
+        if (this._timeTrackerCallback !== null) {
+          this._timeTrackerCallback(time);
+        }
+      });
+​
+      DeviceEventEmitter.addListener("onAudioFinished", () => {
+        // console.log("onAudioFinished");
+        if (this._audioFinishedCallback !== null) {
+          this._audioFinishedCallback();
+        }
+      });
+    }
+  }
+​
   addListener(event, cb) {
     if (Platform.OS === "ios") {
       this.eventEmitter.addListener(event, cb);
@@ -105,6 +130,7 @@ class BaseAudioManager {
       DeviceEventEmitter.addListener(event, cb);
     }
   }
+​
   removeAllListeners(event) {
     if (Platform.OS === "ios") {
       this.eventEmitter.removeAllListeners(event);
@@ -112,10 +138,7 @@ class BaseAudioManager {
       DeviceEventEmitter.removeAllListeners(event);
     }
   }
-
-  //==========================================================================
-  // METHODS
-
+​
   /**
    * Play the audio only if the audio is loadded with sucess.
    * @async
@@ -135,7 +158,7 @@ class BaseAudioManager {
     }
     return false;
   }
-
+​
   /**
    * Load and Play the audio.
    *
@@ -159,7 +182,7 @@ class BaseAudioManager {
       return false;
     }
   }
-
+​
   /**
    * Pause the audio if it is playing.
    *
@@ -174,7 +197,7 @@ class BaseAudioManager {
     }
     return false;
   }
-
+​
   /**
    * Resume the audio if it is paused.
    *
@@ -189,7 +212,7 @@ class BaseAudioManager {
     }
     return false;
   }
-
+​
   /**
    * Moves the audio to specific position time in mili-seconds.
    *
@@ -205,7 +228,7 @@ class BaseAudioManager {
     }
     return false;
   }
-
+​
   /**
    * Set the time inteval in mili-seconds of the time tracker callback.
    *
@@ -221,7 +244,7 @@ class BaseAudioManager {
     }
     return false;
   }
-
+​
   /**
    * Return the device current volume.
    *
@@ -236,7 +259,7 @@ class BaseAudioManager {
     }
     return false;
   }
-
+​
   /**
    * Get current audio name or path that already loaded.
    * Return empty if something got wrong or not exist audio file loaded.
@@ -248,21 +271,21 @@ class BaseAudioManager {
   async getCurrentAudioName(fullPath = false): string {
     return await NativeModules.AudioManagerModule.getCurrentAudioName(fullPath);
   }
-
+​
   async hasWiredheadsetPlugged(): boolean {
     return await NativeModules.AudioManagerModule.hasWiredheadsetPlugged();
   }
-
+​
   //==========================================================================
   // SETTERS & GETTERS
-
+​
   /**
    * @returns {int} current time position in mili-seconds if and audio is loaded.
    */
   getDuration(): int {
     return this._duration;
   }
-
+​
   /**
    * Set the callback to send the current time position when an audio is playing.
    *
@@ -271,7 +294,7 @@ class BaseAudioManager {
   setTimeTrackerCallback(timeTrackerCallback: Callback): void {
     this._timeTrackerCallback = timeTrackerCallback;
   }
-
+​
   /**
    * Set the callback to send when the audio finished playing.
    *
@@ -280,7 +303,7 @@ class BaseAudioManager {
   setAudioFinishedCallback(audioFinishedCallback: Callback): void {
     this._audioFinishedCallback = audioFinishedCallback;
   }
-
+​
   /**
    * Set the audio output route.
    *
@@ -294,7 +317,7 @@ class BaseAudioManager {
     );
   }
 }
-
+​
 /**
  * @module BaseAudioManager
  */
