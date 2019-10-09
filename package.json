@@ -1,6 +1,6 @@
 {
   "name": "react-native-media",
-  "version": "2.5.2",
+  "version": "2.5.3",
   "description": "Native helpers for media control",
   "private": true,
   "main": "index.js",
