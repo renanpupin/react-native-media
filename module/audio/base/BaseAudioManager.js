@@ -122,7 +122,7 @@ class BaseAudioManager {
       });
     }
   }
-​
+
   addListener(event, cb) {
     if (Platform.OS === "ios") {
       this.eventEmitter.addListener(event, cb);
