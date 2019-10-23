@@ -1,6 +1,6 @@
 
 
-# react-native-media 2.3.6
+# react-native-media 2.5.5
 
 [![React Native Version](https://img.shields.io/badge/react--native-latest-blue.svg?style=flat-square)](http://facebook.github.io/react-native/releases)
 
