@@ -31,10 +31,11 @@ class BaseDeviceManager {
     constructor() {
 
         this.TAG = "DeviceManager";
-        
+
         this.Event = {
             ON_WIREDHEADSET_PLUGGED: "onWiredHeadsetPlugged",
-            ON_PROXIMITY_CHANGED: "onProximityChanged"
+            ON_PROXIMITY_CHANGED: "onProximityChanged",
+            ON_BLUETOOTH_HEADSET_PLUGGED: "onBluetoothHeadsetPluged"
         }
         Object.freeze(this.Event);
 

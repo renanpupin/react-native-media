@@ -60,7 +60,8 @@ class BaseAudioManager {
     this.TAG = "AudioManager";
     this.OutputRoute = {
       DEFAULT_SPEAKER: 0,
-      EAR_SPEAKER: 1
+      EAR_SPEAKER: 1,
+      BLUETOOTH_SPEAKER: 2
     };
     Object.freeze(this.OutputRoute);
 
@@ -73,6 +74,9 @@ class BaseAudioManager {
     this.setTimeTrackerCallback = this.setTimeTrackerCallback.bind(this);
     this.setAudioFinishedCallback = this.setAudioFinishedCallback.bind(this);
     this.hasWiredheadsetPlugged = this.hasWiredheadsetPlugged.bind(this);
+    this.hasBluetoothHeadsetPlugged = this.hasBluetoothHeadsetPlugged.bind(
+      this
+    );
 
     this.loadPlay = this.loadPlay.bind(this);
     this.pause = this.pause.bind(this);
@@ -148,7 +152,7 @@ class BaseAudioManager {
    */
   async play(loop = false, playFromTime = 0): boolean {
     try {
-      var sucess = await NativeModules.AudioManagerModule.play(
+      const sucess = await NativeModules.AudioManagerModule.play(
         loop,
         playFromTime
       );
@@ -174,13 +178,12 @@ class BaseAudioManager {
     loop = false,
     playFromTime = 0
   ): boolean {
-    var sucess = await this.load(path, audioOutputRoute);
+    let sucess = await this.load(path, audioOutputRoute);
     if (sucess) {
       sucess = await this.play(loop, playFromTime);
       return sucess;
-    } else {
-      return false;
     }
+    return false;
   }
 
   /**
@@ -274,6 +277,12 @@ class BaseAudioManager {
 
   async hasWiredheadsetPlugged(): boolean {
     return await NativeModules.AudioManagerModule.hasWiredheadsetPlugged();
+  }
+
+  async hasBluetoothHeadsetPlugged(): boolean {
+    if (Platform.OS === "android") {
+      return await NativeModules.AudioManagerModule.hasBluetoothHeadsetPlugged();
+    }
   }
 
   //==========================================================================
