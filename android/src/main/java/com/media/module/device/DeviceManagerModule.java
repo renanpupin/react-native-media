@@ -3,7 +3,7 @@ package com.media.module.device;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.PowerManager;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
